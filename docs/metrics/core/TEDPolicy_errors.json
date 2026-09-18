@@ -1,0 +1,86 @@
+[
+  {
+    "text": "Copenhagen",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "value": "Copenhagen",
+        "entity": "city"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "I'm setting off from Hamburg",
+    "entities": [
+      {
+        "start": 21,
+        "end": 28,
+        "value": "Hamburg",
+        "entity": "city"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "12 May 2027",
+    "entities": [
+      {
+        "start": 0,
+        "end": 11,
+        "value": "12 May 2027",
+        "entity": "travel_date"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "back on 16 May 2027",
+    "entities": [
+      {
+        "start": 8,
+        "end": 19,
+        "value": "16 May 2027",
+        "entity": "travel_date"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "2",
+    "entities": [
+      {
+        "start": 0,
+        "end": 1,
+        "value": "2",
+        "entity": "travellers"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "about 700 euros",
+    "entities": [
+      {
+        "start": 6,
+        "end": 9,
+        "value": "700",
+        "entity": "budget"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "balanced please",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "balanced",
+        "entity": "sustainability_level"
+      }
+    ],
+    "predicted_entities": []
+  }
+]

@@ -1,0 +1,376 @@
+version: "3.1"
+
+stories:
+
+# ===========================================================================
+# Happy paths
+# ===========================================================================
+- story: city break - full journey from greeting to summary
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: ask_eco_hotels
+    - action: action_recommend_hotels
+    - action: utter_ask_continue_planning
+    - intent: ask_cultural_experiences
+    - action: action_recommend_experiences
+    - action: utter_ask_continue_planning
+    - intent: ask_carbon_footprint
+    - action: action_trip_summary
+    - intent: thanks
+    - action: utter_thanks
+    - intent: goodbye
+    - action: utter_goodbye
+
+- story: traveller goes straight to accommodation after intake
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: ask_eco_hotels
+    - action: action_recommend_hotels
+    - action: utter_ask_continue_planning
+
+- story: traveller asks for transport options again after the summary
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: ask_carbon_footprint
+    - action: action_trip_summary
+    - intent: ask_transport_options
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+
+- story: strict profile leads to offsets
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: ask_carbon_offset
+    - action: action_recommend_offsets
+    - action: utter_ask_continue_planning
+
+- story: eco-tour in a rural area - experiences first
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: ask_cultural_experiences
+    - action: action_recommend_experiences
+    - action: utter_ask_continue_planning
+    - intent: ask_eco_hotels
+    - action: action_recommend_hotels
+    - action: utter_ask_continue_planning
+    - intent: ask_carbon_footprint
+    - action: action_trip_summary
+
+# ===========================================================================
+# Questions asked without any trip on file - actions must degrade gracefully
+# ===========================================================================
+- story: emissions question with no trip context
+  steps:
+    - intent: ask_carbon_footprint
+    - action: action_trip_summary
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+
+- story: accommodation question with no trip context
+  steps:
+    - intent: ask_eco_hotels
+    - action: action_recommend_hotels
+
+- story: transport question before intake
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_transport_options
+    - action: action_compare_transport
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+
+# ===========================================================================
+# Transparency and scepticism - the anti-greenwashing path
+# ===========================================================================
+- story: traveller challenges the emission figures
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: ask_methodology
+    - action: action_explain_methodology
+    - intent: ask_eco_hotels
+    - action: action_recommend_hotels
+    - action: utter_ask_continue_planning
+
+- story: traveller is sceptical about offsetting
+  steps:
+    - intent: ask_carbon_offset
+    - action: action_recommend_offsets
+    - intent: ask_methodology
+    - action: action_explain_methodology
+
+- story: privacy question then continues planning
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_data_privacy
+    - action: action_explain_privacy
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+
+# ===========================================================================
+# Escalation paths
+# ===========================================================================
+- story: escalates after seeing the options
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: request_human_agent
+    - action: action_handover_to_human
+
+- story: escalates straight away
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: request_human_agent
+    - action: action_handover_to_human
+
+- story: out of scope then escalation
+  steps:
+    - intent: out_of_scope
+    - action: utter_out_of_scope
+    - intent: request_human_agent
+    - action: action_handover_to_human
+
+# ===========================================================================
+# Error recovery - two-stage clarification, then escalation
+# ===========================================================================
+- story: one unclear turn then recovers
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: nlu_fallback
+    - action: action_two_stage_clarification
+    - intent: ask_eco_hotels
+    - action: action_recommend_hotels
+    - action: utter_ask_continue_planning
+
+# NOTE: the third consecutive misunderstanding escalates to a human, but that
+# transition is NOT modelled as a story. It is issued by
+# action_two_stage_clarification as a FollowupAction, so the policies never get
+# to choose it. Writing it as a story here would contradict the
+# "Clarify when NLU confidence is low" rule, which correctly predicts
+# action_listen after every clarification turn. The behaviour is covered by
+# tests/test_stories.yml instead.
+- story: a clarified turn resolves and planning continues
+  steps:
+    - intent: nlu_fallback
+    - action: action_two_stage_clarification
+    - slot_was_set:
+        - clarification_stage: 1
+    - intent: ask_transport_options
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+
+# ===========================================================================
+# Changing your mind
+# ===========================================================================
+- story: changes a preference after the first recommendation
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: change_preference
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+
+- story: abandons intake then restarts later
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - intent: stop
+    - action: utter_stop_form
+    - action: action_deactivate_loop
+    - active_loop: null
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+
+- story: resets and starts a different trip
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: restart_planning
+    - action: action_reset_planning
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+
+# ===========================================================================
+# Location sharing
+# ===========================================================================
+- story: shares location instead of typing an origin
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - intent: share_location
+    - action: action_resolve_locations
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+
+# ===========================================================================
+# Selecting a specific mode after comparison
+# ===========================================================================
+- story: picks a transport mode and asks what it costs in carbon
+  steps:
+    - intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - active_loop: null
+    - slot_was_set:
+        - requested_slot: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - intent: inform
+    - slot_was_set:
+        - selected_transport: rail_highspeed
+    - action: action_report_carbon_for_selection
+    - action: utter_ask_continue_planning
+
+# ===========================================================================
+# Yes/no follow-ups to the assistant's own offers
+# ===========================================================================
+- story: accepts the offer of a human after an out-of-scope request
+  steps:
+    - intent: out_of_scope
+    - action: utter_out_of_scope
+    - intent: affirm
+    - action: action_handover_to_human
+
+- story: declines the offer of a human and carries on
+  steps:
+    - intent: out_of_scope
+    - action: utter_out_of_scope
+    - intent: deny
+    - action: utter_ask_continue_planning
+
+- story: declines offsets after hearing the caveats
+  steps:
+    - intent: ask_carbon_offset
+    - action: action_recommend_offsets
+    - intent: deny
+    - action: utter_ask_continue_planning
+
+- story: accepts the offer to erase everything after a privacy question
+  steps:
+    - intent: ask_data_privacy
+    - action: action_explain_privacy
+    - intent: affirm
+    - action: action_reset_planning
+
+- story: declines erasure and keeps planning
+  steps:
+    - intent: ask_data_privacy
+    - action: action_explain_privacy
+    - intent: deny
+    - action: utter_ask_continue_planning

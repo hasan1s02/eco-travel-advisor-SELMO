@@ -1,0 +1,66 @@
+{
+  "_meta": {
+    "description": "Curated SYNTHETIC accommodation database used when no Amadeus API key is configured and as the fallback when the Amadeus sandbox is unreachable.",
+    "important": "Every property name in this file is INVENTED. No real hotel, brand or certification holder is described here. The assignment brief notes that no reliable free API exposes eco-certification status, so this mock database stands in for one. Certification scheme names are real schemes, but their attachment to these fictional properties is illustrative only and MUST be surfaced to the user as demonstration data (see DATA_PROVENANCE_NOTICE in actions/api_clients.py).",
+    "schema": {
+      "cert": "Certification scheme claimed by the property",
+      "cert_tier": "1 = third-party audited against a GSTC-recognised standard, 2 = third-party audited, 3 = self-declared",
+      "price_eur": "Indicative price per room per night",
+      "energy": "Share of electricity from on-site or contracted renewable generation (0-1)",
+      "single_use_plastic_free": "Property reports eliminating single-use plastics in guest areas",
+      "transit_min": "Walking minutes to the nearest rail or metro station",
+      "local_sourcing": "Share of food and beverage sourced within 150 km (0-1)"
+    },
+    "generated": "2026-09-01"
+  },
+  "destinations": {
+    "lisbon": [
+      {"id": "lis-01", "name": "Casa Verde Alfama", "cert": "EU Ecolabel", "cert_tier": 1, "price_eur": 118, "energy": 0.92, "single_use_plastic_free": true, "transit_min": 4, "local_sourcing": 0.80, "water_saving": true, "district": "Alfama", "summary": "Restored 18th-century townhouse running on rooftop solar with greywater recovery."},
+      {"id": "lis-02", "name": "Tejo Green Rooms", "cert": "Green Key", "cert_tier": 2, "price_eur": 86, "energy": 0.61, "single_use_plastic_free": true, "transit_min": 7, "local_sourcing": 0.55, "water_saving": true, "district": "Cais do Sodré", "summary": "Budget guesthouse with a zero-waste breakfast and bike loan scheme."},
+      {"id": "lis-03", "name": "Miradouro Sustentável", "cert": "Biosphere", "cert_tier": 1, "price_eur": 164, "energy": 0.78, "single_use_plastic_free": false, "transit_min": 11, "local_sourcing": 0.70, "water_saving": true, "district": "Graça", "summary": "Mid-range hotel funding a Tagus estuary wetland restoration project."},
+      {"id": "lis-04", "name": "Baixa Standard Hotel", "cert": null, "cert_tier": 3, "price_eur": 74, "energy": 0.18, "single_use_plastic_free": false, "transit_min": 3, "local_sourcing": 0.20, "water_saving": false, "district": "Baixa", "summary": "Conventional city-centre hotel, listed for price comparison only."}
+    ],
+    "barcelona": [
+      {"id": "bcn-01", "name": "Hostal Sostenible Gràcia", "cert": "Biosphere", "cert_tier": 1, "price_eur": 97, "energy": 0.88, "single_use_plastic_free": true, "transit_min": 5, "local_sourcing": 0.75, "water_saving": true, "district": "Gràcia", "summary": "Co-operatively run guesthouse supplied by a citizen renewable-energy co-op."},
+      {"id": "bcn-02", "name": "Eixample EcoStay", "cert": "Green Key", "cert_tier": 2, "price_eur": 132, "energy": 0.64, "single_use_plastic_free": true, "transit_min": 2, "local_sourcing": 0.48, "water_saving": true, "district": "Eixample", "summary": "Modernista block retrofitted to near-passive-house standard."},
+      {"id": "bcn-03", "name": "Poblenou Circular Hotel", "cert": "EU Ecolabel", "cert_tier": 1, "price_eur": 151, "energy": 0.81, "single_use_plastic_free": true, "transit_min": 8, "local_sourcing": 0.66, "water_saving": true, "district": "Poblenou", "summary": "Design hotel built largely from reclaimed materials; on-site composting."},
+      {"id": "bcn-04", "name": "Rambla Central Inn", "cert": null, "cert_tier": 3, "price_eur": 88, "energy": 0.12, "single_use_plastic_free": false, "transit_min": 2, "local_sourcing": 0.15, "water_saving": false, "district": "Ciutat Vella", "summary": "Conventional tourist hotel, listed for price comparison only."}
+    ],
+    "amsterdam": [
+      {"id": "ams-01", "name": "Grachten Groen Guesthouse", "cert": "Green Key", "cert_tier": 2, "price_eur": 143, "energy": 0.95, "single_use_plastic_free": true, "transit_min": 6, "local_sourcing": 0.72, "water_saving": true, "district": "Jordaan", "summary": "Canal house on 100% Dutch wind power with a vegetarian-default kitchen."},
+      {"id": "ams-02", "name": "Noord Climate Hotel", "cert": "EU Ecolabel", "cert_tier": 1, "price_eur": 119, "energy": 0.90, "single_use_plastic_free": true, "transit_min": 9, "local_sourcing": 0.60, "water_saving": true, "district": "Amsterdam-Noord", "summary": "Timber-framed building with heat recovery; free ferry to Centraal."},
+      {"id": "ams-03", "name": "De Pijp Bike Hostel", "cert": "Travelife", "cert_tier": 2, "price_eur": 62, "energy": 0.55, "single_use_plastic_free": false, "transit_min": 4, "local_sourcing": 0.40, "water_saving": true, "district": "De Pijp", "summary": "Hostel dorms and private rooms; bicycle included with every booking."},
+      {"id": "ams-04", "name": "Airport Transit Lodge", "cert": null, "cert_tier": 3, "price_eur": 105, "energy": 0.20, "single_use_plastic_free": false, "transit_min": 1, "local_sourcing": 0.10, "water_saving": false, "district": "Schiphol", "summary": "Conventional airport hotel, listed for price comparison only."}
+    ],
+    "copenhagen": [
+      {"id": "cph-01", "name": "Nørrebro Passivhus Hotel", "cert": "Green Key", "cert_tier": 2, "price_eur": 158, "energy": 0.97, "single_use_plastic_free": true, "transit_min": 3, "local_sourcing": 0.85, "water_saving": true, "district": "Nørrebro", "summary": "Certified passive house; district heating from waste-to-energy surplus."},
+      {"id": "cph-02", "name": "Havn Organic Rooms", "cert": "EU Ecolabel", "cert_tier": 1, "price_eur": 127, "energy": 0.89, "single_use_plastic_free": true, "transit_min": 7, "local_sourcing": 0.90, "water_saving": true, "district": "Islands Brygge", "summary": "Fully organic-certified kitchen; harbour swimming from the terrace."},
+      {"id": "cph-03", "name": "Vesterbro Rail Hostel", "cert": "Travelife", "cert_tier": 2, "price_eur": 71, "energy": 0.66, "single_use_plastic_free": false, "transit_min": 2, "local_sourcing": 0.45, "water_saving": true, "district": "Vesterbro", "summary": "Budget rooms two minutes from København H, aimed at rail travellers."},
+      {"id": "cph-04", "name": "Kongens Grand Hotel", "cert": null, "cert_tier": 3, "price_eur": 210, "energy": 0.25, "single_use_plastic_free": false, "transit_min": 5, "local_sourcing": 0.22, "water_saving": false, "district": "Indre By", "summary": "Conventional four-star hotel, listed for price comparison only."}
+    ],
+    "berlin": [
+      {"id": "ber-01", "name": "Kreuzberg Kollektiv Hostel", "cert": "Green Key", "cert_tier": 2, "price_eur": 58, "energy": 0.84, "single_use_plastic_free": true, "transit_min": 4, "local_sourcing": 0.62, "water_saving": true, "district": "Kreuzberg", "summary": "Worker-owned hostel on certified green electricity; repair café on site."},
+      {"id": "ber-02", "name": "Prenzlauer Ökohotel", "cert": "EU Ecolabel", "cert_tier": 1, "price_eur": 112, "energy": 0.93, "single_use_plastic_free": true, "transit_min": 6, "local_sourcing": 0.71, "water_saving": true, "district": "Prenzlauer Berg", "summary": "Altbau retrofit with ground-source heat pumps and a green roof."},
+      {"id": "ber-03", "name": "Ostkreuz Rail Rooms", "cert": "Travelife", "cert_tier": 2, "price_eur": 79, "energy": 0.58, "single_use_plastic_free": false, "transit_min": 1, "local_sourcing": 0.38, "water_saving": true, "district": "Friedrichshain", "summary": "Simple rooms above a regional rail interchange; no car parking at all."},
+      {"id": "ber-04", "name": "Mitte Business Hotel", "cert": null, "cert_tier": 3, "price_eur": 134, "energy": 0.16, "single_use_plastic_free": false, "transit_min": 3, "local_sourcing": 0.18, "water_saving": false, "district": "Mitte", "summary": "Conventional business hotel, listed for price comparison only."}
+    ],
+    "vienna": [
+      {"id": "vie-01", "name": "Donaukanal Klimahotel", "cert": "EU Ecolabel", "cert_tier": 1, "price_eur": 124, "energy": 0.91, "single_use_plastic_free": true, "transit_min": 5, "local_sourcing": 0.74, "water_saving": true, "district": "Leopoldstadt", "summary": "Hydro-powered hotel on the canal with a rooftop apiary."},
+      {"id": "vie-02", "name": "Neubau Green Pension", "cert": "Green Key", "cert_tier": 2, "price_eur": 89, "energy": 0.70, "single_use_plastic_free": true, "transit_min": 6, "local_sourcing": 0.58, "water_saving": true, "district": "Neubau", "summary": "Family-run pension; breakfast sourced from Lower Austrian producers."},
+      {"id": "vie-03", "name": "Hauptbahnhof Eco Lodge", "cert": "Travelife", "cert_tier": 2, "price_eur": 96, "energy": 0.63, "single_use_plastic_free": false, "transit_min": 2, "local_sourcing": 0.44, "water_saving": true, "district": "Favoriten", "summary": "Built for night-train passengers; late check-in and luggage storage."},
+      {"id": "vie-04", "name": "Ringstraße Classic Hotel", "cert": null, "cert_tier": 3, "price_eur": 176, "energy": 0.21, "single_use_plastic_free": false, "transit_min": 4, "local_sourcing": 0.19, "water_saving": false, "district": "Innere Stadt", "summary": "Conventional grand hotel, listed for price comparison only."}
+    ],
+    "porto": [
+      {"id": "opo-01", "name": "Douro Verde Guesthouse", "cert": "Biosphere", "cert_tier": 1, "price_eur": 92, "energy": 0.86, "single_use_plastic_free": true, "transit_min": 7, "local_sourcing": 0.82, "water_saving": true, "district": "Ribeira", "summary": "Riverside guesthouse funding native-woodland replanting in the Douro."},
+      {"id": "opo-02", "name": "Bolhão Slow Rooms", "cert": "Green Key", "cert_tier": 2, "price_eur": 68, "energy": 0.59, "single_use_plastic_free": true, "transit_min": 3, "local_sourcing": 0.77, "water_saving": true, "district": "Santo Ildefonso", "summary": "Rooms above the market; breakfast bought from market traders daily."},
+      {"id": "opo-03", "name": "Foz Solar Hotel", "cert": "EU Ecolabel", "cert_tier": 1, "price_eur": 139, "energy": 0.94, "single_use_plastic_free": true, "transit_min": 12, "local_sourcing": 0.52, "water_saving": true, "district": "Foz do Douro", "summary": "Coastal hotel running on solar thermal and photovoltaic arrays."},
+      {"id": "opo-04", "name": "Campanhã Budget Inn", "cert": null, "cert_tier": 3, "price_eur": 49, "energy": 0.14, "single_use_plastic_free": false, "transit_min": 2, "local_sourcing": 0.12, "water_saving": false, "district": "Campanhã", "summary": "Conventional budget hotel, listed for price comparison only."}
+    ],
+    "ljubljana": [
+      {"id": "lju-01", "name": "Ljubljanica Eco Hostel", "cert": "Green Key", "cert_tier": 2, "price_eur": 54, "energy": 0.80, "single_use_plastic_free": true, "transit_min": 5, "local_sourcing": 0.68, "water_saving": true, "district": "Center", "summary": "Car-free city-centre hostel; kayak hire on the river."},
+      {"id": "lju-02", "name": "Tivoli Forest Rooms", "cert": "Biosphere", "cert_tier": 1, "price_eur": 87, "energy": 0.88, "single_use_plastic_free": true, "transit_min": 9, "local_sourcing": 0.79, "water_saving": true, "district": "Tivoli", "summary": "Rooms at the park edge; guided low-impact hiking from the door."},
+      {"id": "lju-03", "name": "Šiška Rail Stop Hotel", "cert": "Travelife", "cert_tier": 2, "price_eur": 72, "energy": 0.57, "single_use_plastic_free": false, "transit_min": 3, "local_sourcing": 0.41, "water_saving": true, "district": "Šiška", "summary": "Modest hotel positioned for onward rail travel into the Julian Alps."},
+      {"id": "lju-04", "name": "Bežigrad Motorway Inn", "cert": null, "cert_tier": 3, "price_eur": 61, "energy": 0.11, "single_use_plastic_free": false, "transit_min": 18, "local_sourcing": 0.14, "water_saving": false, "district": "Bežigrad", "summary": "Conventional roadside hotel, listed for price comparison only."}
+    ]
+  }
+}

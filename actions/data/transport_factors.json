@@ -1,0 +1,150 @@
+{
+  "_meta": {
+    "description": "Well-to-wheel greenhouse-gas emission factors per passenger-kilometre, used as the offline fallback when the Climatiq API is unavailable or no API key is configured.",
+    "unit": "kg CO2e per passenger-kilometre",
+    "primary_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+    "secondary_source": "European Environment Agency (2020) 'Transport and Environment Report: Train or Plane?'",
+    "retrieved": "2026-09-01",
+    "caveat": "Figures are averages across vehicle fleets and load factors. They are indicative only and must be presented to the user as estimates, never as measured values."
+  },
+  "factors": {
+    "walking": {
+      "label": "Walking",
+      "kg_per_pkm": 0.0,
+      "climatiq_activity_id": null,
+      "icon": "walk"
+    },
+    "cycling": {
+      "label": "Cycling",
+      "kg_per_pkm": 0.0,
+      "climatiq_activity_id": null,
+      "icon": "bike"
+    },
+    "rail_highspeed": {
+      "label": "High-speed rail",
+      "kg_per_pkm": 0.014,
+      "climatiq_activity_id": "passenger_train-route_type_international_rail-fuel_source_na",
+      "icon": "train"
+    },
+    "rail_national": {
+      "label": "National rail",
+      "kg_per_pkm": 0.0354,
+      "climatiq_activity_id": "passenger_train-route_type_national_rail-fuel_source_na",
+      "icon": "train"
+    },
+    "rail_night": {
+      "label": "Night train (sleeper)",
+      "kg_per_pkm": 0.029,
+      "climatiq_activity_id": "passenger_train-route_type_international_rail-fuel_source_na",
+      "icon": "train"
+    },
+    "coach": {
+      "label": "Long-distance coach",
+      "kg_per_pkm": 0.0271,
+      "climatiq_activity_id": "passenger_vehicle-vehicle_type_coach-fuel_source_diesel",
+      "icon": "bus"
+    },
+    "bus_urban": {
+      "label": "Local bus",
+      "kg_per_pkm": 0.0797,
+      "climatiq_activity_id": "passenger_vehicle-vehicle_type_bus-fuel_source_diesel",
+      "icon": "bus"
+    },
+    "ferry_foot": {
+      "label": "Ferry (foot passenger)",
+      "kg_per_pkm": 0.0187,
+      "climatiq_activity_id": "passenger_ferry-route_type_foot_passenger-fuel_source_na",
+      "icon": "ferry"
+    },
+    "car_electric": {
+      "label": "Electric car (EU grid)",
+      "kg_per_pkm": 0.0473,
+      "climatiq_activity_id": "passenger_vehicle-vehicle_type_car-fuel_source_bev",
+      "icon": "car"
+    },
+    "car_petrol_shared": {
+      "label": "Petrol car (2 people)",
+      "kg_per_pkm": 0.0855,
+      "climatiq_activity_id": "passenger_vehicle-vehicle_type_car-fuel_source_petrol",
+      "icon": "car"
+    },
+    "car_petrol": {
+      "label": "Petrol car (1 person)",
+      "kg_per_pkm": 0.171,
+      "climatiq_activity_id": "passenger_vehicle-vehicle_type_car-fuel_source_petrol",
+      "icon": "car"
+    },
+    "flight_domestic": {
+      "label": "Domestic flight",
+      "kg_per_pkm": 0.246,
+      "climatiq_activity_id": "passenger_flight-route_type_domestic-aircraft_type_na-distance_na-class_na-rf_included",
+      "icon": "plane"
+    },
+    "flight_short_haul": {
+      "label": "Short-haul flight",
+      "kg_per_pkm": 0.151,
+      "climatiq_activity_id": "passenger_flight-route_type_international-aircraft_type_na-distance_short_haul_lt_3700km-class_economy-rf_included",
+      "icon": "plane"
+    },
+    "flight_long_haul": {
+      "label": "Long-haul flight",
+      "kg_per_pkm": 0.148,
+      "climatiq_activity_id": "passenger_flight-route_type_international-aircraft_type_na-distance_long_haul_gt_3700km-class_economy-rf_included",
+      "icon": "plane"
+    }
+  },
+  "mode_availability_rules": {
+    "comment": "Distance bands in km that decide which modes the advisor will even offer, so that the bot does not suggest cycling from Berlin to Lisbon.",
+    "cycling": {
+      "max_km": 80
+    },
+    "walking": {
+      "max_km": 15
+    },
+    "bus_urban": {
+      "max_km": 60
+    },
+    "coach": {
+      "max_km": 2600
+    },
+    "rail_national": {
+      "max_km": 900
+    },
+    "rail_highspeed": {
+      "max_km": 3200
+    },
+    "rail_night": {
+      "min_km": 350,
+      "max_km": 2600
+    },
+    "ferry_foot": {
+      "max_km": 1500
+    },
+    "car_electric": {
+      "max_km": 2500
+    },
+    "car_petrol_shared": {
+      "max_km": 2500
+    },
+    "car_petrol": {
+      "max_km": 2500
+    },
+    "flight_domestic": {
+      "min_km": 200,
+      "max_km": 900
+    },
+    "flight_short_haul": {
+      "min_km": 300,
+      "max_km": 3700
+    },
+    "flight_long_haul": {
+      "min_km": 3700
+    },
+    "_comment_multileg": "Above roughly 1500 km an overland journey is almost always multi-leg. The distance and duration figures assume a connecting itinerary rather than a single service."
+  },
+  "banding": {
+    "comment": "Thresholds in kg CO2e per traveller for the whole journey, used to drive the green / amber / red colour-coded result cards in the UI.",
+    "low_max": 25.0,
+    "moderate_max": 120.0
+  }
+}

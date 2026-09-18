@@ -1,0 +1,61 @@
+{
+  "_meta": {
+    "description": "Illustrative carbon-contribution options, described by project TYPE and certification standard rather than by vendor. No real provider is named, priced or endorsed here.",
+    "integrity_warning": "Offsetting does not cancel a journey's emissions. Independent investigations of forestry-based credits have found substantial over-crediting, and permanence, additionality and leakage remain unresolved for most project types. The mitigation hierarchy applies: avoid the journey, then shift to a lower-carbon mode, then reduce what remains, and only then contribute to a climate project for the residual. This assistant therefore presents contributions AFTER reduction options, never instead of them.",
+    "price_basis": "Indicative 2026 voluntary-market ranges in EUR per tonne CO2e. Real prices vary widely by vintage, registry and volume.",
+    "standards_are_real": "Gold Standard, Verra VCS, Puro.earth and the EU CRCF are real certification frameworks. Their appearance here describes the project category only.",
+    "generated": "2026-09-01"
+  },
+  "providers": [
+    {
+      "id": "off-01",
+      "type": "Improved cookstove programme",
+      "standard": "Gold Standard",
+      "eur_per_tonne": 18.0,
+      "permanence": "n/a (avoided emissions)",
+      "confidence": "medium",
+      "caveat": "Avoided-emission credits depend on a counterfactual baseline that cannot be observed directly; usage rates are often lower than assumed."
+    },
+    {
+      "id": "off-02",
+      "type": "Native woodland restoration",
+      "standard": "Verra VCS",
+      "eur_per_tonne": 24.0,
+      "permanence": "40-100 years, fire and disease risk",
+      "confidence": "low",
+      "caveat": "Forestry credits carry the weakest evidence base of the categories listed here. Sequestration is reversible and frequently over-estimated."
+    },
+    {
+      "id": "off-03",
+      "type": "Biochar carbon removal",
+      "standard": "Puro.earth",
+      "eur_per_tonne": 135.0,
+      "permanence": "100-1000 years",
+      "confidence": "high",
+      "caveat": "Durable and measurable, but roughly six times the price of avoidance credits; supply is limited."
+    },
+    {
+      "id": "off-04",
+      "type": "Enhanced rock weathering",
+      "standard": "EU Carbon Removals Certification Framework (pilot)",
+      "eur_per_tonne": 210.0,
+      "permanence": ">10 000 years",
+      "confidence": "medium",
+      "caveat": "Highly durable, but measurement of actual uptake in field conditions is still maturing."
+    },
+    {
+      "id": "off-05",
+      "type": "Direct air capture with geological storage",
+      "standard": "Puro.earth / ISO 14064-2",
+      "eur_per_tonne": 380.0,
+      "permanence": ">10 000 years",
+      "confidence": "high",
+      "caveat": "The most rigorous option and the most expensive; capacity is a tiny fraction of voluntary-market demand."
+    }
+  ],
+  "reduction_first_prompts": [
+    "Shifting one return short-haul flight to rail typically saves more CO2e than a year of average household recycling.",
+    "Adding one night to the stay and taking a slower overland route usually cuts journey emissions by more than any contribution you could buy for the same money.",
+    "Choosing accommodation within walking distance of a station removes the airport-transfer leg entirely, which is often 5-10% of a short trip's footprint."
+  ]
+}

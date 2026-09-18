@@ -1,0 +1,1887 @@
+{
+  "01-short-city-break": [
+    {
+      "user": "hi there",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "Hi — I'm the Eco-Travel Advisor. I help you plan a trip with a much smaller carbon footprint: low-emission routes, certified accommodation and local experiences that keep money in the community.\n\nI'll estimate emissions for each option and show you exactly how I got the number. Where would you like to go?",
+          "buttons": [
+            {
+              "title": "Plan a trip",
+              "payload": "/plan_trip"
+            },
+            {
+              "title": "Compare travel emissions",
+              "payload": "/ask_carbon_footprint"
+            },
+            {
+              "title": "How do you calculate this?",
+              "payload": "/ask_methodology"
+            }
+          ]
+        }
+      ],
+      "ms": 42
+    },
+    {
+      "user": "I want to plan a low carbon city break",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "Where would you like to travel to?",
+          "buttons": [
+            {
+              "title": "Lisbon",
+              "payload": "/inform{\"city\": \"Lisbon\"}"
+            },
+            {
+              "title": "Copenhagen",
+              "payload": "/inform{\"city\": \"Copenhagen\"}"
+            },
+            {
+              "title": "Ljubljana",
+              "payload": "/inform{\"city\": \"Ljubljana\"}"
+            },
+            {
+              "title": "Somewhere else",
+              "payload": "/inform"
+            }
+          ]
+        }
+      ],
+      "ms": 65
+    },
+    {
+      "user": "Copenhagen",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "And where are you starting from? You can share your location instead if that's easier.",
+          "buttons": [
+            {
+              "title": "Use my location",
+              "payload": "/share_location"
+            }
+          ]
+        }
+      ],
+      "ms": 65
+    },
+    {
+      "user": "I'm coming from Hamburg",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "When do you want to leave? A date like 12 May 2027, or something like \"in three weeks\", both work."
+        }
+      ],
+      "ms": 70
+    },
+    {
+      "user": "12 May 2027",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "And when are you coming back?"
+        }
+      ],
+      "ms": 70
+    },
+    {
+      "user": "back on 16 May 2027",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "Roughly what's your total budget for the trip, per person, in euros?",
+          "buttons": [
+            {
+              "title": "Under €300",
+              "payload": "/inform{\"budget\": 300}"
+            },
+            {
+              "title": "€300-700",
+              "payload": "/inform{\"budget\": 700}"
+            },
+            {
+              "title": "€700+",
+              "payload": "/inform{\"budget\": 1200}"
+            }
+          ]
+        }
+      ],
+      "ms": 74
+    },
+    {
+      "user": "2",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "€2 per person is below what almost any trip costs. Shall I work with that anyway?"
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "Last one. How strictly do you want me to weight environmental impact against cost and travel time?",
+          "buttons": [
+            {
+              "title": "Strict — lowest emissions wins",
+              "payload": "/inform{\"sustainability_level\": \"strict\"}"
+            },
+            {
+              "title": "Balanced — trade off sensibly",
+              "payload": "/inform{\"sustainability_level\": \"balanced\"}"
+            },
+            {
+              "title": "Flexible — cost and time matter more",
+              "payload": "/inform{\"sustainability_level\": \"flexible\"}"
+            }
+          ]
+        }
+      ],
+      "ms": 70
+    },
+    {
+      "user": "about 700 euros",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "Pick whichever is closest — I'll use it to weight the ranking.",
+          "buttons": [
+            {
+              "title": "Strict",
+              "payload": "/inform{{\"sustainability_level\": \"strict\"}}"
+            },
+            {
+              "title": "Balanced",
+              "payload": "/inform{{\"sustainability_level\": \"balanced\"}}"
+            },
+            {
+              "title": "Flexible",
+              "payload": "/inform{{\"sustainability_level\": \"flexible\"}}"
+            }
+          ]
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "Last one. How strictly do you want me to weight environmental impact against cost and travel time?",
+          "buttons": [
+            {
+              "title": "Strict — lowest emissions wins",
+              "payload": "/inform{\"sustainability_level\": \"strict\"}"
+            },
+            {
+              "title": "Balanced — trade off sensibly",
+              "payload": "/inform{\"sustainability_level\": \"balanced\"}"
+            },
+            {
+              "title": "Flexible — cost and time matter more",
+              "payload": "/inform{\"sustainability_level\": \"flexible\"}"
+            }
+          ]
+        }
+      ],
+      "ms": 75
+    },
+    {
+      "user": "balanced please",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "Got it. Working out your options now — one moment."
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "Hamburg to Copenhagen is about 289 km in a straight line. Here's how the options compare for 2 travellers, weighted for a **balanced** profile."
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "custom": {
+            "type": "transport_options",
+            "origin": "Hamburg",
+            "destination": "Copenhagen",
+            "travellers": 2,
+            "sustainability_level": "balanced",
+            "weights": {
+              "carbon": 0.4,
+              "cost": 0.3,
+              "time": 0.3
+            },
+            "options": [
+              {
+                "mode_key": "coach",
+                "label": "Long-distance coach",
+                "icon": "bus",
+                "distance_km": 360.8,
+                "kg_co2e_per_traveller": 9.8,
+                "kg_co2e_total": 19.6,
+                "cost_eur_per_traveller": 22,
+                "duration_h": 6.0,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.83,
+                "band": "low",
+                "rationale": "Ranked mainly on emissions. Strong on emissions, cost and journey time.",
+                "savings_vs_worst_kg": 74.6,
+                "affordable": true,
+                "notes": []
+              },
+              {
+                "mode_key": "car_petrol_shared",
+                "label": "Petrol car (2 people)",
+                "icon": "car",
+                "distance_km": 360.8,
+                "kg_co2e_per_traveller": 30.9,
+                "kg_co2e_total": 61.7,
+                "cost_eur_per_traveller": 13,
+                "duration_h": 4.5,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.814,
+                "band": "moderate",
+                "rationale": "Ranked mainly on cost. Strong on emissions, cost and journey time.",
+                "savings_vs_worst_kg": 53.5,
+                "affordable": true,
+                "notes": []
+              },
+              {
+                "mode_key": "rail_highspeed",
+                "label": "High-speed rail",
+                "icon": "train",
+                "distance_km": 346.3,
+                "kg_co2e_per_traveller": 4.8,
+                "kg_co2e_total": 9.7,
+                "cost_eur_per_traveller": 55,
+                "duration_h": 2.7,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.796,
+                "band": "low",
+                "rationale": "Ranked mainly on emissions. Strong on emissions and journey time. Weaker on cost.",
+                "savings_vs_worst_kg": 79.5,
+                "affordable": true,
+                "notes": []
+              },
+              {
+                "mode_key": "car_electric",
+                "label": "Electric car (EU grid)",
+                "icon": "car",
+                "distance_km": 360.8,
+                "kg_co2e_per_traveller": 17.1,
+                "kg_co2e_total": 34.1,
+                "cost_eur_per_traveller": 32,
+                "duration_h": 4.5,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.789,
+                "band": "low",
+                "rationale": "Ranked mainly on emissions. Strong on emissions, cost and journey time.",
+                "savings_vs_worst_kg": 67.3,
+                "affordable": true,
+                "notes": []
+              },
+              {
+                "mode_key": "rail_national",
+                "label": "National rail",
+                "icon": "train",
+                "distance_km": 346.3,
+                "kg_co2e_per_traveller": 12.3,
+                "kg_co2e_total": 24.5,
+                "cost_eur_per_traveller": 45,
+                "duration_h": 4.3,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.757,
+                "band": "low",
+                "rationale": "Ranked mainly on emissions. Strong on emissions and journey time.",
+                "savings_vs_worst_kg": 72.1,
+                "affordable": true,
+                "notes": []
+              },
+              {
+                "mode_key": "ferry_foot",
+                "label": "Ferry (foot passenger)",
+                "icon": "ferry",
+                "distance_km": 389.6,
+                "kg_co2e_per_traveller": 7.3,
+                "kg_co2e_total": 14.6,
+                "cost_eur_per_traveller": 35,
+                "duration_h": 12.6,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.581,
+                "band": "low",
+                "rationale": "Ranked mainly on emissions. Strong on emissions. Weaker on journey time.",
+                "savings_vs_worst_kg": 77.1,
+                "affordable": true,
+                "notes": []
+              },
+              {
+                "mode_key": "car_petrol",
+                "label": "Petrol car (1 person)",
+                "icon": "car",
+                "distance_km": 360.8,
+                "kg_co2e_per_traveller": 61.7,
+                "kg_co2e_total": 123.4,
+                "cost_eur_per_traveller": 51,
+                "duration_h": 4.5,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.478,
+                "band": "moderate",
+                "rationale": "Ranked mainly on journey time. Strong on journey time. Weaker on emissions.",
+                "savings_vs_worst_kg": 22.7,
+                "affordable": true,
+                "notes": []
+              },
+              {
+                "mode_key": "flight_domestic",
+                "label": "Domestic flight",
+                "icon": "plane",
+                "distance_km": 343.0,
+                "kg_co2e_per_traveller": 84.4,
+                "kg_co2e_total": 168.8,
+                "cost_eur_per_traveller": 75,
+                "duration_h": 4.0,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.26,
+                "band": "moderate",
+                "rationale": "Ranked mainly on journey time. Strong on journey time. Weaker on emissions and cost.",
+                "savings_vs_worst_kg": 0.0,
+                "affordable": true,
+                "notes": []
+              }
+            ],
+            "provenance": "Figures from the bundled demonstration dataset — illustrative, not live."
+          }
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "**Long-distance coach** comes out on top: about **10 kg CO₂e** per person, €22, roughly 6 hours door to door. That's 75 kg less per person than domestic flight — 149 kg across your group."
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "What would you like to look at next?",
+          "buttons": [
+            {
+              "title": "Places to stay",
+              "payload": "/ask_eco_hotels"
+            },
+            {
+              "title": "Things to do",
+              "payload": "/ask_cultural_experiences"
+            },
+            {
+              "title": "Full summary",
+              "payload": "/ask_carbon_footprint"
+            },
+            {
+              "title": "Talk to a human advisor",
+              "payload": "/request_human_agent"
+            }
+          ]
+        }
+      ],
+      "ms": 164
+    },
+    {
+      "user": "where should I stay?",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "Places to stay in Copenhagen for 4 nights, aiming under about €110 a night."
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "custom": {
+            "type": "hotel_carousel",
+            "destination": "Copenhagen",
+            "nights": 4,
+            "nightly_budget_eur": 110.17,
+            "sustainability_level": "balanced",
+            "hotels": [
+              {
+                "id": "cph-03",
+                "name": "Vesterbro Rail Hostel",
+                "cert": "Travelife",
+                "cert_tier": 2,
+                "price_eur": 71,
+                "energy": 0.66,
+                "single_use_plastic_free": false,
+                "transit_min": 2,
+                "local_sourcing": 0.45,
+                "water_saving": true,
+                "district": "Vesterbro",
+                "summary": "Budget rooms two minutes from København H, aimed at rail travellers.",
+                "cert_status": "verified",
+                "score": 0.773,
+                "band": "low",
+                "affordable": true,
+                "rationale": "Ranked for independently audited under Travelife, 2 min walk to public transport and among the cheaper options here.",
+                "notes": []
+              },
+              {
+                "id": "cph-02",
+                "name": "Havn Organic Rooms",
+                "cert": "EU Ecolabel",
+                "cert_tier": 1,
+                "price_eur": 127,
+                "energy": 0.89,
+                "single_use_plastic_free": true,
+                "transit_min": 7,
+                "local_sourcing": 0.9,
+                "water_saving": true,
+                "district": "Islands Brygge",
+                "summary": "Fully organic-certified kitchen; harbour swimming from the terrace.",
+                "cert_status": "verified",
+                "score": 0.707,
+                "band": "low",
+                "affordable": false,
+                "rationale": "Ranked for independently audited under EU Ecolabel and 89% renewable electricity.",
+                "notes": [
+                  "Above your nightly budget of about €110."
+                ]
+              },
+              {
+                "id": "cph-01",
+                "name": "Nørrebro Passivhus Hotel",
+                "cert": "Green Key",
+                "cert_tier": 2,
+                "price_eur": 158,
+                "energy": 0.97,
+                "single_use_plastic_free": true,
+                "transit_min": 3,
+                "local_sourcing": 0.85,
+                "water_saving": true,
+                "district": "Nørrebro",
+                "summary": "Certified passive house; district heating from waste-to-energy surplus.",
+                "cert_status": "verified",
+                "score": 0.7,
+                "band": "low",
+                "affordable": false,
+                "rationale": "Ranked for independently audited under Green Key, 97% renewable electricity and 3 min walk to public transport.",
+                "notes": [
+                  "Above your nightly budget of about €110."
+                ]
+              },
+              {
+                "id": "cph-04",
+                "name": "Kongens Grand Hotel",
+                "cert": null,
+                "cert_tier": 3,
+                "price_eur": 210,
+                "energy": 0.25,
+                "single_use_plastic_free": false,
+                "transit_min": 5,
+                "local_sourcing": 0.22,
+                "water_saving": false,
+                "district": "Indre By",
+                "summary": "Conventional four-star hotel, listed for price comparison only.",
+                "cert_status": "none_claimed",
+                "score": 0.098,
+                "band": "high",
+                "affordable": false,
+                "rationale": "Listed for comparison; it does not lead on any of the criteria you weighted.",
+                "notes": [
+                  "No third-party certification claimed.",
+                  "Above your nightly budget of about €110."
+                ]
+              }
+            ],
+            "provenance": "Figures from the bundled demonstration dataset — illustrative, not live."
+          }
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "**Vesterbro Rail Hostel** ranks first — ranked for independently audited under Travelife, 2 min walk to public transport and among the cheaper options here. About €71 a night, so roughly €284 for the stay."
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "What would you like to look at next?",
+          "buttons": [
+            {
+              "title": "Places to stay",
+              "payload": "/ask_eco_hotels"
+            },
+            {
+              "title": "Things to do",
+              "payload": "/ask_cultural_experiences"
+            },
+            {
+              "title": "Full summary",
+              "payload": "/ask_carbon_footprint"
+            },
+            {
+              "title": "Talk to a human advisor",
+              "payload": "/request_human_agent"
+            }
+          ]
+        }
+      ],
+      "ms": 85
+    },
+    {
+      "user": "what can I do there?",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "Things to do in Copenhagen that keep impact low and money local:"
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "custom": {
+            "type": "experience_list",
+            "destination": "Copenhagen",
+            "experiences": [
+              {
+                "id": "cph-e1",
+                "name": "Harbour swim and sauna circuit",
+                "impact": "very_low",
+                "price_eur": 12,
+                "duration_h": 2,
+                "community_benefit": "moderate",
+                "summary": "Public harbour baths, reachable on foot from the centre."
+              },
+              {
+                "id": "cph-e2",
+                "name": "Nørrebro food-waste supper club",
+                "impact": "very_low",
+                "price_eur": 26,
+                "duration_h": 3,
+                "community_benefit": "high",
+                "summary": "Meals cooked from surplus stock that would otherwise be discarded."
+              },
+              {
+                "id": "cph-e3",
+                "name": "Amager Fælled nature reserve by metro",
+                "impact": "very_low",
+                "price_eur": 0,
+                "duration_h": 4,
+                "community_benefit": "low",
+                "summary": "Protected wetland fifteen minutes from the centre."
+              },
+              {
+                "id": "cph-e4",
+                "name": "Cargo-bike architecture tour",
+                "impact": "very_low",
+                "price_eur": 35,
+                "duration_h": 3,
+                "community_benefit": "high",
+                "summary": "Locally owned operator; no motorised transport."
+              },
+              {
+                "id": "cph-e5",
+                "name": "Louisiana museum by regional train",
+                "impact": "low",
+                "price_eur": 24,
+                "duration_h": 6,
+                "community_benefit": "moderate",
+                "summary": "Coastal rail line; no car required."
+              }
+            ],
+            "provenance": "Figures from the bundled demonstration dataset — illustrative, not live."
+          }
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "What would you like to look at next?",
+          "buttons": [
+            {
+              "title": "Places to stay",
+              "payload": "/ask_eco_hotels"
+            },
+            {
+              "title": "Things to do",
+              "payload": "/ask_cultural_experiences"
+            },
+            {
+              "title": "Full summary",
+              "payload": "/ask_carbon_footprint"
+            },
+            {
+              "title": "Talk to a human advisor",
+              "payload": "/request_human_agent"
+            }
+          ]
+        }
+      ],
+      "ms": 85
+    },
+    {
+      "user": "give me the full summary",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "custom": {
+            "type": "trip_summary",
+            "origin": "Hamburg",
+            "destination": "Copenhagen",
+            "departure_date": "12 May 2027",
+            "return_date": "16 May 2027",
+            "nights": 4,
+            "travellers": 2,
+            "sustainability_level": "balanced",
+            "transport": {
+              "mode_key": "coach",
+              "label": "Long-distance coach",
+              "icon": "bus",
+              "distance_km": 360.8,
+              "kg_co2e_per_traveller": 9.8,
+              "kg_co2e_total": 19.6,
+              "cost_eur_per_traveller": 22,
+              "duration_h": 6.0,
+              "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+              "data_source": "offline_dataset",
+              "degraded": true,
+              "score": 0.83,
+              "band": "low",
+              "rationale": "Ranked mainly on emissions. Strong on emissions, cost and journey time.",
+              "savings_vs_worst_kg": 74.6,
+              "affordable": true,
+              "notes": []
+            },
+            "accommodation": {
+              "id": "cph-03",
+              "name": "Vesterbro Rail Hostel",
+              "cert": "Travelife",
+              "cert_tier": 2,
+              "price_eur": 71,
+              "energy": 0.66,
+              "single_use_plastic_free": false,
+              "transit_min": 2,
+              "local_sourcing": 0.45,
+              "water_saving": true,
+              "district": "Vesterbro",
+              "summary": "Budget rooms two minutes from København H, aimed at rail travellers.",
+              "cert_status": "verified",
+              "score": 0.773,
+              "band": "low",
+              "affordable": true,
+              "rationale": "Ranked for independently audited under Travelife, 2 min walk to public transport and among the cheaper options here.",
+              "notes": []
+            },
+            "footprint": {
+              "journey_kg_per_traveller": 19.6,
+              "stay_kg_per_traveller": 48.0,
+              "total_kg_per_traveller": 67.6,
+              "total_kg_group": 135.2,
+              "band": "moderate"
+            },
+            "estimated_cost_eur_per_traveller": 328,
+            "provenance": "Figures from the bundled demonstration dataset — illustrative, not live."
+          }
+        },
+        {
+          "recipient_id": "demo-01-short-city-break-1789749079",
+          "text": "All in, about **68 kg CO₂e per traveller** (135 kg for the group): 20 kg travelling and 48 kg for 4 nights of accommodation. Ask me how I worked that out any time.",
+          "buttons": [
+            {
+              "title": "How did you calculate this?",
+              "payload": "/ask_methodology"
+            },
+            {
+              "title": "Offset the remainder",
+              "payload": "/ask_carbon_offset"
+            },
+            {
+              "title": "Talk to a human advisor",
+              "payload": "/request_human_agent"
+            }
+          ]
+        }
+      ],
+      "ms": 88
+    }
+  ],
+  "02-strict-profile-long-distance": [
+    {
+      "user": "plan a trip from Berlin to Lisbon",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "When do you want to leave? A date like 12 May 2027, or something like \"in three weeks\", both work."
+        }
+      ],
+      "ms": 77
+    },
+    {
+      "user": "Berlin",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "I couldn't read that as a date. Try something like \"12 May 2027\", \"next Friday\" or \"in three weeks\"."
+        },
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "When do you want to leave? A date like 12 May 2027, or something like \"in three weeks\", both work."
+        }
+      ],
+      "ms": 68
+    },
+    {
+      "user": "3 June 2027",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "And when are you coming back?"
+        }
+      ],
+      "ms": 68
+    },
+    {
+      "user": "14 June 2027",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "Roughly what's your total budget for the trip, per person, in euros?",
+          "buttons": [
+            {
+              "title": "Under €300",
+              "payload": "/inform{\"budget\": 300}"
+            },
+            {
+              "title": "€300-700",
+              "payload": "/inform{\"budget\": 700}"
+            },
+            {
+              "title": "€700+",
+              "payload": "/inform{\"budget\": 1200}"
+            }
+          ]
+        }
+      ],
+      "ms": 65
+    },
+    {
+      "user": "just me",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "Roughly how much per person, in euros? A ballpark figure is enough — \"about 500\" works."
+        },
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "Roughly what's your total budget for the trip, per person, in euros?",
+          "buttons": [
+            {
+              "title": "Under €300",
+              "payload": "/inform{\"budget\": 300}"
+            },
+            {
+              "title": "€300-700",
+              "payload": "/inform{\"budget\": 700}"
+            },
+            {
+              "title": "€700+",
+              "payload": "/inform{\"budget\": 1200}"
+            }
+          ]
+        }
+      ],
+      "ms": 68
+    },
+    {
+      "user": "1200",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "Last one. How strictly do you want me to weight environmental impact against cost and travel time?",
+          "buttons": [
+            {
+              "title": "Strict — lowest emissions wins",
+              "payload": "/inform{\"sustainability_level\": \"strict\"}"
+            },
+            {
+              "title": "Balanced — trade off sensibly",
+              "payload": "/inform{\"sustainability_level\": \"balanced\"}"
+            },
+            {
+              "title": "Flexible — cost and time matter more",
+              "payload": "/inform{\"sustainability_level\": \"flexible\"}"
+            }
+          ]
+        }
+      ],
+      "ms": 68
+    },
+    {
+      "user": "strict, lowest emissions",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "You've asked for the strictest profile, so one extra question: should I also show carbon offset or contribution schemes for whatever emissions remain?\n\nI'll be straight with you — offsetting does not undo a flight, and the evidence on many offset projects is contested. Reducing emissions first is the part that reliably works.",
+          "buttons": [
+            {
+              "title": "Yes, show me offsets",
+              "payload": "/affirm"
+            },
+            {
+              "title": "No, reductions only",
+              "payload": "/deny"
+            }
+          ]
+        }
+      ],
+      "ms": 77
+    },
+    {
+      "user": "yes, show me offsets",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "I don't have your route yet, so this uses a placeholder of 250 kg CO₂e per traveller. Plan the trip first and I'll price it against your real figure."
+        },
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "Before offsets: offsetting does not undo a journey, and the evidence behind many credits is weak. Shifting one return short-haul flight to rail typically saves more CO2e than a year of average household recycling."
+        },
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "custom": {
+            "type": "offset_list",
+            "residual_kg_co2e": 250.0,
+            "providers": [
+              {
+                "id": "off-01",
+                "type": "Improved cookstove programme",
+                "standard": "Gold Standard",
+                "eur_per_tonne": 18.0,
+                "permanence": "n/a (avoided emissions)",
+                "confidence": "medium",
+                "caveat": "Avoided-emission credits depend on a counterfactual baseline that cannot be observed directly; usage rates are often lower than assumed.",
+                "estimated_cost_eur": 4.5
+              },
+              {
+                "id": "off-02",
+                "type": "Native woodland restoration",
+                "standard": "Verra VCS",
+                "eur_per_tonne": 24.0,
+                "permanence": "40-100 years, fire and disease risk",
+                "confidence": "low",
+                "caveat": "Forestry credits carry the weakest evidence base of the categories listed here. Sequestration is reversible and frequently over-estimated.",
+                "estimated_cost_eur": 6.0
+              },
+              {
+                "id": "off-03",
+                "type": "Biochar carbon removal",
+                "standard": "Puro.earth",
+                "eur_per_tonne": 135.0,
+                "permanence": "100-1000 years",
+                "confidence": "high",
+                "caveat": "Durable and measurable, but roughly six times the price of avoidance credits; supply is limited.",
+                "estimated_cost_eur": 33.75
+              },
+              {
+                "id": "off-04",
+                "type": "Enhanced rock weathering",
+                "standard": "EU Carbon Removals Certification Framework (pilot)",
+                "eur_per_tonne": 210.0,
+                "permanence": ">10 000 years",
+                "confidence": "medium",
+                "caveat": "Highly durable, but measurement of actual uptake in field conditions is still maturing.",
+                "estimated_cost_eur": 52.5
+              },
+              {
+                "id": "off-05",
+                "type": "Direct air capture with geological storage",
+                "standard": "Puro.earth / ISO 14064-2",
+                "eur_per_tonne": 380.0,
+                "permanence": ">10 000 years",
+                "confidence": "high",
+                "caveat": "The most rigorous option and the most expensive; capacity is a tiny fraction of voluntary-market demand.",
+                "estimated_cost_eur": 95.0
+              }
+            ],
+            "provenance": "Figures from the bundled demonstration dataset — illustrative, not live. Offsetting does not cancel a journey's emissions. Independent investigations of forestry-based credits have found substantial over-crediting, and permanence, additionality and leakage remain unresolved for most project types. The mitigation hierarchy applies: avoid the journey, then shift to a lower-carbon mode, then reduce what remains, and only then contribute to a climate project for the residual. This assistant therefore presents contributions AFTER reduction options, never instead of them."
+          }
+        }
+      ],
+      "ms": 111
+    },
+    {
+      "user": "how did you calculate that?",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "Here's exactly how the numbers are produced."
+        },
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "**Emissions.** Distance × a published emission factor per passenger-kilometre. Factors come from UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables, bundled offline in this build. Straight-line distance is multiplied by a route-circuity factor (1.20 rail, 1.25 road, 1.05 air plus a 40 km routing allowance), because trains and roads don't travel in straight lines."
+        },
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "**Ranking.** A weighted sum of three min-max normalised criteria. On your **strict** profile that's emissions 65%, cost 15%, journey time 20%. Options over your budget are demoted rather than hidden."
+        },
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "**Accommodation.** Ranked on certification credibility (audited against a GSTC-recognised standard beats audited, which beats self-declared), renewable electricity share, walking distance to transit, local sourcing and price."
+        },
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "**And what these numbers are not.**\n\nThey're fleet averages, not measurements of your specific journey — load factor, aircraft type and electricity mix all move the real figure. Accommodation emissions use a flat 12 kg per person per night, which is a rough European hotel average and nothing more. Availability, prices and certifications in this build come from a bundled demonstration dataset, so treat them as illustrative rather than bookable.\n\nIf a number matters to a real decision, check it against the operator's own reporting.",
+          "buttons": [
+            {
+              "title": "Carry on planning",
+              "payload": "/ask_transport_options"
+            },
+            {
+              "title": "Talk to a human advisor",
+              "payload": "/request_human_agent"
+            }
+          ]
+        },
+        {
+          "recipient_id": "demo-02-strict-profile-long-distance-1789749080",
+          "text": "You've asked for the strictest profile, so one extra question: should I also show carbon offset or contribution schemes for whatever emissions remain?\n\nI'll be straight with you — offsetting does not undo a flight, and the evidence on many offset projects is contested. Reducing emissions first is the part that reliably works.",
+          "buttons": [
+            {
+              "title": "Yes, show me offsets",
+              "payload": "/affirm"
+            },
+            {
+              "title": "No, reductions only",
+              "payload": "/deny"
+            }
+          ]
+        }
+      ],
+      "ms": 108
+    }
+  ],
+  "03-transparency-and-scepticism": [
+    {
+      "user": "hello",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-03-transparency-and-scepticism-1789749081",
+          "text": "Hi — I'm the Eco-Travel Advisor. I help you plan a trip with a much smaller carbon footprint: low-emission routes, certified accommodation and local experiences that keep money in the community.\n\nI'll estimate emissions for each option and show you exactly how I got the number. Where would you like to go?",
+          "buttons": [
+            {
+              "title": "Plan a trip",
+              "payload": "/plan_trip"
+            },
+            {
+              "title": "Compare travel emissions",
+              "payload": "/ask_carbon_footprint"
+            },
+            {
+              "title": "How do you calculate this?",
+              "payload": "/ask_methodology"
+            }
+          ]
+        }
+      ],
+      "ms": 44
+    },
+    {
+      "user": "is carbon offsetting actually a scam?",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-03-transparency-and-scepticism-1789749081",
+          "text": "I don't have your route yet, so this uses a placeholder of 250 kg CO₂e per traveller. Plan the trip first and I'll price it against your real figure."
+        },
+        {
+          "recipient_id": "demo-03-transparency-and-scepticism-1789749081",
+          "text": "Before offsets: offsetting does not undo a journey, and the evidence behind many credits is weak. Shifting one return short-haul flight to rail typically saves more CO2e than a year of average household recycling."
+        },
+        {
+          "recipient_id": "demo-03-transparency-and-scepticism-1789749081",
+          "custom": {
+            "type": "offset_list",
+            "residual_kg_co2e": 250.0,
+            "providers": [
+              {
+                "id": "off-01",
+                "type": "Improved cookstove programme",
+                "standard": "Gold Standard",
+                "eur_per_tonne": 18.0,
+                "permanence": "n/a (avoided emissions)",
+                "confidence": "medium",
+                "caveat": "Avoided-emission credits depend on a counterfactual baseline that cannot be observed directly; usage rates are often lower than assumed.",
+                "estimated_cost_eur": 4.5
+              },
+              {
+                "id": "off-02",
+                "type": "Native woodland restoration",
+                "standard": "Verra VCS",
+                "eur_per_tonne": 24.0,
+                "permanence": "40-100 years, fire and disease risk",
+                "confidence": "low",
+                "caveat": "Forestry credits carry the weakest evidence base of the categories listed here. Sequestration is reversible and frequently over-estimated.",
+                "estimated_cost_eur": 6.0
+              },
+              {
+                "id": "off-03",
+                "type": "Biochar carbon removal",
+                "standard": "Puro.earth",
+                "eur_per_tonne": 135.0,
+                "permanence": "100-1000 years",
+                "confidence": "high",
+                "caveat": "Durable and measurable, but roughly six times the price of avoidance credits; supply is limited.",
+                "estimated_cost_eur": 33.75
+              },
+              {
+                "id": "off-04",
+                "type": "Enhanced rock weathering",
+                "standard": "EU Carbon Removals Certification Framework (pilot)",
+                "eur_per_tonne": 210.0,
+                "permanence": ">10 000 years",
+                "confidence": "medium",
+                "caveat": "Highly durable, but measurement of actual uptake in field conditions is still maturing.",
+                "estimated_cost_eur": 52.5
+              },
+              {
+                "id": "off-05",
+                "type": "Direct air capture with geological storage",
+                "standard": "Puro.earth / ISO 14064-2",
+                "eur_per_tonne": 380.0,
+                "permanence": ">10 000 years",
+                "confidence": "high",
+                "caveat": "The most rigorous option and the most expensive; capacity is a tiny fraction of voluntary-market demand.",
+                "estimated_cost_eur": 95.0
+              }
+            ],
+            "provenance": "Figures from the bundled demonstration dataset — illustrative, not live. Offsetting does not cancel a journey's emissions. Independent investigations of forestry-based credits have found substantial over-crediting, and permanence, additionality and leakage remain unresolved for most project types. The mitigation hierarchy applies: avoid the journey, then shift to a lower-carbon mode, then reduce what remains, and only then contribute to a climate project for the residual. This assistant therefore presents contributions AFTER reduction options, never instead of them."
+          }
+        }
+      ],
+      "ms": 78
+    },
+    {
+      "user": "where do your numbers come from?",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-03-transparency-and-scepticism-1789749081",
+          "text": "Here's exactly how the numbers are produced."
+        },
+        {
+          "recipient_id": "demo-03-transparency-and-scepticism-1789749081",
+          "text": "**Emissions.** Distance × a published emission factor per passenger-kilometre. Factors come from UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables, bundled offline in this build. Straight-line distance is multiplied by a route-circuity factor (1.20 rail, 1.25 road, 1.05 air plus a 40 km routing allowance), because trains and roads don't travel in straight lines."
+        },
+        {
+          "recipient_id": "demo-03-transparency-and-scepticism-1789749081",
+          "text": "**Ranking.** A weighted sum of three min-max normalised criteria. On your **balanced** profile that's emissions 40%, cost 30%, journey time 30%. Options over your budget are demoted rather than hidden."
+        },
+        {
+          "recipient_id": "demo-03-transparency-and-scepticism-1789749081",
+          "text": "**Accommodation.** Ranked on certification credibility (audited against a GSTC-recognised standard beats audited, which beats self-declared), renewable electricity share, walking distance to transit, local sourcing and price."
+        },
+        {
+          "recipient_id": "demo-03-transparency-and-scepticism-1789749081",
+          "text": "**And what these numbers are not.**\n\nThey're fleet averages, not measurements of your specific journey — load factor, aircraft type and electricity mix all move the real figure. Accommodation emissions use a flat 12 kg per person per night, which is a rough European hotel average and nothing more. Availability, prices and certifications in this build come from a bundled demonstration dataset, so treat them as illustrative rather than bookable.\n\nIf a number matters to a real decision, check it against the operator's own reporting.",
+          "buttons": [
+            {
+              "title": "Carry on planning",
+              "payload": "/ask_transport_options"
+            },
+            {
+              "title": "Talk to a human advisor",
+              "payload": "/request_human_agent"
+            }
+          ]
+        }
+      ],
+      "ms": 69
+    },
+    {
+      "user": "what do you do with my data?",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-03-transparency-and-scepticism-1789749081",
+          "text": "**What I hold.** Only what you've told me for this trip: origin, destination, dates, group size, budget and your sustainability preference. If you shared your location, it's used to work out a starting point and is not kept afterwards.\n\n**Where it goes.** Nowhere, unless you ask for a human advisor — and then only the trip brief, the options I showed you and a transcript, with email addresses, phone numbers and ID-like numbers stripped out automatically before sending.\n\n**How long.** The conversation is held in memory for this session and expires after 60 minutes of inactivity. There's no advertising or profiling on any of it.\n\n**Your rights.** Say \"start over\" and I'll erase everything I'm holding right now.",
+          "buttons": [
+            {
+              "title": "Erase and start over",
+              "payload": "/restart_planning"
+            },
+            {
+              "title": "Carry on planning",
+              "payload": "/plan_trip"
+            }
+          ]
+        }
+      ],
+      "ms": 73
+    }
+  ],
+  "04-error-recovery-and-escalation": [
+    {
+      "user": "hi",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-04-error-recovery-and-escalation-1789749081",
+          "text": "Hi — I'm the Eco-Travel Advisor. I help you plan a trip with a much smaller carbon footprint: low-emission routes, certified accommodation and local experiences that keep money in the community.\n\nI'll estimate emissions for each option and show you exactly how I got the number. Where would you like to go?",
+          "buttons": [
+            {
+              "title": "Plan a trip",
+              "payload": "/plan_trip"
+            },
+            {
+              "title": "Compare travel emissions",
+              "payload": "/ask_carbon_footprint"
+            },
+            {
+              "title": "How do you calculate this?",
+              "payload": "/ask_methodology"
+            }
+          ]
+        }
+      ],
+      "ms": 37
+    },
+    {
+      "user": "qwtx blorp zzz",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-04-error-recovery-and-escalation-1789749081",
+          "text": "That's outside what I can help with — I'm limited to sustainable travel planning: routes, emissions, accommodation, local experiences and offsets.\n\nWould you like me to pass you to a human advisor instead?",
+          "buttons": [
+            {
+              "title": "Yes, a human please",
+              "payload": "/request_human_agent"
+            },
+            {
+              "title": "No, back to the trip",
+              "payload": "/plan_trip"
+            }
+          ]
+        }
+      ],
+      "ms": 35
+    },
+    {
+      "user": "asdfgh jjjj",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-04-error-recovery-and-escalation-1789749081",
+          "text": "That's outside what I can help with — I'm limited to sustainable travel planning: routes, emissions, accommodation, local experiences and offsets.\n\nWould you like me to pass you to a human advisor instead?",
+          "buttons": [
+            {
+              "title": "Yes, a human please",
+              "payload": "/request_human_agent"
+            },
+            {
+              "title": "No, back to the trip",
+              "payload": "/plan_trip"
+            }
+          ]
+        }
+      ],
+      "ms": 34
+    },
+    {
+      "user": "mmmmm nnnn",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-04-error-recovery-and-escalation-1789749081",
+          "text": "That's outside what I can help with — I'm limited to sustainable travel planning: routes, emissions, accommodation, local experiences and offsets.\n\nWould you like me to pass you to a human advisor instead?",
+          "buttons": [
+            {
+              "title": "Yes, a human please",
+              "payload": "/request_human_agent"
+            },
+            {
+              "title": "No, back to the trip",
+              "payload": "/plan_trip"
+            }
+          ]
+        }
+      ],
+      "ms": 34
+    }
+  ],
+  "05-rejects-bad-input": [
+    {
+      "user": "I want to plan a trip",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "Where would you like to travel to?",
+          "buttons": [
+            {
+              "title": "Lisbon",
+              "payload": "/inform{\"city\": \"Lisbon\"}"
+            },
+            {
+              "title": "Copenhagen",
+              "payload": "/inform{\"city\": \"Copenhagen\"}"
+            },
+            {
+              "title": "Ljubljana",
+              "payload": "/inform{\"city\": \"Ljubljana\"}"
+            },
+            {
+              "title": "Somewhere else",
+              "payload": "/inform"
+            }
+          ]
+        }
+      ],
+      "ms": 68
+    },
+    {
+      "user": "Atlantis",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "I couldn't find \"Atlantis\". I cover European cities — try the city name on its own, for example \"Lisbon\" or \"Ljubljana\".",
+          "buttons": [
+            {
+              "title": "Lisbon",
+              "payload": "/inform{{\"city\": \"Lisbon\"}}"
+            },
+            {
+              "title": "Copenhagen",
+              "payload": "/inform{{\"city\": \"Copenhagen\"}}"
+            },
+            {
+              "title": "Talk to a human",
+              "payload": "/request_human_agent"
+            }
+          ]
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "Where would you like to travel to?",
+          "buttons": [
+            {
+              "title": "Lisbon",
+              "payload": "/inform{\"city\": \"Lisbon\"}"
+            },
+            {
+              "title": "Copenhagen",
+              "payload": "/inform{\"city\": \"Copenhagen\"}"
+            },
+            {
+              "title": "Ljubljana",
+              "payload": "/inform{\"city\": \"Ljubljana\"}"
+            },
+            {
+              "title": "Somewhere else",
+              "payload": "/inform"
+            }
+          ]
+        }
+      ],
+      "ms": 73
+    },
+    {
+      "user": "Lisbon",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "And where are you starting from? You can share your location instead if that's easier.",
+          "buttons": [
+            {
+              "title": "Use my location",
+              "payload": "/share_location"
+            }
+          ]
+        }
+      ],
+      "ms": 77
+    },
+    {
+      "user": "Lisbon",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "That's the same as your destination. Where are you actually setting off from?"
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "And where are you starting from? You can share your location instead if that's easier.",
+          "buttons": [
+            {
+              "title": "Use my location",
+              "payload": "/share_location"
+            }
+          ]
+        }
+      ],
+      "ms": 63
+    },
+    {
+      "user": "Berlin",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "When do you want to leave? A date like 12 May 2027, or something like \"in three weeks\", both work."
+        }
+      ],
+      "ms": 64
+    },
+    {
+      "user": "banana",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "I couldn't read that as a date. Try something like \"12 May 2027\", \"next Friday\" or \"in three weeks\"."
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "When do you want to leave? A date like 12 May 2027, or something like \"in three weeks\", both work."
+        }
+      ],
+      "ms": 68
+    },
+    {
+      "user": "12 May 2027",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "And when are you coming back?"
+        }
+      ],
+      "ms": 70
+    },
+    {
+      "user": "1 January 2020",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "1 January 2020 has already passed. When would you like to leave?"
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "When do you want to leave? A date like 12 May 2027, or something like \"in three weeks\", both work."
+        }
+      ],
+      "ms": 74
+    },
+    {
+      "user": "19 May 2027",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "Roughly what's your total budget for the trip, per person, in euros?",
+          "buttons": [
+            {
+              "title": "Under €300",
+              "payload": "/inform{\"budget\": 300}"
+            },
+            {
+              "title": "€300-700",
+              "payload": "/inform{\"budget\": 700}"
+            },
+            {
+              "title": "€700+",
+              "payload": "/inform{\"budget\": 1200}"
+            }
+          ]
+        }
+      ],
+      "ms": 72
+    },
+    {
+      "user": "fifty people",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "How many people are travelling in total? A number is fine."
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "Roughly how much per person, in euros? A ballpark figure is enough — \"about 500\" works."
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "How many people are travelling?",
+          "buttons": [
+            {
+              "title": "Just me",
+              "payload": "/inform{\"travellers\": 1}"
+            },
+            {
+              "title": "2",
+              "payload": "/inform{\"travellers\": 2}"
+            },
+            {
+              "title": "3-4",
+              "payload": "/inform{\"travellers\": 4}"
+            }
+          ]
+        }
+      ],
+      "ms": 75
+    },
+    {
+      "user": "2",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "Roughly what's your total budget for the trip, per person, in euros?",
+          "buttons": [
+            {
+              "title": "Under €300",
+              "payload": "/inform{\"budget\": 300}"
+            },
+            {
+              "title": "€300-700",
+              "payload": "/inform{\"budget\": 700}"
+            },
+            {
+              "title": "€700+",
+              "payload": "/inform{\"budget\": 1200}"
+            }
+          ]
+        }
+      ],
+      "ms": 74
+    },
+    {
+      "user": "500",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "Last one. How strictly do you want me to weight environmental impact against cost and travel time?",
+          "buttons": [
+            {
+              "title": "Strict — lowest emissions wins",
+              "payload": "/inform{\"sustainability_level\": \"strict\"}"
+            },
+            {
+              "title": "Balanced — trade off sensibly",
+              "payload": "/inform{\"sustainability_level\": \"balanced\"}"
+            },
+            {
+              "title": "Flexible — cost and time matter more",
+              "payload": "/inform{\"sustainability_level\": \"flexible\"}"
+            }
+          ]
+        }
+      ],
+      "ms": 77
+    },
+    {
+      "user": "strict",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "You've asked for the strictest profile, so one extra question: should I also show carbon offset or contribution schemes for whatever emissions remain?\n\nI'll be straight with you — offsetting does not undo a flight, and the evidence on many offset projects is contested. Reducing emissions first is the part that reliably works.",
+          "buttons": [
+            {
+              "title": "Yes, show me offsets",
+              "payload": "/affirm"
+            },
+            {
+              "title": "No, reductions only",
+              "payload": "/deny"
+            }
+          ]
+        }
+      ],
+      "ms": 76
+    },
+    {
+      "user": "no",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "Got it. Working out your options now — one moment."
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "Berlin to Lisbon is about 2312 km in a straight line. Here's how the options compare for 2 travellers, weighted for a **strict** profile."
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "custom": {
+            "type": "transport_options",
+            "origin": "Berlin",
+            "destination": "Lisbon",
+            "travellers": 2,
+            "sustainability_level": "strict",
+            "weights": {
+              "carbon": 0.65,
+              "cost": 0.15,
+              "time": 0.2
+            },
+            "options": [
+              {
+                "mode_key": "rail_highspeed",
+                "label": "High-speed rail",
+                "icon": "train",
+                "distance_km": 2774.6,
+                "kg_co2e_per_traveller": 38.8,
+                "kg_co2e_total": 77.7,
+                "cost_eur_per_traveller": 444,
+                "duration_h": 16.2,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.801,
+                "band": "moderate",
+                "rationale": "Ranked mainly on emissions. Strong on emissions and journey time. Weaker on cost.",
+                "savings_vs_worst_kg": 455.4,
+                "affordable": true,
+                "notes": [
+                  "Assumes a multi-leg itinerary with connections."
+                ]
+              },
+              {
+                "mode_key": "rail_night",
+                "label": "Night train (sleeper)",
+                "icon": "train",
+                "distance_km": 2774.6,
+                "kg_co2e_per_traveller": 68.5,
+                "kg_co2e_total": 136.9,
+                "cost_eur_per_traveller": 210,
+                "duration_h": 40.4,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.734,
+                "band": "moderate",
+                "rationale": "Ranked mainly on emissions. Strong on emissions and cost. Weaker on journey time.",
+                "savings_vs_worst_kg": 425.8,
+                "affordable": true,
+                "notes": [
+                  "Net of 12 kg CO₂e for the hotel night it replaces.",
+                  "Assumes a multi-leg itinerary with connections."
+                ]
+              },
+              {
+                "mode_key": "coach",
+                "label": "Long-distance coach",
+                "icon": "bus",
+                "distance_km": 2890.2,
+                "kg_co2e_per_traveller": 78.3,
+                "kg_co2e_total": 156.6,
+                "cost_eur_per_traveller": 173,
+                "duration_h": 45.0,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.712,
+                "band": "moderate",
+                "rationale": "Ranked mainly on emissions. Strong on emissions and cost. Weaker on journey time.",
+                "savings_vs_worst_kg": 415.9,
+                "affordable": true,
+                "notes": [
+                  "Assumes a multi-leg itinerary with connections."
+                ]
+              },
+              {
+                "mode_key": "car_electric",
+                "label": "Electric car (EU grid)",
+                "icon": "car",
+                "distance_km": 2890.2,
+                "kg_co2e_per_traveller": 136.7,
+                "kg_co2e_total": 273.4,
+                "cost_eur_per_traveller": 260,
+                "duration_h": 34.2,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.647,
+                "band": "high",
+                "rationale": "Ranked mainly on emissions. Strong on emissions. Weaker on journey time.",
+                "savings_vs_worst_kg": 357.5,
+                "affordable": true,
+                "notes": []
+              },
+              {
+                "mode_key": "car_petrol_shared",
+                "label": "Petrol car (2 people)",
+                "icon": "car",
+                "distance_km": 2890.2,
+                "kg_co2e_per_traveller": 247.1,
+                "kg_co2e_total": 494.2,
+                "cost_eur_per_traveller": 101,
+                "duration_h": 34.2,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.559,
+                "band": "high",
+                "rationale": "Ranked mainly on emissions. Strong on cost. Weaker on journey time.",
+                "savings_vs_worst_kg": 247.1,
+                "affordable": true,
+                "notes": []
+              },
+              {
+                "mode_key": "flight_short_haul",
+                "label": "Short-haul flight",
+                "icon": "plane",
+                "distance_km": 2467.7,
+                "kg_co2e_per_traveller": 372.6,
+                "kg_co2e_total": 745.2,
+                "cost_eur_per_traveller": 321,
+                "duration_h": 6.8,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.427,
+                "band": "high",
+                "rationale": "Ranked mainly on journey time. Strong on journey time. Weaker on emissions.",
+                "savings_vs_worst_kg": 121.6,
+                "affordable": true,
+                "notes": []
+              },
+              {
+                "mode_key": "car_petrol",
+                "label": "Petrol car (1 person)",
+                "icon": "car",
+                "distance_km": 2890.2,
+                "kg_co2e_per_traveller": 494.2,
+                "kg_co2e_total": 988.4,
+                "cost_eur_per_traveller": 405,
+                "duration_h": 34.2,
+                "factor_source": "UK DESNZ/DEFRA Greenhouse Gas Reporting: Conversion Factors 2023, business travel tables",
+                "data_source": "offline_dataset",
+                "degraded": true,
+                "score": 0.073,
+                "band": "high",
+                "rationale": "Ranked mainly on journey time. Weaker on emissions, cost and journey time.",
+                "savings_vs_worst_kg": 0.0,
+                "affordable": true,
+                "notes": []
+              }
+            ],
+            "provenance": "Figures from the bundled demonstration dataset — illustrative, not live."
+          }
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "**High-speed rail** comes out on top: about **39 kg CO₂e** per person, €444, roughly 16 hours door to door. That's 455 kg less per person than petrol car (1 person) — 911 kg across your group."
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "custom": {
+            "type": "alert",
+            "level": "warning",
+            "title": "High-emission options in this list",
+            "body": "Electric car (EU grid), Petrol car (2 people), Short-haul flight exceed 120 kg CO₂e per person for this journey."
+          }
+        },
+        {
+          "recipient_id": "demo-05-rejects-bad-input-1789749081",
+          "text": "What would you like to look at next?",
+          "buttons": [
+            {
+              "title": "Places to stay",
+              "payload": "/ask_eco_hotels"
+            },
+            {
+              "title": "Things to do",
+              "payload": "/ask_cultural_experiences"
+            },
+            {
+              "title": "Full summary",
+              "payload": "/ask_carbon_footprint"
+            },
+            {
+              "title": "Talk to a human advisor",
+              "payload": "/request_human_agent"
+            }
+          ]
+        }
+      ],
+      "ms": 178
+    }
+  ],
+  "06-location-sharing": [
+    {
+      "user": "plan a trip",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-06-location-sharing-1789749082",
+          "text": "Where would you like to travel to?",
+          "buttons": [
+            {
+              "title": "Lisbon",
+              "payload": "/inform{\"city\": \"Lisbon\"}"
+            },
+            {
+              "title": "Copenhagen",
+              "payload": "/inform{\"city\": \"Copenhagen\"}"
+            },
+            {
+              "title": "Ljubljana",
+              "payload": "/inform{\"city\": \"Ljubljana\"}"
+            },
+            {
+              "title": "Somewhere else",
+              "payload": "/inform"
+            }
+          ]
+        }
+      ],
+      "ms": 66
+    },
+    {
+      "user": "Vienna",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-06-location-sharing-1789749082",
+          "text": "And where are you starting from? You can share your location instead if that's easier.",
+          "buttons": [
+            {
+              "title": "Use my location",
+              "payload": "/share_location"
+            }
+          ]
+        }
+      ],
+      "ms": 65
+    },
+    {
+      "user": "/share_location",
+      "metadata": {
+        "location": {
+          "latitude": 52.52,
+          "longitude": 13.4
+        }
+      },
+      "responses": [
+        {
+          "recipient_id": "demo-06-location-sharing-1789749082",
+          "text": "Thanks — I've got you near Berlin."
+        },
+        {
+          "recipient_id": "demo-06-location-sharing-1789749082",
+          "text": "When do you want to leave? A date like 12 May 2027, or something like \"in three weeks\", both work."
+        }
+      ],
+      "ms": 66
+    }
+  ],
+  "07-mid-form-escalation": [
+    {
+      "user": "help me plan a holiday",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-07-mid-form-escalation-1789749082",
+          "text": "Where would you like to travel to?",
+          "buttons": [
+            {
+              "title": "Lisbon",
+              "payload": "/inform{\"city\": \"Lisbon\"}"
+            },
+            {
+              "title": "Copenhagen",
+              "payload": "/inform{\"city\": \"Copenhagen\"}"
+            },
+            {
+              "title": "Ljubljana",
+              "payload": "/inform{\"city\": \"Ljubljana\"}"
+            },
+            {
+              "title": "Somewhere else",
+              "payload": "/inform"
+            }
+          ]
+        }
+      ],
+      "ms": 65
+    },
+    {
+      "user": "Porto",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-07-mid-form-escalation-1789749082",
+          "text": "And where are you starting from? You can share your location instead if that's easier.",
+          "buttons": [
+            {
+              "title": "Use my location",
+              "payload": "/share_location"
+            }
+          ]
+        }
+      ],
+      "ms": 63
+    },
+    {
+      "user": "this is too fiddly, get me a human",
+      "metadata": null,
+      "responses": [
+        {
+          "recipient_id": "demo-07-mid-form-escalation-1789749082",
+          "text": "I couldn't find \"this is too fiddly, get me a human\". I cover European cities — try the city name on its own, for example \"Lisbon\" or \"Ljubljana\".",
+          "buttons": [
+            {
+              "title": "Lisbon",
+              "payload": "/inform{{\"city\": \"Lisbon\"}}"
+            },
+            {
+              "title": "Copenhagen",
+              "payload": "/inform{{\"city\": \"Copenhagen\"}}"
+            },
+            {
+              "title": "Talk to a human",
+              "payload": "/request_human_agent"
+            }
+          ]
+        },
+        {
+          "recipient_id": "demo-07-mid-form-escalation-1789749082",
+          "text": "And where are you starting from? You can share your location instead if that's easier.",
+          "buttons": [
+            {
+              "title": "Use my location",
+              "payload": "/share_location"
+            }
+          ]
+        }
+      ],
+      "ms": 68
+    }
+  ]
+}

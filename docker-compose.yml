@@ -1,0 +1,63 @@
+# ---------------------------------------------------------------------------
+# Eco-Travel Advisor — full stack.
+#
+#   docker compose up --build
+#   → http://localhost:3000
+#
+# Only the frontend publishes a port. Rasa and the action server talk to each
+# other on the internal network, which keeps the action server (the process
+# holding every API key) unreachable from the host.
+# ---------------------------------------------------------------------------
+services:
+  rasa:
+    build:
+      context: .
+      dockerfile: Dockerfile.rasa
+    container_name: eco-rasa
+    depends_on:
+      actions:
+        condition: service_healthy
+    networks: [eco]
+    restart: unless-stopped
+    # Published only so `rasa shell` and the evaluation scripts can reach it
+    # from the host during development. Remove this block for a real deployment.
+    ports:
+      - "127.0.0.1:5005:5005"
+
+  actions:
+    build:
+      context: .
+      dockerfile: Dockerfile.actions
+    container_name: eco-actions
+    environment:
+      # Every key is optional. Absent → the bundled offline datasets are used
+      # and the assistant says so in the UI rather than pretending otherwise.
+      CLIMATIQ_API_KEY: ${CLIMATIQ_API_KEY:-}
+      CLIMATIQ_DATA_VERSION: ${CLIMATIQ_DATA_VERSION:-^19}
+      AMADEUS_CLIENT_ID: ${AMADEUS_CLIENT_ID:-}
+      AMADEUS_CLIENT_SECRET: ${AMADEUS_CLIENT_SECRET:-}
+      AMADEUS_BASE_URL: ${AMADEUS_BASE_URL:-https://test.api.amadeus.com}
+      OPENCAGE_API_KEY: ${OPENCAGE_API_KEY:-}
+      OPENROUTESERVICE_API_KEY: ${OPENROUTESERVICE_API_KEY:-}
+      HANDOVER_WEBHOOK_URL: ${HANDOVER_WEBHOOK_URL:-}
+      ECO_HTTP_TIMEOUT: ${ECO_HTTP_TIMEOUT:-2.0}
+    networks: [eco]
+    restart: unless-stopped
+    # No `ports:` on purpose — see the header comment.
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_RASA_URL: /rasa
+    container_name: eco-frontend
+    depends_on: [rasa]
+    ports:
+      - "3000:80"
+    networks: [eco]
+    restart: unless-stopped
+
+networks:
+  eco:
+    driver: bridge

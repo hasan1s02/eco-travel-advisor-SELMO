@@ -1,0 +1,8 @@
+# Rasa endpoint configuration.
+#
+# Rasa's env-var expansion does not support inline defaults, so this file holds
+# the value that works for local development. Dockerfile.rasa rewrites it to
+# point at the `actions` service, and the Spaces image rewrites it to localhost
+# inside the single container. See both Dockerfiles.
+action_endpoint:
+  url: "http://localhost:5055/webhook"

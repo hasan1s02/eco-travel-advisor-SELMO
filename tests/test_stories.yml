@@ -1,0 +1,252 @@
+#  End-to-end conversation tests.
+#
+#  Run with the action server up:
+#      rasa run actions --actions actions.actions &
+#      rasa test core --stories tests/test_stories.yml --e2e --out docs/metrics
+#
+#  These are written end-to-end (real user text, annotated intent) rather than
+#  intent-only, so a regression in either NLU or dialogue management fails the
+#  suite. Utterances here deliberately do NOT appear verbatim in data/nlu.yml —
+#  a test the model has memorised proves nothing.
+
+version: "3.1"
+
+stories:
+
+# ---------------------------------------------------------------------------
+# Happy path through the whole intake, then each recommendation surface
+# ---------------------------------------------------------------------------
+- story: test complete city-break planning journey
+  steps:
+    - user: |
+        good evening
+      intent: greet
+    - action: utter_greet
+    - user: |
+        I'd like to organise a low carbon city break
+      intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - slot_was_set:
+        - requested_slot: destination
+    # Inside an active loop every user turn is answered by the form itself, so
+    # each one is followed by `action: trip_form`. Omitting that step leaves the
+    # simulated tracker in a state no story models, and the core fallback fires
+    # on input the NLU understood perfectly — which is exactly what the first
+    # version of this file did.
+    - user: |
+        [Copenhagen](city)
+      intent: inform
+    - action: trip_form
+    - slot_was_set:
+        - destination: Copenhagen
+        - requested_slot: origin
+    - user: |
+        I'm setting off from [Hamburg](city)
+      intent: inform
+    - action: trip_form
+    - slot_was_set:
+        - origin: Hamburg
+        - requested_slot: departure_date
+    - user: |
+        [12 May 2027](travel_date)
+      intent: inform
+    - action: trip_form
+    - slot_was_set:
+        - departure_date: "2027-05-12"
+        - requested_slot: return_date
+    - user: |
+        back on [16 May 2027](travel_date)
+      intent: inform
+    - action: trip_form
+    - slot_was_set:
+        - return_date: "2027-05-16"
+        - requested_slot: travellers
+    - user: |
+        [2](travellers)
+      intent: inform
+    - action: trip_form
+    - slot_was_set:
+        - travellers: 2.0
+        - requested_slot: budget
+    - user: |
+        about [700](budget) euros
+      intent: inform
+    - action: trip_form
+    - slot_was_set:
+        - budget: 700.0
+        - requested_slot: sustainability_level
+    - user: |
+        [balanced](sustainability_level) please
+      intent: inform
+    - action: trip_form
+    - slot_was_set:
+        - sustainability_level: balanced
+        - requested_slot: null
+    - active_loop: null
+    - action: utter_intake_complete
+    - action: action_resolve_locations
+    - action: action_compare_transport
+    - action: utter_ask_continue_planning
+    - user: |
+        find me somewhere sustainable to sleep
+      intent: ask_eco_hotels
+    - action: action_recommend_hotels
+    - action: utter_ask_continue_planning
+    - user: |
+        what's worth doing while I'm there
+      intent: ask_cultural_experiences
+    - action: action_recommend_experiences
+    - action: utter_ask_continue_planning
+    - user: |
+        give me the whole plan
+      intent: ask_carbon_footprint
+    - action: action_trip_summary
+
+# ---------------------------------------------------------------------------
+# Transparency: the assistant must be able to justify itself at any point
+# ---------------------------------------------------------------------------
+- story: test methodology challenge mid-intake then resumes
+  steps:
+    - user: |
+        plan me a responsible trip
+      intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - user: |
+        hang on, where do your numbers actually come from?
+      intent: ask_methodology
+    - action: action_explain_methodology
+    - action: trip_form
+    - active_loop: trip_form
+
+- story: test privacy question is answerable from a cold start
+  steps:
+    - user: |
+        before anything else, what happens to my data?
+      intent: ask_data_privacy
+    - action: action_explain_privacy
+
+- story: test offsetting scepticism gets an honest answer
+  steps:
+    - user: |
+        is carbon offsetting actually a scam
+      intent: ask_carbon_offset
+    - action: action_recommend_offsets
+    - user: |
+        how did you work that out
+      intent: ask_methodology
+    - action: action_explain_methodology
+
+- story: test bot discloses that it is automated
+  steps:
+    - user: |
+        wait, am I talking to a real travel agent?
+      intent: bot_challenge
+    - action: utter_iamabot
+
+# ---------------------------------------------------------------------------
+# Escalation
+# ---------------------------------------------------------------------------
+- story: test escalation from a cold start
+  steps:
+    - user: |
+        I'd rather speak to an actual person
+      intent: request_human_agent
+    - action: action_handover_to_human
+
+- story: test escalation interrupts the intake form
+  steps:
+    - user: |
+        help me plan a holiday
+      intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - user: |
+        this is too fiddly, get me a human
+      intent: request_human_agent
+    - action: action_handover_to_human
+    - action: action_deactivate_loop
+    - active_loop: null
+
+- story: test out-of-scope request offers a human and the user accepts
+  steps:
+    - user: |
+        can you sort out my travel insurance
+      intent: out_of_scope
+    - action: utter_out_of_scope
+    - user: |
+        yes please
+      intent: affirm
+    - action: action_handover_to_human
+
+# ---------------------------------------------------------------------------
+# Error recovery and abandonment
+# ---------------------------------------------------------------------------
+- story: test user abandons the form and comes back later
+  steps:
+    - user: |
+        I want to plan a trip
+      intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+    - user: |
+        actually stop, not now
+      intent: stop
+    - action: utter_stop_form
+    - action: action_deactivate_loop
+    - active_loop: null
+    - user: |
+        ok let's plan that trip after all
+      intent: plan_trip
+    - action: trip_form
+    - active_loop: trip_form
+
+- story: test reset wipes the conversation
+  steps:
+    - user: |
+        scrap all that and start from scratch
+      intent: restart_planning
+    - action: action_reset_planning
+
+# ---------------------------------------------------------------------------
+# Degrading gracefully with no trip on file
+# ---------------------------------------------------------------------------
+- story: test accommodation request with no destination yet
+  steps:
+    - user: |
+        show me some green hotels
+      intent: ask_eco_hotels
+    - action: action_recommend_hotels
+
+- story: test summary request with nothing to summarise
+  steps:
+    - user: |
+        what's my total footprint
+      intent: ask_carbon_footprint
+    - action: action_trip_summary
+
+- story: test transport question before any intake
+  steps:
+    - user: |
+        hello
+      intent: greet
+    - action: utter_greet
+    - user: |
+        what's the greenest way to get around
+      intent: ask_transport_options
+    - action: action_compare_transport
+
+# ---------------------------------------------------------------------------
+# Closing
+# ---------------------------------------------------------------------------
+- story: test thanks and goodbye
+  steps:
+    - user: |
+        that was really useful, thank you
+      intent: thanks
+    - action: utter_thanks
+    - user: |
+        right, I'm off
+      intent: goodbye
+    - action: utter_goodbye

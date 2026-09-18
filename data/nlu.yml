@@ -1,0 +1,1128 @@
+version: "3.1"
+
+# ===========================================================================
+# NLU training data
+#
+# Intent boundaries are enforced deliberately, because the first evaluation of
+# this assistant scored 0.67 accuracy under 5-fold cross-validation and the
+# error analysis showed the cause was overlapping intent definitions rather
+# than model capacity. The rules now applied:
+#
+#   plan_trip         must ask for planning/organising/arranging a trip
+#   inform            bare values and short value statements only
+#   change_preference must contain a change verb AND name a field
+#   restart_planning  must ask to start over, not to change one thing
+#   stop              must ask to halt the current questioning
+#   deny              disagreement or refusal of an offer, never halting
+#   goodbye           farewell only, never combined with thanks
+#   thanks            gratitude only, never combined with a farewell
+#   ask_methodology   about sources, calculation and trustworthiness
+#   ask_data_privacy  about personal data handling specifically
+#   out_of_scope      clearly outside sustainable travel planning, INCLUDING
+#                     keyboard mash and nonsense
+#
+# That last point is a finding rather than a preference. DIET with
+# constrain_similarities produces confidences at or near 1.000 even for pure
+# gibberish -- "mmmmm nnnn" was classified as `greet` at 1.000 -- so a
+# FallbackClassifier threshold alone never fires and cannot be relied on as the
+# error-recovery mechanism. Nonsense is therefore trained explicitly as
+# out_of_scope, which routes it to a response that offers a human, and the
+# RulePolicy core fallback remains as the second, independent safety net.
+# ===========================================================================
+
+nlu:
+# ---------------------------------------------------------------------------
+# Social / meta
+# ---------------------------------------------------------------------------
+- intent: greet
+  examples: |
+    - hi
+    - hey
+    - hello
+    - hey there
+    - hi there
+    - hello there
+    - good morning
+    - good afternoon
+    - good evening
+    - morning
+    - evening
+    - heya
+    - hiya
+    - yo
+    - hallo
+    - hey advisor
+    - hi assistant
+    - hello bot
+    - hey, are you there?
+    - hi, can you help me?
+    - hello, I need some help
+    - hi, I need a hand with something
+    - hey! new here
+    - hi, first time using this
+    - greetings
+    - good day
+    - hey, got a minute?
+    - hello again
+    - hi, back again
+    - morning, hope you can help
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you
+    - see you later
+    - bye bye
+    - see you soon
+    - catch you later
+    - talk soon
+    - talk to you later
+    - I have to go
+    - I'm off now
+    - right, I'm off
+    - I'll head off
+    - gotta run
+    - I need to go now
+    - signing off
+    - good night
+    - night
+    - farewell
+    - later
+    - I'm leaving now
+    - that's me done
+    - I'm finished here
+    - closing this now
+    - end of conversation
+    - bye for now
+    - take care
+    - alright, goodbye
+    - cheerio
+    - I'm logging off
+    - that's all from me
+    - thanks and goodbye
+    - see ya
+    - until next time
+
+- intent: thanks
+  examples: |
+    - thanks
+    - thank you
+    - thanks a lot
+    - thank you so much
+    - many thanks
+    - cheers
+    - cheers for that
+    - appreciate it
+    - much appreciated
+    - that's really helpful
+    - that was really useful
+    - perfect, thanks
+    - brilliant, thank you
+    - great, thanks
+    - nice one
+    - lovely, thanks
+    - exactly what I needed
+    - that helps a lot
+    - very helpful
+    - you've been great
+    - thanks for the detail
+    - thanks, that's clear now
+    - grateful for that
+    - that's exactly what I wanted
+    - superb, thanks
+    - ta
+    - thanks for explaining
+    - good stuff, thanks
+
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - yep
+    - yup
+    - sure
+    - of course
+    - certainly
+    - absolutely
+    - definitely
+    - correct
+    - that's right
+    - exactly
+    - that works
+    - that works for me
+    - sounds good
+    - sounds great
+    - go ahead
+    - please do
+    - do it
+    - yes please
+    - I would, yes
+    - I'd like that
+    - let's do that
+    - go for it
+    - fine by me
+    - happy with that
+    - agreed
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - nah
+    - no thanks
+    - no thank you
+    - not really
+    - I'd rather not
+    - rather not
+    - not interested
+    - not for me
+    - don't bother
+    - no need
+    - I don't want that
+    - that's not right
+    - that's wrong
+    - incorrect
+    - negative
+    - definitely not
+    - absolutely not
+    - I disagree
+    - no, keep it as it is
+    - not that one
+    - I'll pass
+    - I don't think so
+    - no, something else
+    - I don't agree with that
+    - that's not what I asked for
+    - wrong answer
+    - neither of those
+    - none of them
+    - I'd prefer not to
+    - decline
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - am I talking to a human?
+    - are you a real person?
+    - is this a chatbot?
+    - are you an AI?
+    - are you human?
+    - are you a robot
+    - are you automated?
+    - is this automated?
+    - who am I speaking to?
+    - who is this?
+    - what are you exactly?
+    - is there a person behind this?
+    - is this an actual travel agent?
+    - wait, am I talking to a real travel agent?
+    - is a real human reading this?
+    - are you a machine?
+    - is this an AI assistant?
+    - are you a language model?
+    - are you a real advisor or software?
+    - am I chatting with software?
+    - is anyone actually there?
+    - be honest, are you a program?
+    - human or bot?
+
+# ---------------------------------------------------------------------------
+# Core planning
+# ---------------------------------------------------------------------------
+- intent: plan_trip
+  examples: |
+    - I want to plan a trip
+    - help me plan a holiday
+    - I'm planning a trip
+    - can you help me plan travel
+    - I need to organise a trip
+    - plan a sustainable trip for me
+    - I'd like to plan an eco-friendly holiday
+    - help me plan a low carbon trip
+    - I want to organise a green getaway
+    - can you plan a city break for me
+    - plan my travel
+    - help me sort out a trip
+    - I need a holiday plan
+    - can we start planning
+    - let's plan something
+    - I'd like to plan a responsible holiday
+    - plan an eco tour for me
+    - I'd like to arrange a weekend away
+    - can you help me plan a carbon neutral business trip
+    - I want to plan a trip that doesn't wreck the planet
+    - help me arrange some travel
+    - I need help planning a journey
+    - could you plan a break for me
+    - organise a short holiday please
+    - I'd like to organise a low carbon city break
+    - let's start planning a trip
+    - plan me a responsible trip
+    - help me plan something sustainable
+    - I want to arrange an eco holiday
+    - set up a trip plan for me
+    - can you work out a trip for me
+    - I'm looking to plan a getaway
+    - plan a holiday with low emissions
+    - I'd like help planning my travel
+    - work out a sustainable itinerary for me
+    - build me a trip plan
+    - plan a trip to [Lisbon]{"entity": "city", "role": "destination"}
+    - help me plan a holiday in [Barcelona]{"entity": "city", "role": "destination"}
+    - I'm going to [Copenhagen]{"entity": "city", "role": "destination"} and need a plan
+    - plan a trip from [Berlin]{"entity": "city", "role": "origin"} to [Vienna]{"entity": "city", "role": "destination"}
+    - can you plan travel from [Munich]{"entity": "city", "role": "origin"} to [Amsterdam]{"entity": "city", "role": "destination"}
+    - plan an eco trip to [Porto]{"entity": "city", "role": "destination"}
+    - help me arrange a visit to [Ljubljana]{"entity": "city", "role": "destination"}
+    - organise a low emission trip to [Prague]{"entity": "city", "role": "destination"}
+    - plan a break in [Copenhagen]{"entity": "city", "role": "destination"} for me
+    - I want to organise a trip to [Stockholm]{"entity": "city", "role": "destination"}
+    - could you plan a journey from [Paris]{"entity": "city", "role": "origin"} to [Barcelona]{"entity": "city", "role": "destination"}
+    - plan a sustainable week in [Vienna]{"entity": "city", "role": "destination"}
+    - help me plan getting from [Hamburg]{"entity": "city", "role": "origin"} to [Copenhagen]{"entity": "city", "role": "destination"}
+    - arrange an eco holiday in [Porto]{"entity": "city", "role": "destination"}
+
+- intent: inform
+  examples: |
+    - [Lisbon](city)
+    - [Barcelona](city)
+    - [Amsterdam](city)
+    - [Copenhagen](city)
+    - [Berlin](city)
+    - [Vienna](city)
+    - [Porto](city)
+    - [Ljubljana](city)
+    - [Prague](city)
+    - [Stockholm](city)
+    - [Madrid](city)
+    - [Zurich](city)
+    - I'm in [Berlin]{"entity": "city", "role": "origin"}
+    - I'm coming from [Hamburg]{"entity": "city", "role": "origin"}
+    - I'm setting off from [Hamburg]{"entity": "city", "role": "origin"}
+    - starting from [Paris]{"entity": "city", "role": "origin"}
+    - departing from [Madrid]{"entity": "city", "role": "origin"}
+    - I live in [Rotterdam]{"entity": "city", "role": "origin"}
+    - I'm based in [Utrecht]{"entity": "city", "role": "origin"}
+    - from [Zurich]{"entity": "city", "role": "origin"}
+    - I'll be leaving from [Milan]{"entity": "city", "role": "origin"}
+    - travelling from [Brussels]{"entity": "city", "role": "origin"}
+    - my origin is [Munich]{"entity": "city", "role": "origin"}
+    - setting out from [Lyon]{"entity": "city", "role": "origin"}
+    - I want to go to [Lisbon]{"entity": "city", "role": "destination"}
+    - going to [Copenhagen]{"entity": "city", "role": "destination"}
+    - I'd like to visit [Porto]{"entity": "city", "role": "destination"}
+    - to [Vienna]{"entity": "city", "role": "destination"}
+    - destination is [Barcelona]{"entity": "city", "role": "destination"}
+    - somewhere like [Ljubljana]{"entity": "city", "role": "destination"}
+    - I was thinking [Amsterdam]{"entity": "city", "role": "destination"}
+    - heading to [Prague]{"entity": "city", "role": "destination"}
+    - let's say [Florence]{"entity": "city", "role": "destination"}
+    - [Athens]{"entity": "city", "role": "destination"} please
+    - from [Berlin]{"entity": "city", "role": "origin"} to [Lisbon]{"entity": "city", "role": "destination"}
+    - [Munich]{"entity": "city", "role": "origin"} to [Vienna]{"entity": "city", "role": "destination"}
+    - I'm going from [Paris]{"entity": "city", "role": "origin"} to [Barcelona]{"entity": "city", "role": "destination"}
+    - travelling [Hamburg]{"entity": "city", "role": "origin"} to [Copenhagen]{"entity": "city", "role": "destination"}
+    - [Brussels]{"entity": "city", "role": "origin"} to [Amsterdam]{"entity": "city", "role": "destination"}
+    - [12 May 2027]{"entity": "travel_date", "role": "departure"}
+    - [3 June 2027]{"entity": "travel_date", "role": "departure"}
+    - [2027-04-18]{"entity": "travel_date", "role": "departure"}
+    - leaving on [15 July 2027]{"entity": "travel_date", "role": "departure"}
+    - I want to depart on [2 August 2027]{"entity": "travel_date", "role": "departure"}
+    - going out on [9 September 2027]{"entity": "travel_date", "role": "departure"}
+    - departure [next month](travel_date)
+    - out on [21 March 2027]{"entity": "travel_date", "role": "departure"}
+    - back on [19 May 2027]{"entity": "travel_date", "role": "return"}
+    - returning [8 June 2027]{"entity": "travel_date", "role": "return"}
+    - I'll come home on [22 April 2027]{"entity": "travel_date", "role": "return"}
+    - return date is [2027-07-20]{"entity": "travel_date", "role": "return"}
+    - home again [16 May 2027]{"entity": "travel_date", "role": "return"}
+    - coming back [30 June 2027]{"entity": "travel_date", "role": "return"}
+    - [in three weeks](travel_date)
+    - [tomorrow](travel_date)
+    - [next friday](travel_date)
+    - [mid July](travel_date)
+    - [15th of June](travel_date)
+    - [in two months](travel_date)
+    - [two people](travellers)
+    - there are [3](travellers) of us
+    - [4](travellers) travellers
+    - just [me](travellers)
+    - only [me](travellers)
+    - we are [2](travellers)
+    - a family of [5](travellers)
+    - [6](travellers) of us in total
+    - party of [4](travellers)
+    - [2](travellers) adults
+    - group of [7](travellers)
+    - my budget is [600](budget) euros
+    - around [450](budget) eur
+    - about [1200](budget)
+    - I can spend [300](budget) euros
+    - up to [800](budget) per person
+    - budget [250](budget)
+    - roughly [700](budget) euros
+    - no more than [900](budget)
+    - about [500](budget) each
+    - I've got [1500](budget) to spend
+    - somewhere near [350](budget)
+    - I want the [strictest](sustainability_level) option
+    - keep it [strict](sustainability_level)
+    - [strict](sustainability_level) please
+    - [balanced](sustainability_level) please
+    - I'd say [flexible](sustainability_level)
+    - go [green](sustainability_level) all the way
+    - emissions matter most, [strict](sustainability_level)
+    - a [balanced](sustainability_level) trade-off is fine
+    - cost matters more so [flexible](sustainability_level)
+    - let's be [balanced](sustainability_level) about it
+    - [lowest emissions](sustainability_level) wins
+    - I'll be [flexible](sustainability_level) on this
+    - [moderate](sustainability_level) is fine
+
+- intent: share_location
+  examples: |
+    - use my location
+    - here's my location
+    - I'll share my GPS
+    - you can use my current position
+    - detect my location
+    - find where I am
+    - use my current city
+    - take my location automatically
+    - I'm sharing my coordinates
+    - use gps
+    - locate me
+    - my position is fine to use
+    - use where I am right now
+    - share my location instead
+    - grab my location
+    - you can see where I am
+    - use my device location
+    - work it out from my location
+    - just use my current location
+    - pick up my position
+    - take it from my GPS
+    - I'd rather share location than type
+
+# ---------------------------------------------------------------------------
+# Information seeking
+# ---------------------------------------------------------------------------
+- intent: ask_transport_options
+  examples: |
+    - how should I travel there?
+    - what are my transport options?
+    - show me ways to get there
+    - what's the greenest way to travel?
+    - what's the greenest way to get around
+    - is there a train?
+    - can I go by rail?
+    - compare travel options
+    - compare the routes
+    - what's the lowest emission route?
+    - should I fly or take the train?
+    - is there a night train?
+    - what about a coach?
+    - show me the routes
+    - how do I actually get there
+    - any ferry options?
+    - I'd rather not fly, what else is there
+    - can I cycle any of it
+    - what transport do you recommend
+    - is [rail](transport_mode) an option?
+    - what about going by [coach](transport_mode)?
+    - could I drive instead
+    - show alternatives to flying
+    - travel options please
+    - what ways can I get there
+    - list the transport
+    - how would I travel
+    - which route should I take
+    - what's the best way to get across
+    - is the train realistic for this
+    - are there overland options
+    - how long would the train take
+    - what if I took the [bus](transport_mode)
+    - can I get a [ferry](transport_mode)
+    - tell me about the travel options again
+    - show me the journey choices
+    - what modes are available
+    - I need to know how to get there
+    - is flying the only option
+    - what's the alternative to a [flight](transport_mode)
+    - any sleeper trains on this route
+    - would driving be better
+    - give me the route comparison
+    - how else could I travel
+    - show the transport comparison
+
+- intent: ask_eco_hotels
+  examples: |
+    - where should I stay?
+    - show me eco hotels
+    - find sustainable accommodation
+    - any green hotels there?
+    - I need a place to stay
+    - certified hotels please
+    - what accommodation do you recommend
+    - show me eco-certified places
+    - any hostels with good credentials
+    - I want somewhere with renewable energy
+    - places to stay near the station
+    - cheap but sustainable accommodation
+    - show hotels
+    - accommodation options
+    - what about lodging
+    - find me a green place to sleep
+    - find me somewhere sustainable to sleep
+    - is there anywhere plastic free
+    - hotels with a real certification
+    - show me the accommodation list
+    - where can I stay that isn't greenwashed
+    - somewhere walkable to public transport
+    - any eco lodges
+    - recommend a hotel
+    - suggest accommodation
+    - where do you suggest I sleep
+    - I need a hotel
+    - book me somewhere green
+    - what places to stay are there
+    - list the hotels
+    - show me lodging options
+    - anywhere with a proper eco label
+    - sustainable places to stay please
+    - I want an audited eco hotel
+    - hostels or guesthouses?
+    - somewhere near the centre to stay
+    - what's available to stay in
+    - show me the places you found
+    - accommodation with low impact
+    - any hotel on renewable power
+    - find rooms for the trip
+    - somewhere I can stay without a car
+    - show me the hotel options again
+    - where would you stay
+
+- intent: ask_carbon_footprint
+  examples: |
+    - what's the carbon footprint?
+    - how much CO2 is that?
+    - what are the emissions?
+    - how much carbon will this trip produce?
+    - show me the emissions breakdown
+    - what's my footprint?
+    - how bad is flying for this route?
+    - calculate the carbon
+    - emissions please
+    - total CO2 for the trip
+    - compare the carbon of each option
+    - how much CO2e does the train emit
+    - give me the numbers
+    - what's the climate impact
+    - carbon estimate please
+    - how much does that pollute
+    - summarise the footprint
+    - full summary please
+    - show me the whole plan
+    - give me the trip summary
+    - what does the complete plan look like
+    - recap everything
+    - give me the full summary
+    - give me the whole plan
+    - what's my total footprint
+    - total emissions for the trip
+    - how many kilos of CO2
+    - what's the overall impact
+    - sum it all up
+    - overall footprint please
+    - wrap it all together
+    - show the final plan
+    - what's the damage in carbon terms
+    - how much carbon in total
+    - put the whole trip together
+    - give me the overview
+    - what are we looking at emissions wise
+    - trip totals please
+    - show the complete picture
+    - add it all up
+    - the final numbers please
+    - what's the combined footprint
+    - emissions summary
+    - how much CO2 all in
+
+- intent: ask_cultural_experiences
+  examples: |
+    - what can I do there?
+    - show me local experiences
+    - any community tourism?
+    - things to do
+    - I want authentic local activities
+    - recommend experiences
+    - what's worth seeing
+    - what's worth doing while I'm there
+    - activities that support locals
+    - any community run tours
+    - what should I do while I'm there
+    - local food experiences
+    - cultural activities please
+    - things to do that aren't touristy
+    - show me activities
+    - what experiences do you suggest
+    - anything run by local people
+    - low impact activities
+    - day trips without a car
+    - what's on locally
+    - experiences list
+    - suggest some things to do
+    - what are the activities
+    - give me things to see
+    - anything cultural
+    - what's there to do
+    - local things to try
+    - recommend activities please
+    - I want to do something local
+    - what do locals actually do
+    - any workshops or tours
+    - show me what to do there
+    - activities please
+    - what's interesting nearby
+    - things to do on foot
+    - suggest day trips
+    - something authentic to do
+    - show the experience options
+    - what would you do there
+    - non touristy suggestions
+
+- intent: ask_carbon_offset
+  examples: |
+    - can I offset this?
+    - show me offset options
+    - how do I compensate the emissions
+    - carbon offsetting please
+    - are there offset programmes?
+    - I want to offset my flight
+    - what offset schemes do you know
+    - how much would offsetting cost
+    - is offsetting worth it
+    - show me climate contribution projects
+    - can I pay to compensate
+    - offset the remainder
+    - offsets
+    - what about carbon credits
+    - do you have offset providers
+    - is offsetting a scam
+    - is carbon offsetting actually a scam
+    - are offsets actually effective
+    - I'd like to contribute to a climate project
+    - yes, show me offsets
+    - can I buy carbon credits
+    - what would it cost to offset
+    - compensate my emissions
+    - offset programmes please
+    - how do offsets work
+    - should I offset
+    - are carbon offsets legitimate
+    - tell me about offsetting
+    - which offset projects do you trust
+    - price up some offsets
+    - I want to neutralise the trip
+    - can I cancel out the carbon
+    - show carbon removal options
+    - contribution schemes please
+    - do offsets actually remove carbon
+    - offset the rest of it
+    - what's the cost to compensate
+
+- intent: ask_methodology
+  examples: |
+    - how did you calculate that?
+    - how did you work that out
+    - where does this number come from?
+    - where do your numbers come from?
+    - what's your source?
+    - how do you know that?
+    - show your workings
+    - what data are you using?
+    - which emission factors did you use
+    - is this a real measurement
+    - how accurate is this
+    - what's the methodology
+    - explain the calculation
+    - can I trust these numbers
+    - are these figures verified
+    - what assumptions did you make
+    - which API gave you that
+    - is the certification data real
+    - how do you rank the options
+    - what does the eco score mean
+    - explain how you scored these
+    - why is this one ranked first
+    - hang on, where do your numbers actually come from?
+    - on what basis did you rank these
+    - how reliable are these estimates
+    - what's behind these figures
+    - justify that number
+    - show me the method
+    - how was this estimated
+    - what's the basis for that
+    - are you making this up
+    - is this data actually accurate
+    - how confident are you in that
+    - explain your ranking logic
+    - what weighting did you apply
+    - how precise are these numbers
+    - what are the limitations of this
+    - tell me about the data quality
+    - where did the emission factors come from
+    - what evidence backs that figure
+    - which dataset produced this estimate
+    - is that number measured or modelled
+    - how did you decide the ranking order
+    - what margin of error is on that
+    - show me the calculation steps
+    - what weighting did the sustainability setting apply
+    - why did the train score higher than the coach
+    - are those emission factors current
+    - how do you verify a certification
+    - what makes you confident in that estimate
+
+- intent: ask_data_privacy
+  examples: |
+    - what do you do with my data?
+    - what happens to my data?
+    - before anything else, what happens to my data?
+    - do you store my information?
+    - is this GDPR compliant?
+    - who sees my location?
+    - delete my data
+    - privacy policy please
+    - are you tracking me?
+    - do you keep my conversation
+    - can I ask you to forget everything
+    - what personal data do you collect
+    - is my location stored
+    - where is my data processed
+    - do you share data with third parties
+    - how long do you keep this
+    - I want my data erased
+    - data protection question
+    - do you sell my data
+    - is my conversation private
+    - who has access to what I tell you
+    - will you remember me next time
+    - is anything saved about me
+    - do you profile users
+    - can I see what you hold on me
+    - does anyone else read this
+    - are my details kept anywhere
+    - remove everything you have on me
+    - what about my privacy
+    - how is my personal information handled
+    - do you log my messages
+    - is this conversation confidential
+    - do you save my personal details
+    - will my data be deleted afterwards
+    - who can read my trip details
+    - do you keep my location history
+    - is my personal information shared
+    - what happens to my email address
+    - are my answers stored anywhere
+    - can I opt out of data collection
+    - is this compliant with data protection law
+    - do you process my data outside the EU
+    - erase my personal information
+
+- intent: request_human_agent
+  examples: |
+    - talk to a human
+    - I want to speak to a person
+    - transfer me to an advisor
+    - can I get a real travel agent
+    - escalate this
+    - put me through to someone
+    - I need human help
+    - this is too complicated for a bot
+    - this is too fiddly, get me a human
+    - connect me with a consultant
+    - human please
+    - get me a person
+    - I'd like expert advice
+    - can a specialist look at this
+    - hand this over to someone real
+    - I want to talk to a travel expert
+    - please pass me to your team
+    - can someone call me
+    - I need personalised help
+    - a human would be better
+    - speak to an agent
+    - I'd rather speak to an actual person
+    - get me a human advisor
+    - I want a real person
+    - pass me to a consultant
+    - can you transfer me
+    - let me talk to staff
+    - I need to speak with someone who knows
+    - escalate to a human please
+    - route this to an advisor
+    - I want to deal with a person instead
+    - can a human take over
+    - send me to a travel advisor
+    - put a person on this
+    - I'd like to speak to your team
+    - hand me over please
+    - can I get proper advice from someone
+    - I need a human to look at this
+    - forward this to an advisor
+    - talk to someone real
+
+- intent: change_preference
+  examples: |
+    - actually, change the destination
+    - I want to change my budget
+    - can we redo the dates
+    - let's change the departure date
+    - actually make it stricter
+    - I'd prefer a different city
+    - update my budget
+    - change the number of travellers
+    - I changed my mind about the dates
+    - let's make the sustainability setting flexible
+    - edit my preferences
+    - I want to adjust something
+    - can I change an answer
+    - go back and change the origin
+    - actually I'm leaving from somewhere else
+    - change destination to [Porto]{"entity": "city", "role": "destination"}
+    - make my budget [900](budget) instead
+    - actually there will be [4](travellers) of us
+    - update the destination please
+    - change my departure date
+    - I need to amend the budget
+    - let's swap the destination
+    - modify my travel dates
+    - can you change the group size
+    - I want a different destination instead
+    - revise my budget upward
+    - alter the return date
+    - change my sustainability preference
+    - I'd like to update the origin city
+    - correct the number of people
+    - actually, different dates please
+    - can I edit the budget
+    - change that answer
+    - update my preferences please
+    - swap my origin city
+    - amend the travellers count
+    - I want to change one thing
+
+- intent: restart_planning
+  examples: |
+    - start over
+    - restart
+    - let's begin again
+    - forget everything and start fresh
+    - reset the plan
+    - clear it all
+    - scrap that, start again
+    - scrap all that and start from scratch
+    - new trip please
+    - begin a new plan
+    - wipe this and restart
+    - start from scratch
+    - reset
+    - clear everything and begin again
+    - erase it all and start over
+    - let's start the whole thing again
+    - forget all of that
+    - delete everything and restart
+    - I want to plan a completely different trip
+    - blank slate please
+    - throw it all away and start again
+    - start a fresh plan
+    - reset everything
+    - clean slate
+    - wipe it and start fresh
+    - scrap the whole plan
+
+- intent: stop
+  examples: |
+    - stop
+    - cancel
+    - quit this
+    - stop asking questions
+    - stop the questions
+    - I don't want to answer that
+    - never mind
+    - cancel the form
+    - halt
+    - abort
+    - leave it for now
+    - I'll do this later
+    - pause this
+    - stop here
+    - that's enough questions
+    - actually stop, not now
+    - can we stop this
+    - hold on, stop
+    - no more questions please
+    - stop asking
+    - I want to stop
+    - cancel this process
+    - enough for now
+    - let's pause
+    - stop the intake
+    - I'd like to stop here
+    - pause the questions
+    - hold off for a moment
+    - stop this for now
+    - I don't want to continue right now
+    - break off here
+    - quit the questionnaire
+    - stop collecting details
+
+- intent: out_of_scope
+  examples: |
+    - what's the weather like tomorrow?
+    - will it rain there next week
+    - tell me a joke
+    - who won the football?
+    - can you write my essay
+    - what's 2 + 2
+    - book me a restaurant table
+    - what's the stock price of Tesla
+    - do you do visa applications
+    - can you renew my passport
+    - I need travel insurance
+    - can you sort out my travel insurance
+    - what's your favourite colour
+    - sing me a song
+    - can you translate this document
+    - order me a taxi right now
+    - what's the exchange rate
+    - help me with my homework
+    - are you single
+    - who is the president
+    - recommend a laptop
+    - fix my computer
+    - what's the capital of Peru
+    - tell me about quantum physics
+    - can you write me some code
+    - what's on Netflix tonight
+    - give me a recipe for lasagne
+    - do my tax return
+    - can you call my mum
+    - what time is it in Tokyo
+    - play some music
+    - who is going to win the election
+    - diagnose my headache
+    - should I buy bitcoin
+    - explain the offside rule
+    - what's the meaning of life
+    - can you book me a dentist appointment
+    - help me write a cover letter
+    - what football team should I support
+    - find me a job
+    - do you know any good jokes about trains
+    - can you hack a website
+    - summarise the news for me
+    - what's a good name for a cat
+    - teach me Spanish
+    - qwtx blorp zzz
+    - asdfgh jjjj
+    - mmmmm nnnn
+    - flurb glorp
+    - zzzz xkcd qqq
+    - xylophone marmalade tuesday
+    - aaaaaaaa
+    - ;;;;;;
+    - dfghjkl
+    - wibble wobble flibbertigibbet
+    - kjhgfd sdfgh
+    - ...
+    - 12345678
+    - blah blah blah
+    - test test test
+    - random words here banana chair
+    - what's the best football team
+    - convert dollars to yen for me
+    - write a poem about the sea
+    - can you order groceries
+    - what's my horoscope
+    - tell me the lottery numbers
+    - how do I fix a leaking tap
+    - book a table for two tonight
+    - what medication should I take
+    - who invented the telephone
+    - set an alarm for 7am
+    - what's trending on social media
+    - can you draw me a picture
+    - how old is the universe
+    - recommend a good film
+    - what's the square root of 144
+    - help me buy a car
+    - do you sell flight tickets directly
+    - what's the phone number for the embassy
+    - can you speak French
+    - tell me about your training data
+    - what's the population of Brazil
+    - give me stock market advice
+    - hjkl asdf qwer
+    - ??????
+    - nnnnnnnn mmmmmm
+    - purple monday telephone sandwich
+
+# ===========================================================================
+# Lookup tables, synonyms and regexes
+# ===========================================================================
+# Consumed by RegexFeaturizer (not RegexEntityExtractor) so DIET receives them
+# as sparse features while retaining control over entity roles.
+# ---------------------------------------------------------------------------
+- lookup: city
+  examples: |
+    - Lisbon
+    - Lisboa
+    - Barcelona
+    - Amsterdam
+    - Copenhagen
+    - Kobenhavn
+    - Berlin
+    - Vienna
+    - Wien
+    - Porto
+    - Oporto
+    - Ljubljana
+    - Madrid
+    - Paris
+    - Rome
+    - Milan
+    - Munich
+    - Hamburg
+    - Frankfurt
+    - Cologne
+    - Stuttgart
+    - Zurich
+    - Geneva
+    - Brussels
+    - Rotterdam
+    - Utrecht
+    - Prague
+    - Budapest
+    - Warsaw
+    - Krakow
+    - Stockholm
+    - Oslo
+    - Helsinki
+    - Dublin
+    - Edinburgh
+    - Glasgow
+    - London
+    - Manchester
+    - Bristol
+    - Valencia
+    - Seville
+    - Bilbao
+    - Malaga
+    - Naples
+    - Florence
+    - Venice
+    - Bologna
+    - Turin
+    - Marseille
+    - Lyon
+    - Bordeaux
+    - Toulouse
+    - Nice
+    - Strasbourg
+    - Antwerp
+    - Ghent
+    - Basel
+    - Bern
+    - Innsbruck
+    - Salzburg
+    - Graz
+    - Zagreb
+    - Split
+    - Belgrade
+    - Bucharest
+    - Sofia
+    - Athens
+    - Thessaloniki
+    - Istanbul
+    - Ankara
+    - Izmir
+    - Tallinn
+    - Riga
+    - Vilnius
+    - Gothenburg
+    - Malmo
+    - Aarhus
+    - Bergen
+    - Reykjavik
+    - Santiago de Compostela
+
+- lookup: sustainability_level
+  examples: |
+    - strict
+    - strictest
+    - balanced
+    - flexible
+    - green
+    - greenest
+    - moderate
+    - relaxed
+    - lowest emissions
+
+- lookup: transport_mode
+  examples: |
+    - train
+    - rail
+    - high-speed rail
+    - night train
+    - sleeper
+    - coach
+    - bus
+    - ferry
+    - flight
+    - plane
+    - fly
+    - car
+    - electric car
+    - bike
+    - cycling
+    - walking
+
+- synonym: strict
+  examples: |
+    - strictest
+    - green
+    - greenest
+    - lowest emissions
+    - most sustainable
+
+- synonym: balanced
+  examples: |
+    - moderate
+    - middle ground
+    - sensible
+    - trade off
+
+- synonym: flexible
+  examples: |
+    - relaxed
+    - cost first
+    - cheapest
+    - whatever is cheapest
+
+- regex: budget
+  examples: |
+    - (?i)(?:€|eur|euros?)\s?\d{2,5}
+    - (?i)\d{2,5}\s?(?:€|eur|euros?)
+
+- regex: travel_date
+  examples: |
+    - \d{4}-\d{2}-\d{2}
+    - (?i)\d{1,2}(?:st|nd|rd|th)?\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s*\d{0,4}
+
+- regex: travellers
+  examples: |
+    - (?i)\b\d{1,2}\s+(?:people|persons?|travellers?|adults?|of us)\b

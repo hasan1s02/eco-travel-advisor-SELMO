@@ -1,0 +1,93 @@
+recipe: default.v1
+assistant_id: eco_travel_advisor_v1
+language: en
+
+# ---------------------------------------------------------------------------
+# NLU pipeline
+# ---------------------------------------------------------------------------
+# The assignment brief asks us to begin with Rasa's DIETClassifier pipeline
+# using the spaCy tokeniser and featurisers. SpacyFeaturizer contributes dense
+# pre-trained word vectors, which materially helps entity recognition for city
+# names that appear only a handful of times in the training data.
+#
+# A DistilBERT alternative is kept in config_distilbert.yml. It is NOT the
+# default: on the CPU-only deployment target used for this submission it pushed
+# median NLU inference past the three-second non-functional requirement stated
+# in section 2 of the brief, for a marginal F1 gain (see docs/metrics/).
+# ---------------------------------------------------------------------------
+pipeline:
+  - name: SpacyNLP
+    model: "en_core_web_md"
+    case_sensitive: false
+
+  - name: SpacyTokenizer
+
+  - name: SpacyFeaturizer
+    pooling: mean
+
+  # Feeds the lookup tables in data/nlu.yml to DIET as sparse features.
+  # We deliberately do NOT use RegexEntityExtractor: it cannot assign entity
+  # roles, and this assistant distinguishes city[role=origin] from
+  # city[role=destination]. Letting DIET do all extraction keeps roles intact.
+  - name: RegexFeaturizer
+    case_sensitive: false
+    use_word_boundaries: true
+
+  - name: LexicalSyntacticFeaturizer
+
+  - name: CountVectorsFeaturizer
+
+  - name: CountVectorsFeaturizer
+    analyzer: char_wb
+    min_ngram: 1
+    max_ngram: 4
+
+  - name: DIETClassifier
+    epochs: 140
+    constrain_similarities: true
+    entity_recognition: true
+    intent_classification: true
+    evaluate_on_number_of_examples: 0
+    batch_size: [16, 32]
+
+  - name: EntitySynonymMapper
+
+  - name: ResponseSelector
+    epochs: 100
+    constrain_similarities: true
+
+  # Drives the two-stage clarification flow required by section 4 of the brief.
+  # threshold      -> below this confidence we are not sure what was meant
+  # ambiguity_gap  -> two intents this close together is also "not sure"
+  - name: FallbackClassifier
+    threshold: 0.60
+    ambiguity_threshold: 0.12
+
+# ---------------------------------------------------------------------------
+# Dialogue policies
+# ---------------------------------------------------------------------------
+policies:
+  - name: MemoizationPolicy
+    max_history: 5
+
+  - name: RulePolicy
+    core_fallback_threshold: 0.40
+    core_fallback_action_name: action_two_stage_clarification
+    enable_fallback_prediction: true
+    restrict_rules: true
+
+  # UnexpecTEDIntentPolicy was evaluated and REMOVED. It fired
+  # `action_unlikely_intent` on ordinary slot-filling turns inside trip_form —
+  # unavoidable, because a form's slot-filling turns are handled by the form
+  # itself and so never appear in the training stories, which is exactly the
+  # evidence the policy looks for. The inserted action then changed the
+  # dialogue state enough to drop the next prediction below
+  # core_fallback_threshold, so a correctly understood "Copenhagen" could
+  # trigger a clarification prompt. `rasa test core --e2e` reproduced this on
+  # every intake turn of the main happy path. Rasa documents the policy as
+  # experimental; on a form-driven assistant it costs more than it returns.
+
+  - name: TEDPolicy
+    max_history: 6
+    epochs: 100
+    constrain_similarities: true

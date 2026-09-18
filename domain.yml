@@ -1,0 +1,423 @@
+version: "3.1"
+
+# ===========================================================================
+# Eco-Travel Advisor - conversational agent for sustainable tourism planning
+# MSc Artificial Intelligence / Advanced Conversational UI Design
+# ===========================================================================
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - thanks
+  - bot_challenge
+  - plan_trip
+  - inform
+  - share_location
+  - ask_transport_options
+  - ask_eco_hotels
+  - ask_carbon_footprint
+  - ask_cultural_experiences
+  - ask_carbon_offset
+  - ask_methodology
+  - ask_data_privacy
+  - request_human_agent
+  - change_preference
+  - restart_planning
+  - stop
+  - out_of_scope
+
+entities:
+  - city:
+      roles:
+        - origin
+        - destination
+  - travel_date:
+      roles:
+        - departure
+        - return
+  - budget
+  - travellers
+  - sustainability_level
+  - transport_mode
+
+# ---------------------------------------------------------------------------
+# Slots
+# ---------------------------------------------------------------------------
+# NO slot is featurized (influence_conversation is false throughout).
+#
+# This is deliberate and was arrived at empirically. Featurizing the intake
+# slots made the runtime dialogue state diverge from every training story the
+# moment the form filled them, MemoizationPolicy stopped matching, and the
+# RulePolicy core fallback fired on messages the NLU had classified with 1.00
+# confidence. Branching is driven by the form's own requested_slot mechanism
+# and by ValidateTripForm.required_slots instead, which is where it belongs.
+# ---------------------------------------------------------------------------
+slots:
+  origin:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: city
+        role: origin
+      - type: from_entity
+        entity: city
+        conditions:
+          - active_loop: trip_form
+            requested_slot: origin
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: origin
+
+  destination:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: city
+        role: destination
+      - type: from_entity
+        entity: city
+        conditions:
+          - active_loop: trip_form
+            requested_slot: destination
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: destination
+
+  departure_date:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: travel_date
+        role: departure
+      - type: from_entity
+        entity: travel_date
+        conditions:
+          - active_loop: trip_form
+            requested_slot: departure_date
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: departure_date
+
+  return_date:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: travel_date
+        role: return
+      - type: from_entity
+        entity: travel_date
+        conditions:
+          - active_loop: trip_form
+            requested_slot: return_date
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: return_date
+
+  travellers:
+    type: float
+    initial_value: 1
+    min_value: 1
+    max_value: 12
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: travellers
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: travellers
+
+  budget:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: budget
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: budget
+
+  sustainability_level:
+    type: categorical
+    values:
+      - strict
+      - balanced
+      - flexible
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: sustainability_level
+      - type: from_text
+        conditions:
+          - active_loop: trip_form
+            requested_slot: sustainability_level
+
+  # Adaptive extra slot: only requested when sustainability_level == "strict".
+  # Demonstrates the "adaptive questioning" requirement in section 2.
+  offset_interest:
+    type: bool
+    influence_conversation: false
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: true
+        conditions:
+          - active_loop: trip_form
+            requested_slot: offset_interest
+      - type: from_intent
+        intent: deny
+        value: false
+        conditions:
+          - active_loop: trip_form
+            requested_slot: offset_interest
+
+  # ----- derived / result slots (never shape the policy) -------------------
+  origin_coords:
+    type: any
+    influence_conversation: false
+    mappings: []
+
+  destination_coords:
+    type: any
+    influence_conversation: false
+    mappings: []
+
+  trip_distance_km:
+    type: float
+    influence_conversation: false
+    mappings: []
+
+  transport_options:
+    type: any
+    influence_conversation: false
+    mappings: []
+
+  hotel_options:
+    type: any
+    influence_conversation: false
+    mappings: []
+
+  selected_transport:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: transport_mode
+
+  data_source_mode:
+    type: text
+    influence_conversation: false
+    mappings: []
+
+  # Counter that drives the two-stage clarification flow before escalation.
+  clarification_stage:
+    type: float
+    initial_value: 0
+    influence_conversation: false
+    mappings: []
+
+  handover_active:
+    type: bool
+    initial_value: false
+    influence_conversation: false
+    mappings: []
+
+  handover_reference:
+    type: text
+    influence_conversation: false
+    mappings: []
+
+  consent_given:
+    type: bool
+    initial_value: false
+    influence_conversation: false
+    mappings: []
+
+# ---------------------------------------------------------------------------
+# Forms
+# ---------------------------------------------------------------------------
+forms:
+  trip_form:
+    required_slots:
+      - destination
+      - origin
+      - departure_date
+      - return_date
+      - travellers
+      - budget
+      - sustainability_level
+      # Declared here so Rasa can validate the mapping conditions, but REMOVED
+      # at runtime by ValidateTripForm.required_slots unless the traveller
+      # chose the strict profile. That is the adaptive-questioning mechanism.
+      - offset_interest
+
+# ---------------------------------------------------------------------------
+# Actions
+# ---------------------------------------------------------------------------
+actions:
+  - validate_trip_form
+  - action_resolve_locations
+  - action_compare_transport
+  - action_recommend_hotels
+  - action_recommend_experiences
+  - action_recommend_offsets
+  - action_trip_summary
+  - action_handover_to_human
+  - action_explain_methodology
+  - action_explain_privacy
+  - action_two_stage_clarification
+  - action_reset_planning
+  - action_report_carbon_for_selection
+
+# ---------------------------------------------------------------------------
+# Responses
+# ---------------------------------------------------------------------------
+responses:
+  utter_greet:
+    - text: |-
+        Hi — I'm the Eco-Travel Advisor. I help you plan a trip with a much smaller carbon footprint: low-emission routes, certified accommodation and local experiences that keep money in the community.
+
+        I'll estimate emissions for each option and show you exactly how I got the number. Where would you like to go?
+      buttons:
+        - title: "Plan a trip"
+          payload: "/plan_trip"
+        - title: "Compare travel emissions"
+          payload: "/ask_carbon_footprint"
+        - title: "How do you calculate this?"
+          payload: "/ask_methodology"
+
+  utter_goodbye:
+    - text: "Safe and low-carbon travels. Come back any time to refine the plan."
+
+  utter_thanks:
+    - text: "Happy to help. Anything else you'd like to adjust?"
+
+  utter_iamabot:
+    - text: |-
+        I'm an automated assistant, not a human travel agent — worth saying clearly up front.
+
+        I estimate emissions from published conversion factors and I can be wrong, especially about live availability and prices. Whenever you'd like a person to check the plan, just say "talk to a human".
+
+  # ----- form questions (quick replies where the answer space is closed) ----
+  utter_ask_destination:
+    - text: "Where would you like to travel to?"
+      buttons:
+        - title: "Lisbon"
+          payload: '/inform{{"city": "Lisbon"}}'
+        - title: "Copenhagen"
+          payload: '/inform{{"city": "Copenhagen"}}'
+        - title: "Ljubljana"
+          payload: '/inform{{"city": "Ljubljana"}}'
+        - title: "Somewhere else"
+          payload: "/inform"
+
+  utter_ask_origin:
+    - text: "And where are you starting from? You can share your location instead if that's easier."
+      buttons:
+        - title: "Use my location"
+          payload: "/share_location"
+
+  utter_ask_departure_date:
+    - text: "When do you want to leave? A date like 12 May 2027, or something like \"in three weeks\", both work."
+
+  utter_ask_return_date:
+    - text: "And when are you coming back?"
+
+  utter_ask_travellers:
+    - text: "How many people are travelling?"
+      buttons:
+        - title: "Just me"
+          payload: '/inform{{"travellers": 1}}'
+        - title: "2"
+          payload: '/inform{{"travellers": 2}}'
+        - title: "3-4"
+          payload: '/inform{{"travellers": 4}}'
+
+  utter_ask_budget:
+    - text: "Roughly what's your total budget for the trip, per person, in euros?"
+      buttons:
+        - title: "Under €300"
+          payload: '/inform{{"budget": 300}}'
+        - title: "€300-700"
+          payload: '/inform{{"budget": 700}}'
+        - title: "€700+"
+          payload: '/inform{{"budget": 1200}}'
+
+  utter_ask_sustainability_level:
+    - text: |-
+        Last one. How strictly do you want me to weight environmental impact against cost and travel time?
+      buttons:
+        - title: "Strict — lowest emissions wins"
+          payload: '/inform{{"sustainability_level": "strict"}}'
+        - title: "Balanced — trade off sensibly"
+          payload: '/inform{{"sustainability_level": "balanced"}}'
+        - title: "Flexible — cost and time matter more"
+          payload: '/inform{{"sustainability_level": "flexible"}}'
+
+  utter_ask_offset_interest:
+    - text: |-
+        You've asked for the strictest profile, so one extra question: should I also show carbon offset or contribution schemes for whatever emissions remain?
+
+        I'll be straight with you — offsetting does not undo a flight, and the evidence on many offset projects is contested. Reducing emissions first is the part that reliably works.
+      buttons:
+        - title: "Yes, show me offsets"
+          payload: "/affirm"
+        - title: "No, reductions only"
+          payload: "/deny"
+
+  # ----- transitions --------------------------------------------------------
+  utter_intake_complete:
+    - text: "Got it. Working out your options now — one moment."
+
+  utter_ask_continue_planning:
+    - text: "What would you like to look at next?"
+      buttons:
+        - title: "Places to stay"
+          payload: "/ask_eco_hotels"
+        - title: "Things to do"
+          payload: "/ask_cultural_experiences"
+        - title: "Full summary"
+          payload: "/ask_carbon_footprint"
+        - title: "Talk to a human advisor"
+          payload: "/request_human_agent"
+
+  utter_no_trip_context:
+    - text: "I don't have a trip on file yet. Tell me where you'd like to go and I'll start from there."
+      buttons:
+        - title: "Plan a trip"
+          payload: "/plan_trip"
+
+  utter_planning_reset:
+    - text: "Cleared. Let's start fresh — where would you like to go?"
+
+  utter_ask_rephrase:
+    - text: "Sorry, I didn't catch that. Could you put it another way?"
+
+  utter_stop_form:
+    - text: "No problem, I've paused the trip questions. Say \"plan a trip\" whenever you want to pick it up again."
+
+  utter_out_of_scope:
+    - text: |-
+        That's outside what I can help with — I'm limited to sustainable travel planning: routes, emissions, accommodation, local experiences and offsets.
+
+        Would you like me to pass you to a human advisor instead?
+      buttons:
+        - title: "Yes, a human please"
+          payload: "/request_human_agent"
+        - title: "No, back to the trip"
+          payload: "/plan_trip"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

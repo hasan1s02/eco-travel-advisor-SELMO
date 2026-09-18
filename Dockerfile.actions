@@ -1,0 +1,27 @@
+# ---------------------------------------------------------------------------
+# Custom action server. Holds every outbound API key, and is never exposed
+# outside the compose network.
+# ---------------------------------------------------------------------------
+FROM python:3.10-slim
+
+WORKDIR /app
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends curl \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY requirements-actions.txt .
+RUN pip install --no-cache-dir -r requirements-actions.txt
+
+COPY actions/ /app/actions/
+
+# Run unprivileged: the action server executes code that touches the network.
+RUN useradd --create-home --uid 1001 rasa && chown -R rasa:rasa /app
+USER rasa
+
+EXPOSE 5055
+
+HEALTHCHECK --interval=30s --timeout=4s --start-period=10s --retries=3 \
+  CMD curl -fsS http://localhost:5055/health || exit 1
+
+CMD ["python", "-m", "rasa_sdk", "--actions", "actions.actions", "--port", "5055"]

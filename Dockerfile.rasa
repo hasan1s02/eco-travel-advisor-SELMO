@@ -1,0 +1,27 @@
+# ---------------------------------------------------------------------------
+# Rasa server (NLU + Core). Serves the REST channel on 5005.
+# ---------------------------------------------------------------------------
+FROM rasa/rasa:3.6.21-full
+
+USER root
+WORKDIR /app
+
+# Copy the trained model and the configuration it needs to serve.
+COPY --chown=1001:1001 models/ /app/models/
+COPY --chown=1001:1001 domain.yml config.yml credentials.yml /app/
+
+# Point Rasa at the action *service* rather than localhost. Written here rather
+# than templated into endpoints.yml because Rasa's env-var expansion has no
+# inline-default syntax.
+RUN printf 'action_endpoint:\n  url: "http://actions:5055/webhook"\n' > /app/endpoints.yml \
+ && chown 1001:1001 /app/endpoints.yml
+COPY --chown=1001:1001 data/ /app/data/
+
+USER 1001
+
+EXPOSE 5005
+
+# --cors is scoped to the frontend origin in production via FRONTEND_ORIGIN.
+# --enable-api is required for the REST channel the React client talks to.
+ENTRYPOINT ["rasa"]
+CMD ["run", "--enable-api", "--cors", "*", "--port", "5005", "--model", "/app/models/eco_travel_advisor.tar.gz"]

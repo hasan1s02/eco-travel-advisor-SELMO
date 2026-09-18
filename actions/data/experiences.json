@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "description": "Curated SYNTHETIC catalogue of low-impact, community-oriented activities. Operator names are invented; the activity types and impact reasoning are generic and illustrative.",
+    "impact_scale": ["very_low", "low", "moderate"],
+    "impact_definition": "Impact is judged on how the activity is reached (foot/bike/transit vs. car/boat), whether it consumes a scarce local resource, and whether revenue stays in the destination community.",
+    "generated": "2026-09-01"
+  },
+  "generic": [
+    {"id": "gen-01", "name": "Self-guided walking route", "impact": "very_low", "price_eur": 0, "duration_h": 3, "community_benefit": "low", "summary": "A free route through residential districts most visitors never reach, built from open map data."},
+    {"id": "gen-02", "name": "Neighbourhood food market visit", "impact": "very_low", "price_eur": 15, "duration_h": 2, "community_benefit": "high", "summary": "Buy lunch directly from producers rather than an intermediary."},
+    {"id": "gen-03", "name": "Public-transport day pass city loop", "impact": "low", "price_eur": 9, "duration_h": 5, "community_benefit": "moderate", "summary": "Reach outer districts without a car or a tour bus."},
+    {"id": "gen-04", "name": "Bike hire and river or coastal path", "impact": "very_low", "price_eur": 14, "duration_h": 4, "community_benefit": "moderate", "summary": "Independent cycling on segregated infrastructure."},
+    {"id": "gen-05", "name": "Community-run cultural centre", "impact": "very_low", "price_eur": 8, "duration_h": 2, "community_benefit": "high", "summary": "Exhibitions and workshops run by a local association; entry fees fund the programme."}
+  ],
+  "destinations": {
+    "lisbon": [
+      {"id": "lis-e1", "name": "Alfama fado evening with a resident collective", "impact": "very_low", "price_eur": 22, "duration_h": 3, "community_benefit": "high", "summary": "Musicians from the neighbourhood, in a venue with no tour-coach access."},
+      {"id": "lis-e2", "name": "Tram 28 route on foot", "impact": "very_low", "price_eur": 0, "duration_h": 4, "community_benefit": "low", "summary": "The famous tram route walked instead of ridden — no queue, no crowding."},
+      {"id": "lis-e3", "name": "Tejo estuary birdwatching by train and boat", "impact": "low", "price_eur": 34, "duration_h": 6, "community_benefit": "high", "summary": "Reached by suburban rail; guided by a wetland conservation association."},
+      {"id": "lis-e4", "name": "Tinned-fish and market cookery workshop", "impact": "very_low", "price_eur": 45, "duration_h": 3, "community_benefit": "high", "summary": "Ingredients bought that morning from Mercado de Ribeira traders."},
+      {"id": "lis-e5", "name": "Sintra day trip by train", "impact": "moderate", "price_eur": 18, "duration_h": 8, "community_benefit": "moderate", "summary": "Popular and can be crowded; rated moderate because visitor pressure on Sintra is itself a sustainability issue."}
+    ],
+    "barcelona": [
+      {"id": "bcn-e1", "name": "Gràcia co-operative food tour", "impact": "very_low", "price_eur": 38, "duration_h": 3, "community_benefit": "high", "summary": "Five neighbourhood co-ops, all within walking distance."},
+      {"id": "bcn-e2", "name": "Collserola ridge hike from the metro", "impact": "very_low", "price_eur": 0, "duration_h": 5, "community_benefit": "low", "summary": "City forest reached entirely by public transport."},
+      {"id": "bcn-e3", "name": "Poblenou industrial-heritage cycle route", "impact": "very_low", "price_eur": 12, "duration_h": 3, "community_benefit": "moderate", "summary": "Self-guided by bike-share along the superblock network."},
+      {"id": "bcn-e4", "name": "Textile repair and upcycling workshop", "impact": "very_low", "price_eur": 30, "duration_h": 2, "community_benefit": "high", "summary": "Run by a social enterprise employing long-term unemployed residents."},
+      {"id": "bcn-e5", "name": "Montserrat by rail and funicular", "impact": "low", "price_eur": 28, "duration_h": 7, "community_benefit": "moderate", "summary": "No car needed; rack railway from Monistrol."}
+    ],
+    "amsterdam": [
+      {"id": "ams-e1", "name": "Canal-ring cycle loop with a local guide", "impact": "very_low", "price_eur": 25, "duration_h": 3, "community_benefit": "high", "summary": "Guides are residents; bikes are city-maintained."},
+      {"id": "ams-e2", "name": "Noord circular-economy district walk", "impact": "very_low", "price_eur": 0, "duration_h": 2, "community_benefit": "moderate", "summary": "Free ferry from Centraal; reuse and repair businesses en route."},
+      {"id": "ams-e3", "name": "Waterland villages by regional bus", "impact": "low", "price_eur": 11, "duration_h": 6, "community_benefit": "moderate", "summary": "Polder landscape without a tour coach."},
+      {"id": "ams-e4", "name": "Urban farm volunteering half-day", "impact": "very_low", "price_eur": 0, "duration_h": 4, "community_benefit": "high", "summary": "Contribute labour rather than consume a product."},
+      {"id": "ams-e5", "name": "Zaanse Schans by train", "impact": "moderate", "price_eur": 9, "duration_h": 5, "community_benefit": "low", "summary": "Heavily visited; listed with a moderate rating for honesty about crowding."}
+    ],
+    "copenhagen": [
+      {"id": "cph-e1", "name": "Harbour swim and sauna circuit", "impact": "very_low", "price_eur": 12, "duration_h": 2, "community_benefit": "moderate", "summary": "Public harbour baths, reachable on foot from the centre."},
+      {"id": "cph-e2", "name": "Nørrebro food-waste supper club", "impact": "very_low", "price_eur": 26, "duration_h": 3, "community_benefit": "high", "summary": "Meals cooked from surplus stock that would otherwise be discarded."},
+      {"id": "cph-e3", "name": "Amager Fælled nature reserve by metro", "impact": "very_low", "price_eur": 0, "duration_h": 4, "community_benefit": "low", "summary": "Protected wetland fifteen minutes from the centre."},
+      {"id": "cph-e4", "name": "Cargo-bike architecture tour", "impact": "very_low", "price_eur": 35, "duration_h": 3, "community_benefit": "high", "summary": "Locally owned operator; no motorised transport."},
+      {"id": "cph-e5", "name": "Louisiana museum by regional train", "impact": "low", "price_eur": 24, "duration_h": 6, "community_benefit": "moderate", "summary": "Coastal rail line; no car required."}
+    ],
+    "berlin": [
+      {"id": "ber-e1", "name": "Tempelhofer Feld picnic and urban gardening", "impact": "very_low", "price_eur": 0, "duration_h": 3, "community_benefit": "high", "summary": "Community garden plots on the former airfield."},
+      {"id": "ber-e2", "name": "Spree canal kayak with a local club", "impact": "very_low", "price_eur": 28, "duration_h": 3, "community_benefit": "high", "summary": "Muscle-powered, run by a member-owned club."},
+      {"id": "ber-e3", "name": "Repair café evening in Kreuzberg", "impact": "very_low", "price_eur": 0, "duration_h": 2, "community_benefit": "high", "summary": "Bring something broken; leave with it working."},
+      {"id": "ber-e4", "name": "Brandenburg lakes by regional rail", "impact": "low", "price_eur": 13, "duration_h": 7, "community_benefit": "moderate", "summary": "Swimming lakes an hour out on the RE line."},
+      {"id": "ber-e5", "name": "Cold-war history walk", "impact": "very_low", "price_eur": 15, "duration_h": 3, "community_benefit": "moderate", "summary": "Independent historians, on foot, small groups."}
+    ],
+    "vienna": [
+      {"id": "vie-e1", "name": "Danube island cycle and swim", "impact": "very_low", "price_eur": 10, "duration_h": 4, "community_benefit": "low", "summary": "City bike share along the Donauinsel."},
+      {"id": "vie-e2", "name": "Naschmarkt to Heuriger walk", "impact": "low", "price_eur": 20, "duration_h": 5, "community_benefit": "high", "summary": "Tram and foot to family-run wine taverns on the city edge."},
+      {"id": "vie-e3", "name": "Social-housing architecture tour", "impact": "very_low", "price_eur": 18, "duration_h": 3, "community_benefit": "moderate", "summary": "Red Vienna estates, reached entirely by U-Bahn."},
+      {"id": "vie-e4", "name": "Vienna Woods hike from the tram terminus", "impact": "very_low", "price_eur": 0, "duration_h": 5, "community_benefit": "low", "summary": "Waymarked Stadtwanderweg routes starting at a tram stop."},
+      {"id": "vie-e5", "name": "Coffee-house roastery visit", "impact": "very_low", "price_eur": 22, "duration_h": 2, "community_benefit": "high", "summary": "Independent roaster sourcing directly from growers."}
+    ],
+    "porto": [
+      {"id": "opo-e1", "name": "Douro valley by regional train", "impact": "low", "price_eur": 26, "duration_h": 9, "community_benefit": "high", "summary": "One of Europe's great rail lines; village stops rather than a coach tour."},
+      {"id": "opo-e2", "name": "Bolhão market breakfast walk", "impact": "very_low", "price_eur": 12, "duration_h": 2, "community_benefit": "high", "summary": "Trader-led; money goes straight to stallholders."},
+      {"id": "opo-e3", "name": "Azulejo tile workshop", "impact": "very_low", "price_eur": 40, "duration_h": 3, "community_benefit": "high", "summary": "Traditional craft studio in Cedofeita."},
+      {"id": "opo-e4", "name": "Foz coastal path on foot", "impact": "very_low", "price_eur": 0, "duration_h": 4, "community_benefit": "low", "summary": "Tram 1 out, walk back along the Atlantic boardwalk."},
+      {"id": "opo-e5", "name": "Cooperative port-house tasting", "impact": "very_low", "price_eur": 24, "duration_h": 2, "community_benefit": "high", "summary": "Grower co-operative rather than an international brand."}
+    ],
+    "ljubljana": [
+      {"id": "lju-e1", "name": "Ljubljanica river kayak", "impact": "very_low", "price_eur": 30, "duration_h": 3, "community_benefit": "high", "summary": "Paddle through a city centre closed to cars."},
+      {"id": "lju-e2", "name": "Tivoli to Šmarna Gora hike", "impact": "very_low", "price_eur": 0, "duration_h": 5, "community_benefit": "low", "summary": "City bus to the trailhead, then a well-marked ascent."},
+      {"id": "lju-e3", "name": "Beekeeping visit in the Barje wetlands", "impact": "low", "price_eur": 28, "duration_h": 4, "community_benefit": "high", "summary": "Slovenian apiculture with a smallholder family."},
+      {"id": "lju-e4", "name": "Metelkova arts quarter evening", "impact": "very_low", "price_eur": 8, "duration_h": 3, "community_benefit": "high", "summary": "Self-managed cultural centre; entry supports resident artists."},
+      {"id": "lju-e5", "name": "Lake Bohinj by bus and boat", "impact": "low", "price_eur": 22, "duration_h": 9, "community_benefit": "moderate", "summary": "Bohinj rather than Bled, which carries far heavier visitor pressure."}
+    ]
+  }
+}

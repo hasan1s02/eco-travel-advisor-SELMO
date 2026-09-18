@@ -1,0 +1,5 @@
+# Runtime dependencies for the action server only. Deliberately minimal: the
+# action container does not need TensorFlow, spaCy or the Rasa framework.
+rasa-sdk==3.6.2
+requests==2.31.0
+python-dotenv==1.0.1

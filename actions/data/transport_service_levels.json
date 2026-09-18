@@ -1,0 +1,91 @@
+{
+  "_meta": {
+    "description": "Indicative cost and journey-time characteristics per transport mode, used by the weighted eco-scoring function so that emissions can be traded off against the two things travellers actually feel: money and hours.",
+    "cost_basis": "Typical 2026 advance-purchase European fares per passenger-kilometre, EUR.",
+    "time_basis": "avg_speed_kmh is door-to-door average including intermediate stops. access_overhead_h is the fixed time cost that does not scale with distance (security, check-in, transfers, boarding).",
+    "caveat": "These are planning heuristics, not quotes. Live fares should come from the Amadeus integration where a key is configured.",
+    "generated": "2026-09-01"
+  },
+  "modes": {
+    "walking": {
+      "eur_per_km": 0.0,
+      "avg_speed_kmh": 4.8,
+      "access_overhead_h": 0.0
+    },
+    "cycling": {
+      "eur_per_km": 0.02,
+      "avg_speed_kmh": 16.0,
+      "access_overhead_h": 0.1
+    },
+    "rail_highspeed": {
+      "eur_per_km": 0.16,
+      "avg_speed_kmh": 180.0,
+      "access_overhead_h": 0.75
+    },
+    "rail_national": {
+      "eur_per_km": 0.13,
+      "avg_speed_kmh": 90.0,
+      "access_overhead_h": 0.5
+    },
+    "rail_night": {
+      "eur_per_km": 0.11,
+      "avg_speed_kmh": 70.0,
+      "access_overhead_h": 0.75
+    },
+    "coach": {
+      "eur_per_km": 0.06,
+      "avg_speed_kmh": 65.0,
+      "access_overhead_h": 0.5
+    },
+    "bus_urban": {
+      "eur_per_km": 0.1,
+      "avg_speed_kmh": 20.0,
+      "access_overhead_h": 0.2
+    },
+    "ferry_foot": {
+      "eur_per_km": 0.09,
+      "avg_speed_kmh": 35.0,
+      "access_overhead_h": 1.5
+    },
+    "car_electric": {
+      "eur_per_km": 0.09,
+      "avg_speed_kmh": 85.0,
+      "access_overhead_h": 0.25
+    },
+    "car_petrol_shared": {
+      "eur_per_km": 0.07,
+      "avg_speed_kmh": 85.0,
+      "access_overhead_h": 0.25
+    },
+    "car_petrol": {
+      "eur_per_km": 0.14,
+      "avg_speed_kmh": 85.0,
+      "access_overhead_h": 0.25
+    },
+    "flight_domestic": {
+      "eur_per_km": 0.22,
+      "avg_speed_kmh": 700.0,
+      "access_overhead_h": 3.5
+    },
+    "flight_short_haul": {
+      "eur_per_km": 0.13,
+      "avg_speed_kmh": 750.0,
+      "access_overhead_h": 3.5
+    },
+    "flight_long_haul": {
+      "eur_per_km": 0.09,
+      "avg_speed_kmh": 850.0,
+      "access_overhead_h": 4.5
+    }
+  },
+  "overnight_credit": {
+    "comment": "A sleeper train replaces a night of accommodation, which is a real saving in both money and emissions. The credit is capped at max_fare_reduction_share of the fare so a sleeper can never appear free, which would distort the cost ranking.",
+    "applies_to": [
+      "rail_night"
+    ],
+    "avoided_nights": 1,
+    "assumed_night_cost_eur": 95.0,
+    "assumed_night_kg_co2e": 12.0,
+    "max_fare_reduction_share": 0.6
+  }
+}
