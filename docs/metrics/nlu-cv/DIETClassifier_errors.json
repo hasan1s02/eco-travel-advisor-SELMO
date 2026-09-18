@@ -1,0 +1,929 @@
+[
+  {
+    "text": "Madrid",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "Madrid",
+        "entity": "city"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.9978861212730408,
+        "role": "origin",
+        "confidence_role": 0.8257846832275391,
+        "value": "Madrid",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Athens please",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "Athens",
+        "entity": "city",
+        "role": "destination"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "out on 21 March 2027",
+    "entities": [
+      {
+        "start": 7,
+        "end": 20,
+        "value": "21 March 2027",
+        "entity": "travel_date",
+        "role": "departure"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 7,
+        "end": 9,
+        "confidence_entity": 0.9947488903999329,
+        "role": "return",
+        "confidence_role": 0.8314905762672424,
+        "value": "21",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "travel_date",
+        "start": 10,
+        "end": 15,
+        "confidence_entity": 0.38178473711013794,
+        "value": "March",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "travel_date",
+        "start": 16,
+        "end": 20,
+        "confidence_entity": 0.9544451832771301,
+        "role": "departure",
+        "confidence_role": 0.5378761887550354,
+        "value": "2027",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "I'll come home on 22 April 2027",
+    "entities": [
+      {
+        "start": 18,
+        "end": 31,
+        "value": "22 April 2027",
+        "entity": "travel_date",
+        "role": "return"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 18,
+        "end": 31,
+        "confidence_entity": 0.9964021444320679,
+        "role": "departure",
+        "confidence_role": 0.75,
+        "value": "22 April 2027",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "next friday",
+    "entities": [
+      {
+        "start": 0,
+        "end": 11,
+        "value": "next friday",
+        "entity": "travel_date"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "15th of June",
+    "entities": [
+      {
+        "start": 0,
+        "end": 12,
+        "value": "15th of June",
+        "entity": "travel_date"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 8,
+        "end": 12,
+        "confidence_entity": 0.9878965616226196,
+        "role": "return",
+        "confidence_role": 0.9642496109008789,
+        "value": "June",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "any ferry options?",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "transport_mode",
+        "start": 4,
+        "end": 9,
+        "confidence_entity": 0.9901931881904602,
+        "value": "ferry",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "why did the train score higher than the coach",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "transport_mode",
+        "start": 40,
+        "end": 45,
+        "confidence_entity": 0.7299631237983704,
+        "value": "coach",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "departing from Madrid",
+    "entities": [
+      {
+        "start": 15,
+        "end": 21,
+        "value": "Madrid",
+        "entity": "city",
+        "role": "origin"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city",
+        "start": 15,
+        "end": 21,
+        "confidence_entity": 0.9999641180038452,
+        "role": "destination",
+        "confidence_role": 0.7094590067863464,
+        "value": "Madrid",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "2027-04-18",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "value": "2027-04-18",
+        "entity": "travel_date",
+        "role": "departure"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 0,
+        "end": 8,
+        "confidence_entity": 0.606166660785675,
+        "role": "return",
+        "confidence_role": 0.800252377986908,
+        "value": "2027-04-",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "travel_date",
+        "start": 8,
+        "end": 10,
+        "confidence_entity": 0.9937390089035034,
+        "role": "departure",
+        "confidence_role": 0.5665156245231628,
+        "value": "18",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "in three weeks",
+    "entities": [
+      {
+        "start": 0,
+        "end": 14,
+        "value": "in three weeks",
+        "entity": "travel_date"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 0,
+        "end": 8,
+        "confidence_entity": 0.8718870878219604,
+        "value": "in three",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "two people",
+    "entities": [
+      {
+        "start": 0,
+        "end": 10,
+        "value": "two people",
+        "entity": "travellers"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "lowest emissions wins",
+    "entities": [
+      {
+        "start": 0,
+        "end": 16,
+        "value": "lowest emissions",
+        "entity": "sustainability_level"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "can I go by rail?",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "transport_mode",
+        "start": 12,
+        "end": 16,
+        "confidence_entity": 0.989974319934845,
+        "value": "rail",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "what's 2 + 2",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "travellers",
+        "start": 7,
+        "end": 8,
+        "confidence_entity": 0.9884580969810486,
+        "value": "2",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "travellers",
+        "start": 11,
+        "end": 12,
+        "confidence_entity": 0.9902467727661133,
+        "value": "2",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "setting out from Lyon",
+    "entities": [
+      {
+        "start": 17,
+        "end": 21,
+        "value": "Lyon",
+        "entity": "city",
+        "role": "origin"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "let's say Florence",
+    "entities": [
+      {
+        "start": 10,
+        "end": 18,
+        "value": "Florence",
+        "entity": "city",
+        "role": "destination"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "12 May 2027",
+    "entities": [
+      {
+        "start": 0,
+        "end": 11,
+        "value": "12 May 2027",
+        "entity": "travel_date",
+        "role": "departure"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 0,
+        "end": 11,
+        "confidence_entity": 0.9546273350715637,
+        "role": "return",
+        "confidence_role": 0.9176709055900574,
+        "value": "12 May 2027",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "only me",
+    "entities": [
+      {
+        "start": 5,
+        "end": 7,
+        "value": "me",
+        "entity": "travellers"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "2 adults",
+    "entities": [
+      {
+        "start": 0,
+        "end": 1,
+        "value": "2",
+        "entity": "travellers"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travellers",
+        "start": 0,
+        "end": 8,
+        "confidence_entity": 0.4227161407470703,
+        "value": "2 adults",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "go green all the way",
+    "entities": [
+      {
+        "start": 3,
+        "end": 8,
+        "value": "green",
+        "entity": "sustainability_level"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "moderate is fine",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "moderate",
+        "entity": "sustainability_level"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what's the alternative to a flight",
+    "entities": [
+      {
+        "start": 28,
+        "end": 34,
+        "value": "flight",
+        "entity": "transport_mode"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "Porto",
+    "entities": [
+      {
+        "start": 0,
+        "end": 5,
+        "value": "Porto",
+        "entity": "city"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city",
+        "start": 0,
+        "end": 5,
+        "confidence_entity": 0.9993777275085449,
+        "role": "destination",
+        "confidence_role": 0.6658317446708679,
+        "value": "Porto",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "leaving on 15 July 2027",
+    "entities": [
+      {
+        "start": 11,
+        "end": 23,
+        "value": "15 July 2027",
+        "entity": "travel_date",
+        "role": "departure"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 11,
+        "end": 13,
+        "confidence_entity": 0.9816368222236633,
+        "role": "return",
+        "confidence_role": 0.8831287026405334,
+        "value": "15",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "travel_date",
+        "start": 14,
+        "end": 18,
+        "confidence_entity": 0.9626827836036682,
+        "value": "July",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "travel_date",
+        "start": 19,
+        "end": 23,
+        "confidence_entity": 0.998542308807373,
+        "role": "return",
+        "confidence_role": 0.8926997780799866,
+        "value": "2027",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "I want to depart on 2 August 2027",
+    "entities": [
+      {
+        "start": 20,
+        "end": 33,
+        "value": "2 August 2027",
+        "entity": "travel_date",
+        "role": "departure"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travellers",
+        "start": 20,
+        "end": 21,
+        "confidence_entity": 0.7809078097343445,
+        "value": "2",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "travel_date",
+        "start": 22,
+        "end": 33,
+        "confidence_entity": 0.9410298466682434,
+        "role": "return",
+        "confidence_role": 0.7338690757751465,
+        "value": "August 2027",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "departure next month",
+    "entities": [
+      {
+        "start": 10,
+        "end": 20,
+        "value": "next month",
+        "entity": "travel_date"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "return date is 2027-07-20",
+    "entities": [
+      {
+        "start": 15,
+        "end": 25,
+        "value": "2027-07-20",
+        "entity": "travel_date",
+        "role": "return"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 15,
+        "end": 19,
+        "confidence_entity": 0.9876682162284851,
+        "role": "return",
+        "confidence_role": 0.977758526802063,
+        "value": "2027",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "travel_date",
+        "start": 19,
+        "end": 20,
+        "confidence_entity": 0.6177710890769958,
+        "role": "departure",
+        "confidence_role": 0.49691876769065857,
+        "value": "-",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "travel_date",
+        "start": 20,
+        "end": 23,
+        "confidence_entity": 0.604881227016449,
+        "value": "07-",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "travel_date",
+        "start": 23,
+        "end": 25,
+        "confidence_entity": 0.9358423352241516,
+        "role": "return",
+        "confidence_role": 0.9605357050895691,
+        "value": "20",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "tomorrow",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "tomorrow",
+        "entity": "travel_date"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "budget 250",
+    "entities": [
+      {
+        "start": 7,
+        "end": 10,
+        "value": "250",
+        "entity": "budget"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.19502457976341248,
+        "value": "budget",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "budget",
+        "start": 7,
+        "end": 10,
+        "confidence_entity": 0.9887877106666565,
+        "value": "250",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "what about a coach?",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "transport_mode",
+        "start": 13,
+        "end": 18,
+        "confidence_entity": 0.506312370300293,
+        "value": "coach",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "can I get a ferry",
+    "entities": [
+      {
+        "start": 12,
+        "end": 17,
+        "value": "ferry",
+        "entity": "transport_mode"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "I want to offset my flight",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "transport_mode",
+        "start": 20,
+        "end": 26,
+        "confidence_entity": 0.9598508477210999,
+        "value": "flight",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "let's make the sustainability setting flexible",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "sustainability_level",
+        "start": 38,
+        "end": 46,
+        "confidence_entity": 0.8523171544075012,
+        "value": "flexible",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "will it rain there next week",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 19,
+        "end": 23,
+        "confidence_entity": 0.5879034996032715,
+        "value": "next",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "I live in Rotterdam",
+    "entities": [
+      {
+        "start": 10,
+        "end": 19,
+        "value": "Rotterdam",
+        "entity": "city",
+        "role": "origin"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city",
+        "start": 10,
+        "end": 19,
+        "confidence_entity": 0.9998841285705566,
+        "role": "destination",
+        "confidence_role": 0.9980923533439636,
+        "value": "Rotterdam",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "I'm based in Utrecht",
+    "entities": [
+      {
+        "start": 13,
+        "end": 20,
+        "value": "Utrecht",
+        "entity": "city",
+        "role": "origin"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "I'll be leaving from Milan",
+    "entities": [
+      {
+        "start": 21,
+        "end": 26,
+        "value": "Milan",
+        "entity": "city",
+        "role": "origin"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "city",
+        "start": 21,
+        "end": 26,
+        "confidence_entity": 0.9994256496429443,
+        "role": "destination",
+        "confidence_role": 0.8823016285896301,
+        "value": "Milan",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "returning 8 June 2027",
+    "entities": [
+      {
+        "start": 10,
+        "end": 21,
+        "value": "8 June 2027",
+        "entity": "travel_date",
+        "role": "return"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 10,
+        "end": 21,
+        "confidence_entity": 0.8340698480606079,
+        "role": "departure",
+        "confidence_role": 0.592114269733429,
+        "value": "8 June 2027",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "coming back 30 June 2027",
+    "entities": [
+      {
+        "start": 12,
+        "end": 24,
+        "value": "30 June 2027",
+        "entity": "travel_date",
+        "role": "return"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "travel_date",
+        "start": 12,
+        "end": 19,
+        "confidence_entity": 0.6184391975402832,
+        "role": "departure",
+        "confidence_role": 0.64,
+        "value": "30 June",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "travel_date",
+        "start": 20,
+        "end": 24,
+        "confidence_entity": 0.5070134997367859,
+        "role": "return",
+        "confidence_role": 0.6868813037872314,
+        "value": "2027",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "just me",
+    "entities": [
+      {
+        "start": 5,
+        "end": 7,
+        "value": "me",
+        "entity": "travellers"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "is rail an option?",
+    "entities": [
+      {
+        "start": 3,
+        "end": 7,
+        "value": "rail",
+        "entity": "transport_mode"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what about going by coach?",
+    "entities": [
+      {
+        "start": 20,
+        "end": 25,
+        "value": "coach",
+        "entity": "transport_mode"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what if I took the bus",
+    "entities": [
+      {
+        "start": 19,
+        "end": 22,
+        "value": "bus",
+        "entity": "transport_mode"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "actually make it stricter",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "sustainability_level",
+        "start": 17,
+        "end": 25,
+        "confidence_entity": 0.9958542585372925,
+        "value": "stricter",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "set an alarm for 7am",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "travellers",
+        "start": 17,
+        "end": 18,
+        "confidence_entity": 0.9734652638435364,
+        "value": "7",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  }
+]

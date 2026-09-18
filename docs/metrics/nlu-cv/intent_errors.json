@@ -1,0 +1,1562 @@
+[
+  {
+    "text": "hallo",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.8062366247177124
+    }
+  },
+  {
+    "text": "gotta run",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 0.9981166124343872
+    }
+  },
+  {
+    "text": "cheerio",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.9961141347885132
+    }
+  },
+  {
+    "text": "see ya",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.8868598937988281
+    }
+  },
+  {
+    "text": "please do",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "ask_cultural_experiences",
+      "confidence": 0.9999843835830688
+    }
+  },
+  {
+    "text": "let's do that",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.6975705027580261
+    }
+  },
+  {
+    "text": "nope",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.6477578282356262
+    }
+  },
+  {
+    "text": "can you plan travel from Munich to Amsterdam",
+    "intent": "plan_trip",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Athens please",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "ask_eco_hotels",
+      "confidence": 0.9994957447052002
+    }
+  },
+  {
+    "text": "next friday",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.635879397392273
+    }
+  },
+  {
+    "text": "15th of June",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "restart_planning",
+      "confidence": 0.2528937757015228
+    }
+  },
+  {
+    "text": "locate me",
+    "intent": "share_location",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.9999446868896484
+    }
+  },
+  {
+    "text": "what modes are available",
+    "intent": "ask_transport_options",
+    "intent_prediction": {
+      "name": "ask_eco_hotels",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "is there anywhere plastic free",
+    "intent": "ask_eco_hotels",
+    "intent_prediction": {
+      "name": "ask_cultural_experiences",
+      "confidence": 0.998812198638916
+    }
+  },
+  {
+    "text": "anywhere with a proper eco label",
+    "intent": "ask_eco_hotels",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9999810457229614
+    }
+  },
+  {
+    "text": "how bad is flying for this route?",
+    "intent": "ask_carbon_footprint",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "compare the carbon of each option",
+    "intent": "ask_carbon_footprint",
+    "intent_prediction": {
+      "name": "ask_carbon_offset",
+      "confidence": 0.9459395408630371
+    }
+  },
+  {
+    "text": "recap everything",
+    "intent": "ask_carbon_footprint",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9248529672622681
+    }
+  },
+  {
+    "text": "show me climate contribution projects",
+    "intent": "ask_carbon_offset",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9987427592277527
+    }
+  },
+  {
+    "text": "I'd like to contribute to a climate project",
+    "intent": "ask_carbon_offset",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.99973064661026
+    }
+  },
+  {
+    "text": "why did the train score higher than the coach",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 0.9960657954216003
+    }
+  },
+  {
+    "text": "actually there will be 4 of us",
+    "intent": "change_preference",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "start a fresh plan",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I don't want to answer that",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.8773457407951355
+    }
+  },
+  {
+    "text": "can you translate this document",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.914586067199707
+    }
+  },
+  {
+    "text": "what's on Netflix tonight",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_cultural_experiences",
+      "confidence": 0.9962499737739563
+    }
+  },
+  {
+    "text": "what time is it in Tokyo",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.4151207506656647
+    }
+  },
+  {
+    "text": ";;;;;;",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 0.9999886751174927
+    }
+  },
+  {
+    "text": "random words here banana chair",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.8720999956130981
+    }
+  },
+  {
+    "text": "??????",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9999786615371704
+    }
+  },
+  {
+    "text": "heya",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "morning, hope you can help",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9999994039535522
+    }
+  },
+  {
+    "text": "closing this now",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.9551387429237366
+    }
+  },
+  {
+    "text": "nice one",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.7380515336990356
+    }
+  },
+  {
+    "text": "agreed",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.9991481304168701
+    }
+  },
+  {
+    "text": "neither of those",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.6158496141433716
+    }
+  },
+  {
+    "text": "I'd prefer not to",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 0.6560065150260925
+    }
+  },
+  {
+    "text": "is anyone actually there?",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9510147571563721
+    }
+  },
+  {
+    "text": "plan a sustainable week in Vienna",
+    "intent": "plan_trip",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.9969936609268188
+    }
+  },
+  {
+    "text": "my origin is Munich",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.8776746392250061
+    }
+  },
+  {
+    "text": "I'd like to visit Porto",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "Munich to Vienna",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "in three weeks",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "lowest emissions wins",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "show me the journey choices",
+    "intent": "ask_transport_options",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9993953704833984
+    }
+  },
+  {
+    "text": "what does the complete plan look like",
+    "intent": "ask_carbon_footprint",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9973340034484863
+    }
+  },
+  {
+    "text": "give me things to see",
+    "intent": "ask_cultural_experiences",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9999977350234985
+    }
+  },
+  {
+    "text": "any workshops or tours",
+    "intent": "ask_cultural_experiences",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9997655749320984
+    }
+  },
+  {
+    "text": "show carbon removal options",
+    "intent": "ask_carbon_offset",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "which API gave you that",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9999991655349731
+    }
+  },
+  {
+    "text": "is this conversation confidential",
+    "intent": "ask_data_privacy",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.9967489242553711
+    }
+  },
+  {
+    "text": "who can read my trip details",
+    "intent": "ask_data_privacy",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9999624490737915
+    }
+  },
+  {
+    "text": "can I get a real travel agent",
+    "intent": "request_human_agent",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "correct the number of people",
+    "intent": "change_preference",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.9751190543174744
+    }
+  },
+  {
+    "text": "reset the plan",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.8976558446884155
+    }
+  },
+  {
+    "text": "clear it all",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9997846484184265
+    }
+  },
+  {
+    "text": "let's start the whole thing again",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9999998807907104
+    }
+  },
+  {
+    "text": "I want to plan a completely different trip",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "scrap the whole plan",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "abort",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.9939467906951904
+    }
+  },
+  {
+    "text": "I'll do this later",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "what's the weather like tomorrow?",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.35390016436576843
+    }
+  },
+  {
+    "text": "what's 2 + 2",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "who is going to win the election",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9949027299880981
+    }
+  },
+  {
+    "text": "explain the offside rule",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_carbon_offset",
+      "confidence": 0.9298517107963562
+    }
+  },
+  {
+    "text": "convert dollars to yen for me",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.3076913058757782
+    }
+  },
+  {
+    "text": "can you draw me a picture",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9941930174827576
+    }
+  },
+  {
+    "text": "tell me about your training data",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.8215950727462769
+    }
+  },
+  {
+    "text": "what's the population of Brazil",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.8987062573432922
+    }
+  },
+  {
+    "text": "hi, I need a hand with something",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.640838623046875
+    }
+  },
+  {
+    "text": "that's me done",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.9158735871315002
+    }
+  },
+  {
+    "text": "I'm finished here",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.56932133436203
+    }
+  },
+  {
+    "text": "that's all from me",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.24643149971961975
+    }
+  },
+  {
+    "text": "absolutely",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.7885048389434814
+    }
+  },
+  {
+    "text": "I'd like that",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.8344009518623352
+    }
+  },
+  {
+    "text": "negative",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.36034274101257324
+    }
+  },
+  {
+    "text": "work out a sustainable itinerary for me",
+    "intent": "plan_trip",
+    "intent_prediction": {
+      "name": "ask_eco_hotels",
+      "confidence": 0.9999935626983643
+    }
+  },
+  {
+    "text": "let's say Florence",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.5492701530456543
+    }
+  },
+  {
+    "text": "only me",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.8665764331817627
+    }
+  },
+  {
+    "text": "a family of 5",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.8398729562759399
+    }
+  },
+  {
+    "text": "go green all the way",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "moderate is fine",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.738898754119873
+    }
+  },
+  {
+    "text": "book me somewhere green",
+    "intent": "ask_eco_hotels",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "calculate the carbon",
+    "intent": "ask_carbon_footprint",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.784765362739563
+    }
+  },
+  {
+    "text": "how much CO2e does the train emit",
+    "intent": "ask_carbon_footprint",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "day trips without a car",
+    "intent": "ask_cultural_experiences",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9996002316474915
+    }
+  },
+  {
+    "text": "can I cancel out the carbon",
+    "intent": "ask_carbon_offset",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.9976745247840881
+    }
+  },
+  {
+    "text": "show your workings",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "ask_cultural_experiences",
+      "confidence": 0.39666786789894104
+    }
+  },
+  {
+    "text": "what assumptions did you make",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "ask_cultural_experiences",
+      "confidence": 0.8525338172912598
+    }
+  },
+  {
+    "text": "are you making this up",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.5748385787010193
+    }
+  },
+  {
+    "text": "are you tracking me?",
+    "intent": "ask_data_privacy",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.9976515173912048
+    }
+  },
+  {
+    "text": "can someone call me",
+    "intent": "request_human_agent",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "actually I'm leaving from somewhere else",
+    "intent": "change_preference",
+    "intent_prediction": {
+      "name": "ask_eco_hotels",
+      "confidence": 0.8999637365341187
+    }
+  },
+  {
+    "text": "make my budget 900 instead",
+    "intent": "change_preference",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "new trip please",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9999513626098633
+    }
+  },
+  {
+    "text": "begin a new plan",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9999998807907104
+    }
+  },
+  {
+    "text": "blank slate please",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "leave it for now",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.8827894926071167
+    }
+  },
+  {
+    "text": "do you do visa applications",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "can you renew my passport",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9998549222946167
+    }
+  },
+  {
+    "text": "order me a taxi right now",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.8430759906768799
+    }
+  },
+  {
+    "text": "do my tax return",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9999995231628418
+    }
+  },
+  {
+    "text": "do you know any good jokes about trains",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "summarise the news for me",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "...",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 0.9999982118606567
+    }
+  },
+  {
+    "text": "test test test",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.8899765014648438
+    }
+  },
+  {
+    "text": "what's my horoscope",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9990330934524536
+    }
+  },
+  {
+    "text": "what's trending on social media",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_cultural_experiences",
+      "confidence": 0.9942598342895508
+    }
+  },
+  {
+    "text": "do you sell flight tickets directly",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9998995065689087
+    }
+  },
+  {
+    "text": "good afternoon",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.6177670359611511
+    }
+  },
+  {
+    "text": "hey advisor",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.9999946355819702
+    }
+  },
+  {
+    "text": "good day",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.8546879291534424
+    }
+  },
+  {
+    "text": "talk to you later",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.5393586754798889
+    }
+  },
+  {
+    "text": "farewell",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "take care",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.8045029640197754
+    }
+  },
+  {
+    "text": "cheers",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.9486197233200073
+    }
+  },
+  {
+    "text": "thanks for the detail",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9228578209877014
+    }
+  },
+  {
+    "text": "correct",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 0.9999984502792358
+    }
+  },
+  {
+    "text": "sounds great",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.738619327545166
+    }
+  },
+  {
+    "text": "go ahead",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.8852110505104065
+    }
+  },
+  {
+    "text": "incorrect",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 0.9969538450241089
+    }
+  },
+  {
+    "text": "decline",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 0.8575435280799866
+    }
+  },
+  {
+    "text": "is this an actual travel agent?",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.7184363603591919
+    }
+  },
+  {
+    "text": "are you a real advisor or software?",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.8450183868408203
+    }
+  },
+  {
+    "text": "departure next month",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 0.9965659976005554
+    }
+  },
+  {
+    "text": "tomorrow",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I'll share my GPS",
+    "intent": "share_location",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.7130064964294434
+    }
+  },
+  {
+    "text": "what's the lowest emission route?",
+    "intent": "ask_transport_options",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9999463558197021
+    }
+  },
+  {
+    "text": "somewhere walkable to public transport",
+    "intent": "ask_eco_hotels",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 0.5164077281951904
+    }
+  },
+  {
+    "text": "sum it all up",
+    "intent": "ask_carbon_footprint",
+    "intent_prediction": {
+      "name": "restart_planning",
+      "confidence": 0.35389241576194763
+    }
+  },
+  {
+    "text": "wrap it all together",
+    "intent": "ask_carbon_footprint",
+    "intent_prediction": {
+      "name": "restart_planning",
+      "confidence": 0.9696855545043945
+    }
+  },
+  {
+    "text": "add it all up",
+    "intent": "ask_carbon_footprint",
+    "intent_prediction": {
+      "name": "restart_planning",
+      "confidence": 0.6009918451309204
+    }
+  },
+  {
+    "text": "what can I do there?",
+    "intent": "ask_cultural_experiences",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.4262011647224426
+    }
+  },
+  {
+    "text": "what about carbon credits",
+    "intent": "ask_carbon_offset",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.5066961050033569
+    }
+  },
+  {
+    "text": "how do you know that?",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.38045522570610046
+    }
+  },
+  {
+    "text": "what does the eco score mean",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9999686479568481
+    }
+  },
+  {
+    "text": "show me the method",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.8722561001777649
+    }
+  },
+  {
+    "text": "what are the limitations of this",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.8892496824264526
+    }
+  },
+  {
+    "text": "is this GDPR compliant?",
+    "intent": "ask_data_privacy",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.84601891040802
+    }
+  },
+  {
+    "text": "will you remember me next time",
+    "intent": "ask_data_privacy",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.94352126121521
+    }
+  },
+  {
+    "text": "this is too complicated for a bot",
+    "intent": "request_human_agent",
+    "intent_prediction": {
+      "name": "ask_carbon_offset",
+      "confidence": 0.19024257361888885
+    }
+  },
+  {
+    "text": "no more questions please",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.999966025352478
+    }
+  },
+  {
+    "text": "will it rain there next week",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.17312990128993988
+    }
+  },
+  {
+    "text": "recommend a laptop",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.2268885225057602
+    }
+  },
+  {
+    "text": "can you call my mum",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9999082088470459
+    }
+  },
+  {
+    "text": "play some music",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.34299737215042114
+    }
+  },
+  {
+    "text": "should I buy bitcoin",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_carbon_offset",
+      "confidence": 0.7475486397743225
+    }
+  },
+  {
+    "text": "find me a job",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.5944456458091736
+    }
+  },
+  {
+    "text": "what's a good name for a cat",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.2396710067987442
+    }
+  },
+  {
+    "text": "aaaaaaaa",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.20928986370563507
+    }
+  },
+  {
+    "text": "can you order groceries",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9890357851982117
+    }
+  },
+  {
+    "text": "what medication should I take",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "share_location",
+      "confidence": 0.324637234210968
+    }
+  },
+  {
+    "text": "how old is the universe",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9999642372131348
+    }
+  },
+  {
+    "text": "recommend a good film",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.5003742575645447
+    }
+  },
+  {
+    "text": "can you speak French",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.9999879598617554
+    }
+  },
+  {
+    "text": "hiya",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "ask_cultural_experiences",
+      "confidence": 0.3841003179550171
+    }
+  },
+  {
+    "text": "yo",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9589969515800476
+    }
+  },
+  {
+    "text": "end of conversation",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "thanks and goodbye",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.9948203563690186
+    }
+  },
+  {
+    "text": "until next time",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 0.9999871253967285
+    }
+  },
+  {
+    "text": "ta",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9687935709953308
+    }
+  },
+  {
+    "text": "of course",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 0.8865149021148682
+    }
+  },
+  {
+    "text": "fine by me",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "ask_cultural_experiences",
+      "confidence": 0.4548244774341583
+    }
+  },
+  {
+    "text": "happy with that",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.826643168926239
+    }
+  },
+  {
+    "text": "nah",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.9559159874916077
+    }
+  },
+  {
+    "text": "I disagree",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.8618075251579285
+    }
+  },
+  {
+    "text": "I'll pass",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.6950732469558716
+    }
+  },
+  {
+    "text": "am I talking to a human?",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.996864378452301
+    }
+  },
+  {
+    "text": "human or bot?",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.9998860359191895
+    }
+  },
+  {
+    "text": "organise a short holiday please",
+    "intent": "plan_trip",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.9997261166572571
+    }
+  },
+  {
+    "text": "I'm based in Utrecht",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "ask_cultural_experiences",
+      "confidence": 0.19743561744689941
+    }
+  },
+  {
+    "text": "just me",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.5731093883514404
+    }
+  },
+  {
+    "text": "can I cycle any of it",
+    "intent": "ask_transport_options",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.6211867928504944
+    }
+  },
+  {
+    "text": "is flying the only option",
+    "intent": "ask_transport_options",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.338566392660141
+    }
+  },
+  {
+    "text": "can I buy carbon credits",
+    "intent": "ask_carbon_offset",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "I want to neutralise the trip",
+    "intent": "ask_carbon_offset",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 0.8183088898658752
+    }
+  },
+  {
+    "text": "what's your source?",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.5346579551696777
+    }
+  },
+  {
+    "text": "what data are you using?",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "tell me about the data quality",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "can I ask you to forget everything",
+    "intent": "ask_data_privacy",
+    "intent_prediction": {
+      "name": "ask_cultural_experiences",
+      "confidence": 0.41648566722869873
+    }
+  },
+  {
+    "text": "data protection question",
+    "intent": "ask_data_privacy",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.9619558453559875
+    }
+  },
+  {
+    "text": "who has access to what I tell you",
+    "intent": "ask_data_privacy",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "actually make it stricter",
+    "intent": "change_preference",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 0.8721903562545776
+    }
+  },
+  {
+    "text": "forget all of that",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.34953272342681885
+    }
+  },
+  {
+    "text": "delete everything and restart",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.6619030237197876
+    }
+  },
+  {
+    "text": "never mind",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.8972794413566589
+    }
+  },
+  {
+    "text": "break off here",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.9935164451599121
+    }
+  },
+  {
+    "text": "what's the exchange rate",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "help me with my homework",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9999837875366211
+    }
+  },
+  {
+    "text": "fix my computer",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9994383454322815
+    }
+  },
+  {
+    "text": "what's the meaning of life",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 0.9955371618270874
+    }
+  },
+  {
+    "text": "teach me Spanish",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.7756142616271973
+    }
+  },
+  {
+    "text": "blah blah blah",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "restart_planning",
+      "confidence": 0.40787068009376526
+    }
+  },
+  {
+    "text": "set an alarm for 7am",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "what's the square root of 144",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.14624980092048645
+    }
+  }
+]

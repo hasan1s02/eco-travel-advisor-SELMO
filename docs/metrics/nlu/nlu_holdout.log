@@ -1,0 +1,105 @@
+/home/claude/.venv310/lib/python3.10/site-packages/rasa/core/tracker_store.py:1044: MovedIn20Warning: Deprecated API features detected! These feature(s) are not compatible with SQLAlchemy 2.0. To prevent incompatible upgrades prior to updating applications, ensure requirements files are pinned to "sqlalchemy<2.0". Set environment variable SQLALCHEMY_WARN_20=1 to show all deprecation warnings.  Set environment variable SQLALCHEMY_SILENCE_UBER_WARNING=1 to silence this message. (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  Base: DeclarativeMeta = declarative_base()
+/home/claude/.venv310/lib/python3.10/site-packages/rasa/shared/utils/validation.py:134: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+/home/claude/.venv310/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('mpl_toolkits')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/claude/.venv310/lib/python3.10/site-packages/pkg_resources/__init__.py:3117: DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('ruamel')`.
+Implementing implicit namespace packages (as specified in PEP 420) is preferred to `pkg_resources.declare_namespace`. See https://setuptools.pypa.io/en/latest/references/keywords.html#keyword-namespace-packages
+  declare_namespace(pkg)
+/home/claude/.venv310/lib/python3.10/site-packages/tensorflow/lite/python/util.py:52: DeprecationWarning: jax.xla_computation is deprecated. Please use the AOT APIs.
+  from jax import xla_computation as _xla_computation
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:66: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  ).setParseAction(self._family)
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:127: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  self._parser.parseString(pattern)
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:134: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  self._parser.resetCache()
+2026-09-18 19:23:05 INFO     rasa.core.processor  - Loading model models/eco_travel_advisor.tar.gz...
+2026-09-18 19:23:06 INFO     rasa.nlu.utils.spacy_utils  - Trying to load SpaCy model with name 'en_core_web_md'.
+/home/claude/.venv310/lib/python3.10/site-packages/packaging/markers.py:125: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  VARIABLE.setParseAction(lambda s, l, t: Variable(ALIASES.get(t[0], t[0])))
+/home/claude/.venv310/lib/python3.10/site-packages/packaging/requirements.py:74: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  _VERSION_SPEC.setParseAction(lambda s, l, t: t._raw_spec or "")
+/home/claude/.venv310/lib/python3.10/site-packages/packaging/requirements.py:76: PyparsingDeprecationWarning: 'originalTextFor' deprecated - use 'original_text_for'
+  VERSION_SPEC = originalTextFor(_VERSION_SPEC)("specifier")
+/home/claude/.venv310/lib/python3.10/site-packages/packaging/requirements.py:94: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  REQUIREMENT.parseString("x[]")
+/home/claude/.venv310/lib/python3.10/site-packages/typer/__init__.py:25: DeprecationWarning: 'click.utils.get_binary_stream' is deprecated and will be removed in Click 9.0.
+  from click.utils import get_binary_stream as get_binary_stream
+/home/claude/.venv310/lib/python3.10/site-packages/typer/__init__.py:26: DeprecationWarning: 'click.utils.get_text_stream' is deprecated and will be removed in Click 9.0.
+  from click.utils import get_text_stream as get_text_stream
+/home/claude/.venv310/lib/python3.10/site-packages/typer/completion.py:122: DeprecationWarning: 'BaseCommand' is deprecated and will be removed in Click 9.0. Use 'Command' instead.
+  cli: click.BaseCommand,
+/home/claude/.venv310/lib/python3.10/site-packages/spacy/cli/_util.py:11: DeprecationWarning: Importing 'parser.split_arg_string' is deprecated, it will only be available in 'shell_completion' in Click 9.0.
+  from click.parser import split_arg_string
+2026-09-18 19:23:09 INFO     rasa.nlu.utils.spacy_utils  - Trying to load SpaCy model with name 'en_core_web_md'.
+2026-09-18 19:24:19 INFO     rasa.nlu.test  - Running model for predictions:
+  0%|          | 0/868 [00:00<?, ?it/s]  0%|          | 1/868 [00:00<06:50,  2.11it/s]  1%|          | 8/868 [00:00<00:49, 17.49it/s]  2%|▏         | 15/868 [00:00<00:28, 30.11it/s]  3%|▎         | 22/868 [00:00<00:22, 37.91it/s]  3%|▎         | 29/868 [00:00<00:18, 44.85it/s]  4%|▍         | 36/868 [00:01<00:16, 49.49it/s]  5%|▍         | 42/868 [00:01<00:15, 52.02it/s]  6%|▌         | 48/868 [00:01<00:15, 54.14it/s]  6%|▋         | 55/868 [00:01<00:14, 58.06it/s]  7%|▋         | 62/868 [00:01<00:13, 60.01it/s]  8%|▊         | 69/868 [00:01<00:13, 59.79it/s]  9%|▉         | 76/868 [00:01<00:12, 61.61it/s] 10%|▉         | 83/868 [00:01<00:12, 62.30it/s] 10%|█         | 90/868 [00:01<00:12, 63.30it/s] 11%|█▏        | 98/868 [00:02<00:11, 65.25it/s] 12%|█▏        | 105/868 [00:02<00:11, 66.33it/s] 13%|█▎        | 112/868 [00:02<00:11, 67.01it/s] 14%|█▎        | 119/868 [00:02<00:11, 63.78it/s] 15%|█▍        | 126/868 [00:02<00:11, 63.83it/s] 15%|█▌        | 133/868 [00:02<00:11, 62.94it/s] 16%|█▌        | 140/868 [00:02<00:11, 62.17it/s] 17%|█▋        | 147/868 [00:02<00:11, 61.17it/s] 18%|█▊        | 154/868 [00:02<00:11, 60.45it/s] 19%|█▊        | 161/868 [00:03<00:12, 58.05it/s] 19%|█▉        | 167/868 [00:03<00:12, 55.81it/s] 20%|█▉        | 173/868 [00:03<00:12, 55.18it/s] 21%|██        | 179/868 [00:03<00:12, 54.09it/s] 21%|██▏       | 185/868 [00:03<00:13, 52.09it/s] 22%|██▏       | 191/868 [00:03<00:12, 52.90it/s] 23%|██▎       | 197/868 [00:03<00:12, 52.99it/s] 23%|██▎       | 203/868 [00:03<00:12, 53.16it/s] 24%|██▍       | 209/868 [00:03<00:12, 53.67it/s] 25%|██▍       | 215/868 [00:04<00:12, 54.17it/s] 25%|██▌       | 221/868 [00:04<00:11, 54.38it/s] 26%|██▌       | 227/868 [00:04<00:11, 55.82it/s] 27%|██▋       | 235/868 [00:04<00:10, 60.75it/s] 28%|██▊       | 242/868 [00:04<00:10, 62.41it/s] 29%|██▊       | 249/868 [00:04<00:09, 63.25it/s] 29%|██▉       | 256/868 [00:04<00:09, 63.36it/s] 30%|███       | 263/868 [00:04<00:09, 63.60it/s] 31%|███       | 270/868 [00:04<00:09, 64.16it/s] 32%|███▏      | 277/868 [00:05<00:09, 63.42it/s] 33%|███▎      | 284/868 [00:05<00:09, 64.06it/s] 34%|███▎      | 291/868 [00:15<04:14,  2.27it/s] 34%|███▍      | 295/868 [00:18<05:10,  1.85it/s] 35%|███▍      | 300/868 [00:19<03:51,  2.45it/s] 35%|███▌      | 307/868 [00:19<02:33,  3.65it/s] 36%|███▌      | 314/868 [00:19<01:44,  5.28it/s] 37%|███▋      | 320/868 [00:19<01:17,  7.08it/s] 38%|███▊      | 327/868 [00:19<00:54,  9.92it/s] 38%|███▊      | 334/868 [00:19<00:39, 13.56it/s] 39%|███▉      | 340/868 [00:19<00:30, 17.24it/s] 40%|███▉      | 346/868 [00:19<00:24, 21.19it/s] 41%|████      | 353/868 [00:20<00:19, 26.75it/s] 41%|████▏     | 360/868 [00:20<00:15, 32.43it/s] 42%|████▏     | 367/868 [00:20<00:13, 38.26it/s] 43%|████▎     | 374/868 [00:20<00:11, 43.15it/s] 44%|████▍     | 381/868 [00:20<00:10, 47.28it/s] 45%|████▍     | 387/868 [00:20<00:09, 50.09it/s] 45%|████▌     | 393/868 [00:20<00:09, 52.48it/s] 46%|████▌     | 399/868 [00:20<00:08, 54.39it/s] 47%|████▋     | 406/868 [00:20<00:08, 56.09it/s] 47%|████▋     | 412/868 [00:20<00:08, 56.98it/s] 48%|████▊     | 418/868 [00:21<00:08, 55.86it/s] 49%|████▉     | 424/868 [00:21<00:07, 56.92it/s] 50%|████▉     | 430/868 [00:21<00:07, 57.64it/s] 50%|█████     | 436/868 [00:21<00:07, 57.76it/s] 51%|█████     | 442/868 [00:30<03:13,  2.20it/s] 51%|█████▏    | 447/868 [00:33<03:41,  1.90it/s] 52%|█████▏    | 450/868 [00:38<04:42,  1.48it/s] 53%|█████▎    | 456/868 [00:38<03:05,  2.22it/s] 53%|█████▎    | 462/868 [00:38<02:05,  3.25it/s] 54%|█████▍    | 468/868 [00:38<01:26,  4.64it/s] 55%|█████▍    | 474/868 [00:38<01:00,  6.52it/s] 55%|█████▌    | 480/868 [00:38<00:43,  8.97it/s] 56%|█████▌    | 486/868 [00:38<00:31, 12.10it/s] 57%|█████▋    | 492/868 [00:38<00:23, 15.94it/s] 57%|█████▋    | 498/868 [00:38<00:18, 20.24it/s] 58%|█████▊    | 504/868 [00:38<00:14, 25.25it/s] 59%|█████▉    | 510/868 [00:39<00:11, 30.58it/s] 59%|█████▉    | 516/868 [00:39<00:09, 35.79it/s] 60%|██████    | 522/868 [00:39<00:08, 39.50it/s] 61%|██████    | 529/868 [00:39<00:07, 44.90it/s] 62%|██████▏   | 535/868 [00:39<00:06, 48.15it/s] 62%|██████▏   | 541/868 [00:39<00:06, 51.08it/s] 63%|██████▎   | 548/868 [00:39<00:05, 53.95it/s] 64%|██████▍   | 555/868 [00:39<00:05, 55.82it/s] 65%|██████▍   | 561/868 [00:44<01:04,  4.78it/s] 65%|██████▌   | 567/868 [00:44<00:46,  6.48it/s] 66%|██████▌   | 574/868 [00:44<00:32,  9.10it/s] 67%|██████▋   | 581/868 [00:44<00:23, 12.46it/s] 68%|██████▊   | 587/868 [00:44<00:17, 15.96it/s] 68%|██████▊   | 593/868 [00:44<00:13, 19.86it/s] 69%|██████▉   | 599/868 [00:44<00:11, 24.26it/s] 70%|██████▉   | 605/868 [00:44<00:09, 28.59it/s] 70%|███████   | 611/868 [00:48<00:56,  4.57it/s] 71%|███████   | 617/868 [00:48<00:40,  6.27it/s] 72%|███████▏  | 623/868 [00:49<00:28,  8.54it/s] 72%|███████▏  | 628/868 [00:52<01:06,  3.62it/s] 73%|███████▎  | 634/868 [00:52<00:45,  5.09it/s] 74%|███████▎  | 640/868 [00:52<00:32,  7.07it/s] 74%|███████▍  | 646/868 [00:52<00:23,  9.64it/s] 75%|███████▌  | 653/868 [00:53<00:15, 13.49it/s] 76%|███████▌  | 660/868 [00:53<00:11, 18.14it/s] 77%|███████▋  | 667/868 [00:53<00:08, 23.38it/s] 78%|███████▊  | 674/868 [00:53<00:06, 28.90it/s] 78%|███████▊  | 680/868 [00:53<00:05, 33.56it/s] 79%|███████▉  | 686/868 [00:53<00:04, 37.47it/s] 80%|███████▉  | 692/868 [00:53<00:04, 41.65it/s] 80%|████████  | 698/868 [00:53<00:03, 44.94it/s] 81%|████████  | 705/868 [00:53<00:03, 49.48it/s] 82%|████████▏ | 712/868 [00:54<00:02, 53.13it/s] 83%|████████▎ | 719/868 [00:54<00:02, 55.74it/s] 84%|████████▎ | 726/868 [00:54<00:02, 59.03it/s] 84%|████████▍ | 733/868 [00:54<00:02, 60.80it/s] 85%|████████▌ | 740/868 [00:54<00:02, 60.86it/s] 86%|████████▌ | 747/868 [00:54<00:01, 61.75it/s] 87%|████████▋ | 754/868 [00:54<00:01, 59.71it/s] 88%|████████▊ | 761/868 [00:54<00:01, 61.81it/s] 88%|████████▊ | 768/868 [00:54<00:01, 63.60it/s] 89%|████████▉ | 775/868 [00:55<00:01, 63.33it/s] 90%|█████████ | 782/868 [00:55<00:01, 62.76it/s] 91%|█████████ | 789/868 [00:58<00:12,  6.21it/s] 92%|█████████▏| 795/868 [00:58<00:08,  8.17it/s] 92%|█████████▏| 802/868 [00:58<00:05, 11.16it/s] 93%|█████████▎| 808/868 [00:58<00:04, 14.28it/s] 94%|█████████▍| 815/868 [00:59<00:02, 18.88it/s] 95%|█████████▍| 821/868 [00:59<00:02, 23.27it/s] 95%|█████████▌| 828/868 [00:59<00:01, 28.99it/s] 96%|█████████▌| 835/868 [00:59<00:00, 35.24it/s] 97%|█████████▋| 842/868 [01:02<00:04,  5.66it/s] 98%|█████████▊| 848/868 [01:03<00:02,  7.50it/s] 99%|█████████▊| 855/868 [01:03<00:01, 10.33it/s] 99%|█████████▉| 862/868 [01:03<00:00, 13.89it/s]100%|██████████| 868/868 [01:03<00:00, 17.53it/s]100%|██████████| 868/868 [01:03<00:00, 13.68it/s]
+2026-09-18 19:25:22 INFO     rasa.nlu.test  - Intent evaluation results:
+2026-09-18 19:25:22 INFO     rasa.nlu.test  - Intent Evaluation: Only considering those 868 examples that have a defined intent out of 868 examples.
+2026-09-18 19:25:22 INFO     rasa.nlu.test  - Classification report saved to docs/metrics/nlu/intent_report.json.
+2026-09-18 19:25:22 INFO     rasa.nlu.test  - Incorrect intent predictions saved to docs/metrics/nlu/intent_errors.json.
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/_mathtext.py:30: PyparsingDeprecationWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+  ParserElement.enablePackrat()
+2026-09-18 19:25:23 INFO     rasa.utils.plotting  - Confusion matrix, without normalization: 
+[[27  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0 42  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0]
+ [ 0  0 37  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0 40  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0 41  0  0  0  1  0  0  0  0  0  0  0  0  0  1  0  0]
+ [ 0  0  0  0  0 44  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0 50  0  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0 45  0  0  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0 23  0  0  0  0  0  1  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0 37  0  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0 32  0  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0 34  0  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0 30  0  0  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  1  0  0  0 91  1  1  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0 88  0  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 50  0  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 40  0  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 26  0  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 22  0  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 33  0]
+ [ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 28]]
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:127: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  self._parser.parseString(pattern)
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/fontconfig_pattern.py:134: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  self._parser.resetCache()
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/_mathtext.py:2022: PyparsingDeprecationWarning: 'setName' deprecated - use 'set_name'
+  val.setName(key)
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/_mathtext.py:2033: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+  p.space         <<= oneOf(list(self._space_widths))
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/_mathtext.py:1878: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+  empty.setParseAction(raise_error)
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/_mathtext.py:2047: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+  + Suppress(Regex("(?=[^A-Za-z]|$)").leaveWhitespace())
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/_mathtext.py:2209: PyparsingDeprecationWarning: 'unquoteResults' argument is deprecated, use 'unquote_results'
+  p.math_string   <<= QuotedString('$', '\\', unquoteResults=False)
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/_mathtext.py:2237: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  result = self._expression.parseString(s)
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/_mathtext.py:2245: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  self._expression.resetCache()
+2026-09-18 19:25:25 INFO     rasa.nlu.test  - Entity evaluation results:
+2026-09-18 19:25:25 INFO     rasa.nlu.test  - Evaluation for entity extractor: DIETClassifier 
+2026-09-18 19:25:25 INFO     rasa.nlu.test  - Classification report saved to docs/metrics/nlu/DIETClassifier_report.json.
+2026-09-18 19:25:25 INFO     rasa.nlu.test  - Incorrect entity predictions saved to docs/metrics/nlu/DIETClassifier_errors.json.
+2026-09-18 19:25:25 INFO     rasa.utils.plotting  - Confusion matrix, without normalization: 
+[[  12    0    0    0    0    0    0    0    0    0    0]
+ [   0   12    0    0    0    0    0    0    0    0    0]
+ [   0    0   30    0    0    0    0    0    0    0    0]
+ [   0    0    0   21    0    0    0    0    0    0    0]
+ [   0    0    0    0 3722    0    0    0    1    0    0]
+ [   0    0    0    0    0   14    0    0    0    0    0]
+ [   0    0    0    0    0    0    5    0    0    0    0]
+ [   0    0    0    0    0    0    0   16    0    0    0]
+ [   0    0    0    0    0    0    0    0   21    0    2]
+ [   0    0    0    0    0    0    0    0    9   11    0]
+ [   0    0    0    0    3    0    0    0    0    0   10]]
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/_mathtext.py:2237: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  result = self._expression.parseString(s)
+/home/claude/.venv310/lib/python3.10/site-packages/matplotlib/_mathtext.py:2245: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  self._expression.resetCache()

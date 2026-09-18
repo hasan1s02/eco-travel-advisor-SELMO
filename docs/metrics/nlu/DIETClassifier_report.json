@@ -1,0 +1,81 @@
+{
+  "sustainability_level": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 1,
+    "confused_with": {}
+  },
+  "travellers": {
+    "precision": 1.0,
+    "recall": 0.4,
+    "f1-score": 0.5714285714285715,
+    "support": 5,
+    "confused_with": {}
+  },
+  "travel_date.departure": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 9,
+    "confused_with": {
+      "travel_date.return": 8
+    }
+  },
+  "budget": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 4,
+    "confused_with": {}
+  },
+  "city": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 2,
+    "confused_with": {}
+  },
+  "travel_date": {
+    "precision": 0.5,
+    "recall": 0.25,
+    "f1-score": 0.3333333333333333,
+    "support": 4,
+    "confused_with": {
+      "travel_date.departure": 1
+    }
+  },
+  "city.origin": {
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1-score": 0.8,
+    "support": 3,
+    "confused_with": {}
+  },
+  "city.destination": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 7,
+    "confused_with": {}
+  },
+  "micro avg": {
+    "precision": 0.9047619047619048,
+    "recall": 0.5428571428571428,
+    "f1-score": 0.6785714285714285,
+    "support": 35
+  },
+  "macro avg": {
+    "precision": 0.8125,
+    "recall": 0.6645833333333333,
+    "f1-score": 0.7130952380952381,
+    "support": 35
+  },
+  "weighted avg": {
+    "precision": 0.6857142857142857,
+    "recall": 0.5428571428571428,
+    "f1-score": 0.5882993197278912,
+    "support": 35
+  },
+  "accuracy": 0.9764397905759162
+}

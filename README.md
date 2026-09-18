@@ -169,10 +169,41 @@ rasa test core --stories tests/test_stories.yml --e2e --out docs/metrics/core
 cd frontend && npm run typecheck && npm run build
 ```
 
-Results land in `docs/metrics/`. `RESULTS.md` there records the figures from the graded run.
+Results land in `docs/metrics/`; `RESULTS.md` there is generated from the raw output by
+`scripts/summarise_metrics.py`. `docs/evaluation.md` reads those numbers.
+
+### Measured results
+
+| Measure | Result | Method |
+|---|---|---|
+| Intent classification | 0.775 accuracy | 5-fold cross-validation, 868 examples, 21 intents |
+| Intent classification | 0.782 accuracy | 80/20 holdout, seed 42 |
+| Entity extraction | 0.982 accuracy | 5-fold cross-validation |
+| Dialogue — conversations | 14 / 14 | End-to-end test stories, real NLU in the loop |
+| Dialogue — action turns | 75 / 75 | Same run |
+| Unit tests | 60 / 60 | pytest, offline mode forced |
+| Latency | median 70 ms, p95 108 ms | 49 live turns through the REST channel |
+
+The intent figure is 0.78, not higher, and `docs/evaluation.md` explains why rather than
+explaining it away: three measured iterations took it from 0.67 to 0.78 and then flat, with
+every targeted intent improving and the improvement paid for by its neighbours. The causes
+are an open-ended `out_of_scope` class and one-to-three-word social intents that DIET
+classifies without dialogue context. Dialogue accuracy is nonetheless 1.000, because most of
+the remaining confusions map to the same action.
 
 The end-to-end stories in `tests/test_stories.yml` deliberately use wordings that do **not**
 appear in `data/nlu.yml` — a test the model has memorised proves nothing.
+
+### Reproducing the transcripts
+
+```bash
+scripts/serve.sh start
+python scripts/run_demo_conversations.py --out docs/transcripts
+```
+
+Seven scenarios covering the happy path, a strict long-distance profile, transparency
+challenges, error recovery, input rejection, location sharing and mid-form escalation.
+Each writes a Markdown transcript with per-turn latency, plus a JSON dump of every payload.
 
 ---
 
@@ -196,6 +227,14 @@ appear in `data/nlu.yml` — a test the model has memorised proves nothing.
 │   └── data/                   emission factors, gazetteer, properties, experiences
 ├── frontend/                   React 18 + TypeScript + Vite on the Rasa REST channel
 ├── tests/                      pytest unit tests + end-to-end conversation tests
+├── scripts/                    serve.sh, demo transcripts, metrics summariser
+├── docs/
+│   ├── architecture.md         system and request-path diagrams
+│   ├── conversation-flows.md   dialogue flows, UI mapping, accessibility
+│   ├── evaluation.md           what the numbers mean and what they don't
+│   ├── user-testing-protocol.md  ready-to-run usability study
+│   ├── metrics/                raw rasa test output + generated RESULTS.md
+│   └── transcripts/            seven recorded conversations with latencies
 ├── deploy/huggingface/         single-container Spaces deployment
 └── docker-compose.yml          rasa + actions + frontend
 ```
@@ -277,6 +316,11 @@ Honest ones, since the assistant is built on the premise that stating limitation
   The scheme names are real; their attachment to these properties is illustrative.
 - **English only** in the NLU model. The UI takes dictation in the browser's locale, but the
   assistant will not understand it unless it is English.
+- **No human usability testing has been run.** The protocol in
+  `docs/user-testing-protocol.md` is complete and ready, but every usability claim here is
+  currently a designer's assertion rather than a finding.
+- **Intent classification sits at 0.78**, and the ceiling is structural rather than a
+  training-budget problem. `docs/evaluation.md` has the analysis.
 
 ---
 

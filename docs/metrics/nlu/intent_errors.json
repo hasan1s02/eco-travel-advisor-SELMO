@@ -1,0 +1,306 @@
+[
+  {
+    "text": "scrap the whole plan",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "let's start the whole thing again",
+    "intent": "restart_planning",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9990270137786865
+    }
+  },
+  {
+    "text": "exactly",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.9676691889762878
+    }
+  },
+  {
+    "text": "that helps a lot",
+    "intent": "thanks",
+    "intent_prediction": {
+      "name": "request_human_agent",
+      "confidence": 0.20799574255943298
+    }
+  },
+  {
+    "text": "hiya",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "ask_eco_hotels",
+      "confidence": 0.20531702041625977
+    }
+  },
+  {
+    "text": "heya",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.7797298431396484
+    }
+  },
+  {
+    "text": "nope",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.34533655643463135
+    }
+  },
+  {
+    "text": "no more questions please",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "leave it for now",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.7637627124786377
+    }
+  },
+  {
+    "text": "stop collecting details",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9993667006492615
+    }
+  },
+  {
+    "text": "abort",
+    "intent": "stop",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.9786685109138489
+    }
+  },
+  {
+    "text": "talk to you later",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "stop",
+      "confidence": 0.7646662592887878
+    }
+  },
+  {
+    "text": "later",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "cheerio",
+    "intent": "goodbye",
+    "intent_prediction": {
+      "name": "thanks",
+      "confidence": 0.9991635084152222
+    }
+  },
+  {
+    "text": "can I get a real travel agent",
+    "intent": "request_human_agent",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "will my data be deleted afterwards",
+    "intent": "ask_data_privacy",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 0.32003018260002136
+    }
+  },
+  {
+    "text": "anywhere with a proper eco label",
+    "intent": "ask_eco_hotels",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 0.9999988079071045
+    }
+  },
+  {
+    "text": "add it all up",
+    "intent": "ask_carbon_footprint",
+    "intent_prediction": {
+      "name": "restart_planning",
+      "confidence": 0.6525433659553528
+    }
+  },
+  {
+    "text": "what's the lowest emission route?",
+    "intent": "ask_transport_options",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 0.9921562671661377
+    }
+  },
+  {
+    "text": "what transport do you recommend",
+    "intent": "ask_transport_options",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.513803243637085
+    }
+  },
+  {
+    "text": "how do I actually get there",
+    "intent": "ask_transport_options",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 0.24907273054122925
+    }
+  },
+  {
+    "text": "can we start planning",
+    "intent": "plan_trip",
+    "intent_prediction": {
+      "name": "restart_planning",
+      "confidence": 0.5983337163925171
+    }
+  },
+  {
+    "text": "why did the train score higher than the coach",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "justify that number",
+    "intent": "ask_methodology",
+    "intent_prediction": {
+      "name": "change_preference",
+      "confidence": 0.4785420596599579
+    }
+  },
+  {
+    "text": "will it rain there next week",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "...",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "inform",
+      "confidence": 0.7245374321937561
+    }
+  },
+  {
+    "text": "order me a taxi right now",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "are you single",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.6478157043457031
+    }
+  },
+  {
+    "text": "convert dollars to yen for me",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.24389946460723877
+    }
+  },
+  {
+    "text": "diagnose my headache",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_data_privacy",
+      "confidence": 0.9991486072540283
+    }
+  },
+  {
+    "text": "summarise the news for me",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_carbon_footprint",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "can you order groceries",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.5776692628860474
+    }
+  },
+  {
+    "text": "can you translate this document",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_methodology",
+      "confidence": 0.2756536900997162
+    }
+  },
+  {
+    "text": "I was thinking Amsterdam",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "plan_trip",
+      "confidence": 1.0
+    }
+  },
+  {
+    "text": "setting out from Lyon",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.49598827958106995
+    }
+  },
+  {
+    "text": "departure next month",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "goodbye",
+      "confidence": 0.9043931365013123
+    }
+  },
+  {
+    "text": "only me",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "ask_transport_options",
+      "confidence": 0.5943732261657715
+    }
+  },
+  {
+    "text": "somewhere like Ljubljana",
+    "intent": "inform",
+    "intent_prediction": {
+      "name": "ask_eco_hotels",
+      "confidence": 0.8237206339836121
+    }
+  }
+]

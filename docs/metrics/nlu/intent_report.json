@@ -1,0 +1,207 @@
+{
+  "thanks": {
+    "precision": 0.7142857142857143,
+    "recall": 0.8333333333333334,
+    "f1-score": 0.7692307692307692,
+    "support": 6,
+    "confused_with": {
+      "request_human_agent": 1
+    }
+  },
+  "ask_data_privacy": {
+    "precision": 0.8,
+    "recall": 0.8888888888888888,
+    "f1-score": 0.8421052631578948,
+    "support": 9,
+    "confused_with": {
+      "change_preference": 1
+    }
+  },
+  "inform": {
+    "precision": 0.875,
+    "recall": 0.7368421052631579,
+    "f1-score": 0.7999999999999999,
+    "support": 19,
+    "confused_with": {
+      "goodbye": 2,
+      "plan_trip": 1
+    }
+  },
+  "goodbye": {
+    "precision": 0.4444444444444444,
+    "recall": 0.5714285714285714,
+    "f1-score": 0.5,
+    "support": 7,
+    "confused_with": {
+      "thanks": 1,
+      "inform": 1
+    }
+  },
+  "bot_challenge": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 5,
+    "confused_with": {}
+  },
+  "ask_carbon_offset": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 7,
+    "confused_with": {}
+  },
+  "stop": {
+    "precision": 0.75,
+    "recall": 0.42857142857142855,
+    "f1-score": 0.5454545454545454,
+    "support": 7,
+    "confused_with": {
+      "deny": 2,
+      "ask_data_privacy": 1
+    }
+  },
+  "restart_planning": {
+    "precision": 0.6,
+    "recall": 0.6,
+    "f1-score": 0.6,
+    "support": 5,
+    "confused_with": {
+      "ask_carbon_footprint": 2
+    }
+  },
+  "ask_eco_hotels": {
+    "precision": 0.8,
+    "recall": 0.8888888888888888,
+    "f1-score": 0.8421052631578948,
+    "support": 9,
+    "confused_with": {
+      "plan_trip": 1
+    }
+  },
+  "ask_transport_options": {
+    "precision": 0.6,
+    "recall": 0.6666666666666666,
+    "f1-score": 0.631578947368421,
+    "support": 9,
+    "confused_with": {
+      "change_preference": 1,
+      "ask_carbon_footprint": 1
+    }
+  },
+  "deny": {
+    "precision": 0.625,
+    "recall": 0.8333333333333334,
+    "f1-score": 0.7142857142857143,
+    "support": 6,
+    "confused_with": {
+      "goodbye": 1
+    }
+  },
+  "request_human_agent": {
+    "precision": 0.875,
+    "recall": 0.875,
+    "f1-score": 0.875,
+    "support": 8,
+    "confused_with": {
+      "ask_transport_options": 1
+    }
+  },
+  "out_of_scope": {
+    "precision": 0.8888888888888888,
+    "recall": 0.47058823529411764,
+    "f1-score": 0.6153846153846153,
+    "support": 17,
+    "confused_with": {
+      "ask_methodology": 3,
+      "ask_transport_options": 1
+    }
+  },
+  "ask_carbon_footprint": {
+    "precision": 0.6666666666666666,
+    "recall": 0.8888888888888888,
+    "f1-score": 0.761904761904762,
+    "support": 9,
+    "confused_with": {
+      "restart_planning": 1
+    }
+  },
+  "share_location": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 5,
+    "confused_with": {}
+  },
+  "plan_trip": {
+    "precision": 0.75,
+    "recall": 0.9,
+    "f1-score": 0.8181818181818182,
+    "support": 10,
+    "confused_with": {
+      "restart_planning": 1
+    }
+  },
+  "ask_methodology": {
+    "precision": 0.7272727272727273,
+    "recall": 0.8,
+    "f1-score": 0.761904761904762,
+    "support": 10,
+    "confused_with": {
+      "change_preference": 1,
+      "ask_transport_options": 1
+    }
+  },
+  "greet": {
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1-score": 0.8,
+    "support": 6,
+    "confused_with": {
+      "deny": 1,
+      "ask_eco_hotels": 1
+    }
+  },
+  "ask_cultural_experiences": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 8,
+    "confused_with": {}
+  },
+  "change_preference": {
+    "precision": 0.7,
+    "recall": 1.0,
+    "f1-score": 0.8235294117647058,
+    "support": 7,
+    "confused_with": {}
+  },
+  "affirm": {
+    "precision": 1.0,
+    "recall": 0.8,
+    "f1-score": 0.888888888888889,
+    "support": 5,
+    "confused_with": {
+      "thanks": 1
+    }
+  },
+  "accuracy": 0.7816091954022989,
+  "macro avg": {
+    "precision": 0.8007884972170687,
+    "recall": 0.8023379527249497,
+    "f1-score": 0.7899787981278473,
+    "support": 174
+  },
+  "weighted avg": {
+    "precision": 0.8023314010382977,
+    "recall": 0.7816091954022989,
+    "f1-score": 0.7781039277516272,
+    "support": 174
+  },
+  "micro avg": {
+    "precision": 0.7816091954022989,
+    "recall": 0.7816091954022989,
+    "f1-score": 0.7816091954022989,
+    "support": 174
+  }
+}
