@@ -34,13 +34,14 @@ from .api_clients import (
     estimate_transport_emissions,
     fetch_accommodation,
     fetch_experiences,
+    fetch_flight_fare,
     fetch_offsets,
     journey_distance,
     offset_reference,
     transport_reference,
 )
 from .config import describe_mode
-from .date_utils import DateParseError, format_date, nights_between, parse_travel_date
+from .date_utils import DateParseError, format_date, nights_between, parse_return_date, parse_travel_date
 from .eco_scoring import (
     TransportOption,
     band_for,
@@ -220,17 +221,24 @@ class ValidateTripForm(FormValidationAction):
     ) -> dict[str, Any]:
         if not value:
             return {slot: None}
+        # A button payload that carried no city (a bare "/inform") is not a
+        # place name; echoing it back as one read as a bug in user testing.
+        if str(value).startswith("/"):
+            dispatcher.utter_message(text="Just type the city name — any European city works.")
+            return {slot: None}
         try:
             place = geocode(str(value))
         except LocationNotFound:
+            # Buttons sent from a custom action skip the response-template
+            # formatter, so these braces are single, unlike those in domain.yml.
             dispatcher.utter_message(
                 text=(
                     f"I couldn't find \"{value}\". I cover European cities — try the city name on its own, "
                     "for example \"Lisbon\" or \"Ljubljana\"."
                 ),
                 buttons=[
-                    {"title": "Lisbon", "payload": '/inform{{"city": "Lisbon"}}'},
-                    {"title": "Copenhagen", "payload": '/inform{{"city": "Copenhagen"}}'},
+                    {"title": "Lisbon", "payload": '/inform{"city": "Lisbon"}'},
+                    {"title": "Copenhagen", "payload": '/inform{"city": "Copenhagen"}'},
                     {"title": "Talk to a human", "payload": "/request_human_agent"},
                 ],
             )
@@ -245,6 +253,13 @@ class ValidateTripForm(FormValidationAction):
     async def validate_departure_date(
         self, value: Any, dispatcher: CollectingDispatcher, tracker: Tracker, domain: DomainDict
     ) -> dict[str, Any]:
+        # While the form is asking for the return date, DIET sometimes tags the
+        # answer as a departure ("18 october 2026" became departure "2026" in
+        # user testing) and the confirmed departure was erased. Keep it.
+        previous = self._last_iso_value(tracker, "departure_date")
+        if tracker.get_slot("requested_slot") == "return_date" and previous:
+            return {"departure_date": previous}
+
         try:
             parsed = parse_travel_date(value)
         except DateParseError:
@@ -257,13 +272,47 @@ class ValidateTripForm(FormValidationAction):
             dispatcher.utter_message(text=f"{format_date(parsed)} has already passed. When would you like to leave?")
             return {"departure_date": None}
 
+        # The return date may have been accepted before this departure (the
+        # order is not fixed once a slot has been cleared); a return that now
+        # falls before departure reached a human advisor in user testing.
+        return_raw = self._last_iso_value(tracker, "return_date")
+        if return_raw and date.fromisoformat(return_raw) < parsed:
+            dispatcher.utter_message(
+                text=f"That's after the return date I had ({format_date(date.fromisoformat(return_raw))}), so I've cleared it."
+            )
+            return {"departure_date": parsed.isoformat(), "return_date": None}
+
         return {"departure_date": parsed.isoformat()}
+
+    @staticmethod
+    def _last_iso_value(tracker: Tracker, slot: str) -> str | None:
+        """The most recent value of ``slot`` that a validator accepted.
+
+        Validated date slots are stored as ISO strings; raw extractions are not,
+        so the newest ISO-shaped value in the event log is the last good one.
+        """
+        for event in reversed(tracker.events):
+            if event.get("event") == "slot" and event.get("name") == slot:
+                value = event.get("value")
+                if value is None:
+                    return None
+                try:
+                    date.fromisoformat(str(value))
+                    return str(value)
+                except ValueError:
+                    continue
+        return None
 
     async def validate_return_date(
         self, value: Any, dispatcher: CollectingDispatcher, tracker: Tracker, domain: DomainDict
     ) -> dict[str, Any]:
+        departure_raw = tracker.get_slot("departure_date")
         try:
-            parsed = parse_travel_date(value)
+            known_departure = date.fromisoformat(str(departure_raw)) if departure_raw else None
+        except ValueError:
+            known_departure = None
+        try:
+            parsed = parse_return_date(value, known_departure)
         except DateParseError:
             dispatcher.utter_message(text="I couldn't read that one either. A date like \"19 May 2027\" works well.")
             return {"return_date": None}
@@ -333,9 +382,9 @@ class ValidateTripForm(FormValidationAction):
         dispatcher.utter_message(
             text="Pick whichever is closest — I'll use it to weight the ranking.",
             buttons=[
-                {"title": "Strict", "payload": '/inform{{"sustainability_level": "strict"}}'},
-                {"title": "Balanced", "payload": '/inform{{"sustainability_level": "balanced"}}'},
-                {"title": "Flexible", "payload": '/inform{{"sustainability_level": "flexible"}}'},
+                {"title": "Strict", "payload": '/inform{"sustainability_level": "strict"}'},
+                {"title": "Balanced", "payload": '/inform{"sustainability_level": "balanced"}'},
+                {"title": "Flexible", "payload": '/inform{"sustainability_level": "flexible"}'},
             ],
         )
         return {"sustainability_level": None}
@@ -471,6 +520,17 @@ class ActionCompareTransport(Action):
             )
             if distance > 1500 and mode_key in {"rail_highspeed", "rail_national", "rail_night", "coach"}:
                 mode_notes.append("Assumes a multi-leg itinerary with connections.")
+
+            # A live Amadeus fare replaces the distance-based estimate when one
+            # exists. Emissions are untouched: a fare says nothing about CO2e.
+            if mode_key.startswith("flight_"):
+                fare = fetch_flight_fare(origin, destination, tracker.get_slot("departure_date"), travellers)
+                if fare.data:
+                    cost = fare.data["fare_eur"]
+                    mode_notes.extend(fare.notes)
+                else:
+                    degraded_any = degraded_any or fare.degraded
+                    notes.extend(n for n in fare.notes if n not in notes)
 
             options.append(
                 TransportOption(
@@ -905,18 +965,25 @@ class ActionExplainPrivacy(Action):
     ) -> list[EventType]:
         dispatcher.utter_message(
             text=(
-                "**What I hold.** Only what you've told me for this trip: origin, destination, dates, group size, "
-                "budget and your sustainability preference. If you shared your location, it's used to work out a "
-                "starting point and is not kept afterwards.\n\n"
+                # Corrected after user testing: the earlier text promised expiry
+                # after 60 minutes and full erasure on "start over", and said a
+                # shared location was not kept. None of the three was true of
+                # Rasa's in-memory tracker, which keeps every turn, location
+                # metadata included, until the server restarts.
+                "**What I hold.** What you've told me for this trip: origin, destination, dates, group size, "
+                "budget and your sustainability preference, plus this conversation. If you shared your location, "
+                "it was rounded to about 1 km on your device before it reached me.\n\n"
                 "**Where it goes.** Nowhere, unless you ask for a human advisor — and then only the trip brief, the "
                 "options I showed you and a transcript, with email addresses, phone numbers and ID-like numbers "
                 "stripped out automatically before sending.\n\n"
-                "**How long.** The conversation is held in memory for this session and expires after 60 minutes of "
-                "inactivity. There's no advertising or profiling on any of it.\n\n"
-                "**Your rights.** Say \"start over\" and I'll erase everything I'm holding right now."
+                "**How long.** In this server's memory only, never written to disk unless you ask for a human. "
+                "It's cleared when the service restarts; a new session after 60 minutes of inactivity does not by "
+                "itself delete earlier messages. There's no advertising or profiling on any of it.\n\n"
+                "**Your rights.** Say \"start over\" and I'll clear your trip details straight away. I can't delete "
+                "the conversation log on request — that's a known gap in this prototype, not a choice."
             ),
             buttons=[
-                {"title": "Erase and start over", "payload": "/restart_planning"},
+                {"title": "Clear my trip and start over", "payload": "/restart_planning"},
                 {"title": "Carry on planning", "payload": "/plan_trip"},
             ],
         )

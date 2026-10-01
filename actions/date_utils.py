@@ -16,7 +16,7 @@ import calendar
 import re
 from datetime import date, timedelta
 
-__all__ = ["parse_travel_date", "format_date", "nights_between", "DateParseError"]
+__all__ = ["parse_travel_date", "parse_return_date", "format_date", "nights_between", "DateParseError"]
 
 
 class DateParseError(ValueError):
@@ -89,6 +89,34 @@ def parse_travel_date(text: str, *, today: date | None = None) -> date:
         if stripped and stripped != cleaned:
             return _attempt(stripped, today, raw)
         raise
+
+
+# "one week later", "3 days after", "for five nights", "a week" — a length of stay
+# rather than a date. "in two weeks" is deliberately absent: it counts from
+# today, which parse_travel_date already handles.
+_STAY_LENGTH = re.compile(
+    r"(?:for |after |stay(?:ing)? (?:for )?)?(\d+|[a-z]+) (day|night|week|month)s?"
+    r"(?: later| after(?: that)?| after (?:i|we) (?:arrive|leave))?"
+)
+
+
+def parse_return_date(text: str, departure: date | None, *, today: date | None = None) -> date:
+    """Resolve the answer to "when are you coming back?".
+
+    Travellers answer that question as often with a length of stay as with a
+    date — "one week later" failed in user testing — so a stay length is read
+    relative to the departure date before falling back to ordinary date parsing.
+    """
+    if departure is not None and text is not None:
+        cleaned = _clean(str(text))
+        m = _STAY_LENGTH.fullmatch(cleaned)
+        if m:
+            qty_token = m.group(1)
+            qty = int(qty_token) if qty_token.isdigit() else _NUMBER_WORDS.get(qty_token, 0)
+            if qty:
+                unit = "day" if m.group(2) == "night" else m.group(2)
+                return _shift(departure, qty, unit)
+    return parse_travel_date(text, today=today)
 
 
 def _attempt(cleaned: str, today: date, raw: str) -> date:

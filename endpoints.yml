@@ -4,5 +4,10 @@
 # the value that works for local development. Dockerfile.rasa rewrites it to
 # point at the `actions` service, and the Spaces image rewrites it to localhost
 # inside the single container. See both Dockerfiles.
+#
+# 127.0.0.1 rather than localhost: on Windows, localhost resolves to ::1 first
+# and the refused IPv6 connection costs ~2 s before IPv4 is tried. Rasa opens a
+# fresh connection per action call, so every turn paid it (measured 2,050 ms vs
+# 1 ms during user testing).
 action_endpoint:
-  url: "http://localhost:5055/webhook"
+  url: "http://127.0.0.1:5055/webhook"

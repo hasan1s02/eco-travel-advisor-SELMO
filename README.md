@@ -18,6 +18,7 @@ BSBI / University for the Creative Arts.*
 |---|---|
 | Adaptive multi-turn intake (destination, origin, dates, group, budget, sustainability priority) | `trip_form` + `ValidateTripForm` |
 | Emission estimates per transport mode, live or offline | `actions/api_clients.py` |
+| Live flight fares and hotel availability (Amadeus), estimates as fallback | `actions/api_clients.py` |
 | Weighted ranking that changes with the traveller's stated priority | `actions/eco_scoring.py` |
 | Eco-certified accommodation with honest certification status | `actions/api_clients.py` |
 | Location by typed city name or shared GPS | `actions/geo.py` |
@@ -156,13 +157,18 @@ submission was developed and evaluated in.
 | Service | Purpose | Free tier | Without it |
 |---|---|---|---|
 | [Climatiq](https://www.climatiq.io/) | Live emission factors | 500 calls/month | DESNZ/DEFRA 2023 factors, bundled |
-| [Amadeus](https://developers.amadeus.com/) | Hotel and flight availability | Sandbox, free | Curated synthetic property set |
+| [Amadeus](https://developers.amadeus.com/) | Hotel availability, flight fares | **Closed** — see below | Curated property set; distance-based fare estimate |
 | [OpenCage](https://opencagedata.com/) | Geocoding, reverse geocoding | 2,500 req/day | 78-city offline gazetteer |
 | [OpenRouteService](https://openrouteservice.org/) | Road distances | 2,000 req/day | Circuity-adjusted great-circle |
 
 No free API publishes hotel eco-certification status, which the assignment brief notes and
 which the design works around: certification comes from the curated dataset, and any live
 property not on that list is displayed as *unverified*.
+
+**Amadeus no longer issues keys.** Amadeus paused self-service registration in March
+2026 and switched off every self-service key on 17 July 2026. The hotel and flight adapters
+are written against the documented sandbox API and tested with mocked responses, but
+they can no longer run live; the fallback path is the one every deployment now takes.
 
 Keys go in `.env` (git-ignored) and are read only by the action server — the one container
 that is never published to the host.
@@ -212,7 +218,8 @@ provenance line on every card.
 ## Testing
 
 ```bash
-# Unit tests — 60 cases over parsing, geocoding, API fallbacks, scoring, redaction
+# Unit tests — 84 cases over parsing, geocoding, API fallbacks, scoring, redaction,
+# plus regression tests for every defect found in user testing
 ECO_FORCE_OFFLINE=1 pytest tests/ -v
 
 # NLU: 80/20 split, per-intent precision/recall/F1, confusion matrix
@@ -241,7 +248,8 @@ Results land in `docs/metrics/`; `RESULTS.md` there is generated from the raw ou
 | Entity extraction | 0.982 accuracy | 5-fold cross-validation |
 | Dialogue — conversations | 14 / 14 | End-to-end test stories, real NLU in the loop |
 | Dialogue — action turns | 75 / 75 | Same run |
-| Unit tests | 60 / 60 | pytest, offline mode forced |
+| Unit tests | 84 / 84 | pytest, external APIs mocked |
+| User testing | 2 sessions, 7 defects fixed | `docs/user-tests/`, findings log in the protocol |
 | Latency | median 70 ms, p95 108 ms | 49 live turns through the REST channel |
 
 The intent figure is 0.78, not higher, and `docs/evaluation.md` explains why rather than
@@ -292,7 +300,8 @@ Each writes a Markdown transcript with per-turn latency, plus a JSON dump of eve
 │   ├── architecture.md         system and request-path diagrams
 │   ├── conversation-flows.md   dialogue flows, UI mapping, accessibility
 │   ├── evaluation.md           what the numbers mean and what they don't
-│   ├── user-testing-protocol.md  ready-to-run usability study
+│   ├── user-testing-protocol.md  usability study and findings log
+│   ├── user-tests/             two recorded sessions (survey + conversation log)
 │   ├── metrics/                raw rasa test output + generated RESULTS.md
 │   └── transcripts/            seven recorded conversations with latencies
 ├── deploy/huggingface/         single-container Spaces deployment
@@ -352,7 +361,10 @@ budget and sustainability preference. Shared GPS coordinates are rounded to two 
 places **in the browser before transmission** — roughly 1 km, enough to identify a city and
 not a household.
 
-Conversations are held in memory and expire after 60 minutes of inactivity. Nothing leaves
+Conversations are held only in server memory and are never written to disk except on
+escalation. A new session starts after 60 minutes of inactivity, but Rasa's in-memory
+tracker keeps earlier turns until the server restarts — longer than intended, and a gap
+against GDPR storage limitation that a scheduled purge would close. Nothing leaves
 the assistant except on escalation, and escalation payloads pass through `handover.redact()`,
 which strips email addresses, phone numbers, card-length digit strings and passport-shaped
 identifiers before dispatch. `action_explain_privacy` states all of this on request, and
@@ -376,9 +388,9 @@ Honest ones, since the assistant is built on the premise that stating limitation
   The scheme names are real; their attachment to these properties is illustrative.
 - **English only** in the NLU model. The UI takes dictation in the browser's locale, but the
   assistant will not understand it unless it is English.
-- **No human usability testing has been run.** The protocol in
-  `docs/user-testing-protocol.md` is complete and ready, but every usability claim here is
-  currently a designer's assertion rather than a finding.
+- **User testing is small.** Two sessions (`docs/user-tests/`) found seven defects, all
+  fixed, but two participants support observations, not general claims. Both felt the
+  assistant pushed them towards an answer; that is reported, not yet resolved.
 - **Intent classification sits at 0.78**, and the ceiling is structural rather than a
   training-budget problem. `docs/evaluation.md` has the analysis.
 

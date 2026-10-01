@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 import threading
 import time
 from dataclasses import dataclass, field
@@ -67,6 +68,7 @@ class TTLCache:
 
 _carbon_cache = TTLCache()
 _hotel_cache = TTLCache(ttl=60 * 30)
+_flight_cache = TTLCache(ttl=60 * 30)
 _amadeus_token_cache: dict[str, Any] = {}
 _token_lock = threading.Lock()
 
@@ -254,7 +256,7 @@ def journey_distance(origin: Place, destination: Place, mode_key: str) -> float:
 
 
 # ===========================================================================
-# Amadeus - accommodation
+# Amadeus - accommodation (flight fares further down)
 # ===========================================================================
 def _amadeus_token() -> str:
     """Client-credentials token, refreshed a minute before it expires."""
@@ -453,9 +455,116 @@ def fetch_offsets(residual_kg: float) -> SourcedResult:
     )
 
 
+# ===========================================================================
+# Amadeus - flight fares
+# ===========================================================================
+def fetch_flight_fare(
+    origin: Place,
+    destination: Place,
+    departure_date: str | None,
+    adults: int = 1,
+) -> SourcedResult:
+    """Cheapest economy fare per traveller for the outward flight.
+
+    ``data`` is ``{"fare_eur", "air_hours", "stops", "carrier"}`` when a live
+    fare was found and ``None`` otherwise, in which case the caller keeps its
+    distance-based estimate. Emissions never come from here: Amadeus prices
+    flights, it does not measure them.
+    """
+    if not SETTINGS.amadeus_enabled or not departure_date:
+        return SourcedResult(data=None, source="offline_dataset")
+
+    cache_key = ("amadeus_flight", origin.name.lower(), destination.name.lower(), departure_date, adults)
+
+    def _compute() -> SourcedResult:
+        try:
+            return _amadeus_flight(origin, destination, departure_date, adults)
+        except Exception as exc:
+            logger.warning("Amadeus flight lookup failed for %s-%s (%s)", origin.name, destination.name, exc)
+            return SourcedResult(
+                data=None,
+                source="offline_dataset",
+                degraded=True,
+                notes=[f"Live flight fares unavailable ({type(exc).__name__}); the flight cost is an estimate."],
+            )
+
+    return _flight_cache.get_or_set(cache_key, _compute)
+
+
+def _nearest_airport(place: Place, headers: dict[str, str]) -> str:
+    response = requests.get(
+        f"{SETTINGS.amadeus_base_url}/v1/reference-data/locations/airports",
+        headers=headers,
+        params={"latitude": round(place.lat, 4), "longitude": round(place.lon, 4), "radius": 100, "page[limit]": 1},
+        timeout=HTTP_TIMEOUT_SECONDS,
+    )
+    response.raise_for_status()
+    airports = response.json().get("data") or []
+    if not airports:
+        raise LookupError(f"no airport within 100 km of {place.name}")
+    return airports[0]["iataCode"]
+
+
+def _iso_duration_hours(value: str | None) -> float | None:
+    """'PT2H35M' -> 2.58. Amadeus reports itinerary durations in ISO 8601."""
+    if not value:
+        return None
+    match = re.fullmatch(r"P(?:(\d+)D)?T?(?:(\d+)H)?(?:(\d+)M)?", value)
+    if not match:
+        return None
+    days, hours, minutes = (int(g) if g else 0 for g in match.groups())
+    return round(days * 24 + hours + minutes / 60, 2)
+
+
+def _amadeus_flight(origin: Place, destination: Place, departure_date: str, adults: int) -> SourcedResult:
+    headers = {"Authorization": f"Bearer {_amadeus_token()}"}
+    from_code = _nearest_airport(origin, headers)
+    to_code = _nearest_airport(destination, headers)
+    if from_code == to_code:
+        raise LookupError(f"{origin.name} and {destination.name} share an airport")
+
+    response = requests.get(
+        f"{SETTINGS.amadeus_base_url}/v2/shopping/flight-offers",
+        headers=headers,
+        params={
+            "originLocationCode": from_code,
+            "destinationLocationCode": to_code,
+            "departureDate": departure_date,
+            "adults": max(int(adults), 1),
+            "travelClass": "ECONOMY",
+            "currencyCode": "EUR",
+            "max": 10,
+        },
+        timeout=HTTP_TIMEOUT_SECONDS,
+    )
+    response.raise_for_status()
+    offers = response.json().get("data") or []
+    if not offers:
+        raise LookupError(f"no flight offers {from_code}-{to_code} on {departure_date}")
+
+    def per_traveller(offer: dict[str, Any]) -> float:
+        return float(offer["price"]["grandTotal"]) / max(int(adults), 1)
+
+    cheapest = min(offers, key=per_traveller)
+    itinerary = (cheapest.get("itineraries") or [{}])[0]
+    segments = itinerary.get("segments") or []
+    return SourcedResult(
+        data={
+            "fare_eur": round(per_traveller(cheapest), 2),
+            "air_hours": _iso_duration_hours(itinerary.get("duration")),
+            "stops": max(len(segments) - 1, 0),
+            "carrier": (cheapest.get("validatingAirlineCodes") or [None])[0],
+            "route": f"{from_code}-{to_code}",
+        },
+        source="amadeus",
+        notes=[f"Flight fare is the cheapest live economy offer {from_code}-{to_code} from the Amadeus sandbox."],
+    )
+
+
 def reset_caches() -> None:
     """Used by the test suite between cases."""
     _carbon_cache.clear()
     _hotel_cache.clear()
+    _flight_cache.clear()
     with _token_lock:
         _amadeus_token_cache.clear()

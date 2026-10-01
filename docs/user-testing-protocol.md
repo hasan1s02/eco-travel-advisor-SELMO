@@ -136,11 +136,27 @@ so the report can quote it directly:
 
 _Fill this in as sessions are run. One entry per change._
 
+Two sessions were run on 1 October 2026 (P1 facilitator-operated, P2 self-operated);
+see `docs/user-tests/`. Every code change below has a regression test in
+`tests/test_user_test_fixes.py`, named after the finding, and F3, F4, F6 and F7 were also
+replayed against the running assistant using the participants' own wording.
+
 | # | Finding | Participants affected | Change made | Verified |
 |---|---|---|---|---|
-| 1 | | / | | |
-| 2 | | / | | |
-| 3 | | / | | |
+| F1 | Clicking a transport row sent "Tell me more about travelling by …", which no intent covers; the reply was a misunderstanding. | 2 / 2 | The row is no longer a button (`Cards.tsx`); it already shows the rationale and notes a click could have revealed. | Typecheck; no message is sent on click. |
+| F2 | A return date earlier than the departure date was accepted and sent to the human advisor. | 1 / 2 | `validate_departure_date` clears a return date that now falls before departure, and says so. | `test_f2_*` |
+| F3 | Answering the return question with "18 october 2026" overwrote the departure date with "2026". | 1 / 2 | While the return date is being asked, a departure extraction keeps the last confirmed departure. | `test_f3_*` |
+| F4 | "one week later" was not understood as a return date. | 1 / 2 | `parse_return_date` reads a stay length relative to departure; "in N weeks" still counts from today. | `test_f4_*` |
+| F6 | Every turn took ~2 s on Windows: `localhost` tried IPv6 first. | 2 / 2 | `endpoints.yml` uses `127.0.0.1`. Measured 2,050 ms → 1 ms per connection. | Live replay: median 110 ms over 13 turns (first turn 1,064 ms, cold start). |
+| F7 | "Somewhere else" sent a bare `/inform`, answered with "I couldn't find "/inform"". | 1 / 2 | Button removed; prompt invites typing. Validator ignores slash payloads. | `test_f7_*` |
+| F8 | Greeting sent twice per session (StrictMode double effect). | 1 / 2 | Sent once, guarded by a ref. | Typecheck. |
+| F10 | P2 did not attempt the methodology task although it was read out; no tooltip explained CO₂e or the bands (a brief requirement). | 1 / 2 | A "What do these numbers mean?" disclosure on the transport card explains CO₂e, the bands and the ranking without being asked. A disclosure rather than a hover tooltip, which touch screens and most screen readers never show. | Typecheck and build; not yet re-tested with a participant. |
+| F11 | Found while recovering the session logs: the assistant's privacy statement promised expiry after 60 minutes, full erasure on "start over" and that a shared location was not kept. The in-memory tracker kept all three. | 2 / 2 (their data) | Statement rewritten to describe actual retention; coordinates redacted from the committed logs. | Text reviewed against the tracker contents. |
+| F9 | Not seen by participants, found while fixing F7: buttons sent from custom actions carried doubled braces, so their payloads could not be parsed. | 0 / 2 | Single braces in `actions.py`. | `test_f9_*` |
+
+Not changed, and reported instead: both participants felt pushed towards an answer
+(item 8: 5 and 7); P2 did not attempt the accommodation task although it was read out; P2 asked for cheaper options while on the
+cost-heavy *flexible* profile.
 
 ---
 

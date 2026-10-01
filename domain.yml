@@ -311,7 +311,9 @@ responses:
 
   # ----- form questions (quick replies where the answer space is closed) ----
   utter_ask_destination:
-    - text: "Where would you like to travel to?"
+    # No "Somewhere else" button: it sent a bare /inform that the form read as
+    # a city called "/inform" (user testing, P2). Typing is the other option.
+    - text: "Where would you like to travel to? Pick one or type any European city."
       buttons:
         - title: "Lisbon"
           payload: '/inform{{"city": "Lisbon"}}'
@@ -319,8 +321,6 @@ responses:
           payload: '/inform{{"city": "Copenhagen"}}'
         - title: "Ljubljana"
           payload: '/inform{{"city": "Ljubljana"}}'
-        - title: "Somewhere else"
-          payload: "/inform"
 
   utter_ask_origin:
     - text: "And where are you starting from? You can share your location instead if that's easier."

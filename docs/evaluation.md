@@ -15,7 +15,7 @@ what the remaining ceiling is caused by.
 | Entity extraction | **0.982** accuracy, 0.756 precision | 5-fold cross-validation |
 | Dialogue — conversations | **14 / 14** (1.000) | End-to-end test stories, real NLU in the loop |
 | Dialogue — action turns | **75 / 75** (1.000) | Same run |
-| Unit tests | **60 / 60** | pytest, offline mode forced |
+| Unit tests | **84 / 84** | pytest, external APIs mocked |
 | Response latency | median **70 ms**, p95 **108 ms**, max **178 ms** | 49 live turns through the REST channel |
 
 The two independent NLU estimates agreeing to within 0.007 is the useful part: cross-
@@ -194,7 +194,8 @@ Removed; `config.yml` records why.
 
 ## Unit tests
 
-60 cases, all passing, over the deterministic layer: date parsing, geocoding, emission
+84 cases, all passing, over the deterministic layer — 60 written during development, 24 added
+after user testing and for the flight-fare adapter: date parsing, geocoding, emission
 estimates, API fallback behaviour, the scoring function and PII redaction.
 
 Four of them caught real defects during development:
@@ -240,9 +241,9 @@ remains as a third net for the genuinely ambiguous cases where it does still wor
 
 ## Limitations of this evaluation
 
-- **No human participants yet.** `docs/user-testing-protocol.md` is written and ready but
-  unrun. Every usability claim in this project is therefore a designer's assertion, not a
-  finding. That is the single largest gap.
+- **Two participants.** `docs/user-tests/` records two sessions and the findings log in
+  `docs/user-testing-protocol.md` traces each change they caused. Two people are enough to
+  find defects and too few to support usability claims. That is the single largest gap.
 - **One evaluator, one machine.** Latency was measured on a 2-core container with a warm
   cache and no concurrency. It says nothing about behaviour under load.
 - **The test conversations are scripted.** They use phrasings absent from training, but they

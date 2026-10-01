@@ -41,6 +41,7 @@ export default function App() {
   const transcriptRef = useRef<HTMLDivElement>(null);
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const greetedRef = useRef(false);
 
   /* ------------------------------------------------------------------ */
   /* Sending                                                             */
@@ -145,9 +146,11 @@ export default function App() {
     // Open the conversation so the traveller lands on something, not a void.
     // Sent with `display: null`: the greeting is the assistant introducing
     // itself, not the traveller saying hello, so no user bubble is shown.
-    // React 18 StrictMode fires this twice in development; the first attempt is
-    // aborted on unmount and the superseded-controller guard in dispatch drops
-    // its result, so exactly one greeting reaches the transcript either way.
+    // React 18 StrictMode fires this twice in development. Aborting the first
+    // request only hid its reply: the server still processed both, and user
+    // testing logged two greetings. The ref sends exactly one.
+    if (greetedRef.current) return;
+    greetedRef.current = true;
     void dispatch("/greet", null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -158,7 +161,8 @@ export default function App() {
     node.scrollTo({ top: node.scrollHeight, behavior: "smooth" });
   }, [messages, busy]);
 
-  useEffect(() => () => abortRef.current?.abort(), []);
+  // No abort-on-unmount: App is the root and only unmounts with the page, while
+  // StrictMode's simulated unmount would abort the single greeting request.
 
   /* ------------------------------------------------------------------ */
   /* Optional voice input (progressive enhancement)                      */
@@ -256,7 +260,7 @@ export default function App() {
             )}
 
             {message.custom && (
-              <CustomCard payload={message.custom as CustomPayload} onSelect={(text) => void dispatch(text)} />
+              <CustomCard payload={message.custom as CustomPayload} />
             )}
 
             {message.buttons && message.buttons.length > 0 && (

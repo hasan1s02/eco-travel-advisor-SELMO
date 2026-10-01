@@ -49,13 +49,7 @@ function Provenance({ text }: { text: string }) {
 /* ====================================================================== */
 /* Transport comparison                                                    */
 /* ====================================================================== */
-function TransportOptions({
-  payload,
-  onSelect,
-}: {
-  payload: Extract<CustomPayload, { type: "transport_options" }>;
-  onSelect: (text: string) => void;
-}) {
+function TransportOptions({ payload }: { payload: Extract<CustomPayload, { type: "transport_options" }> }) {
   const worst = Math.max(...payload.options.map((o) => o.kg_co2e_per_traveller), 1);
   const weights = payload.weights;
 
@@ -75,13 +69,37 @@ function TransportOptions({
       <ul className="options">
         {payload.options.map((option, index) => (
           <li key={option.mode_key}>
-            <OptionRow option={option} best={index === 0} worst={worst} onSelect={onSelect} />
+            <OptionRow option={option} best={index === 0} worst={worst} />
           </li>
         ))}
       </ul>
 
+      <MetricsExplainer />
       <Provenance text={payload.provenance} />
     </section>
+  );
+}
+
+/** The brief asks for tooltips explaining the sustainability metrics. A hover
+ *  tooltip is invisible on touch screens and to most screen readers, so this is
+ *  a disclosure instead. It also answers a user-testing finding: P2 never asked
+ *  where the figures came from, so a short answer now sits on the card itself.
+ *  Band thresholds mirror actions/data/transport_factors.json. */
+function MetricsExplainer() {
+  return (
+    <details className="explainer">
+      <summary>What do these numbers mean?</summary>
+      <p>
+        <strong>CO₂e</strong> (carbon dioxide equivalent) counts every greenhouse gas as the amount of CO₂ with the
+        same warming effect. Each figure is per traveller for the outward journey: route distance multiplied by an
+        average emission factor for that mode. It is an estimate for a typical journey, not a measurement of yours.
+      </p>
+      <p>
+        <strong>Bands:</strong> low up to 25 kg, moderate up to 120 kg, high above 120 kg per traveller.{" "}
+        <strong>Ranking:</strong> each option is scored on emissions, cost and time using the weights above, which
+        follow the priority you chose. Ask "how did you work that out?" for the full method.
+      </p>
+    </details>
   );
 }
 
@@ -89,12 +107,10 @@ function OptionRow({
   option,
   best,
   worst,
-  onSelect,
 }: {
   option: TransportOption;
   best: boolean;
   worst: number;
-  onSelect: (text: string) => void;
 }) {
   const share = Math.max((option.kg_co2e_per_traveller / worst) * 100, 2);
 
@@ -107,14 +123,11 @@ function OptionRow({
     `${option.rationale}` +
     (best ? " Ranked first for your preferences." : "");
 
+  // Not a button. The row used to send "Tell me more about travelling by …",
+  // which no intent covers; both user-test participants clicked it and both
+  // got a misunderstanding. Everything a click could reveal is already shown.
   return (
-    <button
-      type="button"
-      className={`option${best ? " option--best" : ""}`}
-      data-band={option.band}
-      aria-label={label}
-      onClick={() => onSelect(`Tell me more about travelling by ${option.label.toLowerCase()}`)}
-    >
+    <div className={`option${best ? " option--best" : ""}`} data-band={option.band} role="group" aria-label={label}>
       <span className="option__icon" aria-hidden="true">
         <ModeIcon name={option.icon} />
       </span>
@@ -143,7 +156,7 @@ function OptionRow({
         <span className="option__co2">{option.kg_co2e_per_traveller.toFixed(0)}</span>
         <span className="option__unit">kg CO₂e</span>
       </span>
-    </button>
+    </div>
   );
 }
 
@@ -450,16 +463,10 @@ function HandoverCard({ payload }: { payload: Extract<CustomPayload, { type: "ha
 /* ====================================================================== */
 /* Dispatcher                                                              */
 /* ====================================================================== */
-export function CustomCard({
-  payload,
-  onSelect,
-}: {
-  payload: CustomPayload;
-  onSelect: (text: string) => void;
-}) {
+export function CustomCard({ payload }: { payload: CustomPayload }) {
   switch (payload.type) {
     case "transport_options":
-      return <TransportOptions payload={payload} onSelect={onSelect} />;
+      return <TransportOptions payload={payload} />;
     case "hotel_carousel":
       return <HotelCarousel payload={payload} />;
     case "experience_list":

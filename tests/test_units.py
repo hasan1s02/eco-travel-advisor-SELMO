@@ -428,3 +428,74 @@ def test_dispatch_falls_back_to_the_local_queue(tmp_path, monkeypatch: pytest.Mo
     delivered, channel = handover.dispatch({"reference": "ETA-TEST", "trip_brief": {}})
     assert delivered is True and channel == "queue"
     assert json.loads(queue.read_text().strip())["reference"] == "ETA-TEST"
+
+
+# ===========================================================================
+# Amadeus flight fares
+# ===========================================================================
+AMADEUS = "https://test.api.amadeus.com"
+
+
+def _enable_amadeus(monkeypatch: pytest.MonkeyPatch) -> None:
+    api_clients.reset_caches()
+    monkeypatch.setattr(api_clients.SETTINGS, "amadeus_client_id", "id", raising=False)
+    monkeypatch.setattr(api_clients.SETTINGS, "amadeus_client_secret", "secret", raising=False)
+    monkeypatch.setattr(api_clients.SETTINGS, "amadeus_base_url", AMADEUS, raising=False)
+    monkeypatch.setattr(api_clients.SETTINGS, "force_offline", False, raising=False)
+    responses.add(responses.POST, f"{AMADEUS}/v1/security/oauth2/token",
+                  json={"access_token": "t", "expires_in": 1799}, status=200)
+
+
+@responses.activate
+def test_flight_fare_takes_the_cheapest_live_offer_per_traveller(monkeypatch: pytest.MonkeyPatch) -> None:
+    _enable_amadeus(monkeypatch)
+    responses.add(responses.GET, f"{AMADEUS}/v1/reference-data/locations/airports",
+                  json={"data": [{"iataCode": "BER"}]}, status=200)
+    responses.add(responses.GET, f"{AMADEUS}/v1/reference-data/locations/airports",
+                  json={"data": [{"iataCode": "LIS"}]}, status=200)
+    responses.add(
+        responses.GET, f"{AMADEUS}/v2/shopping/flight-offers",
+        json={"data": [
+            {"price": {"grandTotal": "400.00"}, "validatingAirlineCodes": ["TP"],
+             "itineraries": [{"duration": "PT3H40M", "segments": [{}]}]},
+            {"price": {"grandTotal": "250.00"}, "validatingAirlineCodes": ["FR"],
+             "itineraries": [{"duration": "PT6H10M", "segments": [{}, {}]}]},
+        ]},
+        status=200,
+    )
+
+    result = api_clients.fetch_flight_fare(geo.geocode("Berlin"), geo.geocode("Lisbon"), "2027-05-12", adults=2)
+    assert result.source == "amadeus"
+    assert result.data["fare_eur"] == pytest.approx(125.0)  # 250 for two travellers
+    assert result.data["stops"] == 1
+    assert result.data["air_hours"] == pytest.approx(6.17)
+    assert result.data["route"] == "BER-LIS"
+
+
+@responses.activate
+def test_flight_fare_failure_falls_back_to_the_estimate(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Amadeus closed its sandbox in July 2026: this is the path that now runs."""
+    _enable_amadeus(monkeypatch)
+    responses.add(responses.GET, f"{AMADEUS}/v1/reference-data/locations/airports", status=401)
+
+    result = api_clients.fetch_flight_fare(geo.geocode("Berlin"), geo.geocode("Lisbon"), "2027-05-12")
+    assert result.data is None
+    assert result.degraded is True
+    assert any("Live flight fares unavailable" in note for note in result.notes)
+
+
+def test_flight_fare_is_not_requested_without_credentials_or_a_date(monkeypatch: pytest.MonkeyPatch) -> None:
+    api_clients.reset_caches()
+    monkeypatch.setattr(api_clients.SETTINGS, "force_offline", True, raising=False)
+    berlin, lisbon = geo.geocode("Berlin"), geo.geocode("Lisbon")
+    assert api_clients.fetch_flight_fare(berlin, lisbon, "2027-05-12").data is None
+
+    monkeypatch.setattr(api_clients.SETTINGS, "force_offline", False, raising=False)
+    monkeypatch.setattr(api_clients.SETTINGS, "amadeus_client_id", "id", raising=False)
+    monkeypatch.setattr(api_clients.SETTINGS, "amadeus_client_secret", "secret", raising=False)
+    assert api_clients.fetch_flight_fare(berlin, lisbon, None).data is None
+
+
+@pytest.mark.parametrize(("iso", "hours"), [("PT2H35M", 2.58), ("PT45M", 0.75), ("P1DT2H", 26.0), (None, None), ("junk", None)])
+def test_iso_durations_are_parsed(iso: str | None, hours: float | None) -> None:
+    assert api_clients._iso_duration_hours(iso) == hours
