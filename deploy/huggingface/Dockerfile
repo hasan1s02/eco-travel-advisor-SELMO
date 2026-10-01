@@ -24,18 +24,24 @@ ENV VITE_RASA_URL=/rasa
 RUN npm run build
 
 
-FROM rasa/rasa:3.6.21-full
+FROM python:3.10-slim
 
-USER root
+ENV PIP_NO_CACHE_DIR=1 \
+    PYTHONUNBUFFERED=1 \
+    TF_CPP_MIN_LOG_LEVEL=2
+
 WORKDIR /app
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends nginx supervisor curl \
  && rm -rf /var/lib/apt/lists/*
 
-# Action-server dependencies. rasa-sdk is already in the base image.
-COPY requirements-actions.txt /tmp/requirements-actions.txt
-RUN pip install --no-cache-dir -r /tmp/requirements-actions.txt
+# Python 3.10 is required, not preferred: Rasa 3.6 pins TensorFlow 2.12, which
+# has no wheels for 3.11+. Pinning the base image means this builds identically
+# wherever it runs.
+COPY requirements-rasa.txt requirements-actions.txt /tmp/
+RUN pip install --no-cache-dir -r /tmp/requirements-rasa.txt \
+ && pip install --no-cache-dir -r /tmp/requirements-actions.txt
 
 COPY models/ /app/models/
 COPY actions/ /app/actions/

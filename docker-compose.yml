@@ -1,8 +1,11 @@
 # ---------------------------------------------------------------------------
 # Eco-Travel Advisor — full stack.
 #
+#   docker compose --profile train run --rm train     # once, ~10 min
 #   docker compose up --build
 #   → http://localhost:3000
+#
+# The training step needs no Python on the host; see Dockerfile.train.
 #
 # Only the frontend publishes a port. Rasa and the action server talk to each
 # other on the internal network, which keeps the action server (the process
@@ -44,6 +47,23 @@ services:
     networks: [eco]
     restart: unless-stopped
     # No `ports:` on purpose — see the header comment.
+
+
+  # One-off model training. Not part of `docker compose up`: it only runs when
+  # asked for by profile, so the stack is never blocked on it.
+  #
+  #     docker compose --profile train run --rm train
+  #
+  # This exists so the project needs no local Python. Rasa 3.6 requires Python
+  # 3.8-3.10 exactly, which is a real obstacle on a machine with 3.11 or newer.
+  train:
+    build:
+      context: .
+      dockerfile: Dockerfile.train
+    profiles: ["train"]
+    volumes:
+      - .:/app
+    networks: [eco]
 
   frontend:
     build:

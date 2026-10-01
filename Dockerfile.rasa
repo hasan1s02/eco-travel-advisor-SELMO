@@ -1,27 +1,35 @@
 # ---------------------------------------------------------------------------
 # Rasa server (NLU + Core). Serves the REST channel on 5005.
+#
+# Built on python:3.10-slim with an explicit dependency file rather than on a
+# prebuilt rasa/rasa image variant: the dependency set is then identical to the
+# one the project was developed and evaluated against, and does not depend on
+# which extras a particular upstream image tag happens to bundle.
 # ---------------------------------------------------------------------------
-FROM rasa/rasa:3.6.21-full
+FROM python:3.10-slim
 
-USER root
+ENV PIP_NO_CACHE_DIR=1 \
+    PYTHONUNBUFFERED=1 \
+    TF_CPP_MIN_LOG_LEVEL=2
+
 WORKDIR /app
 
-# Copy the trained model and the configuration it needs to serve.
-COPY --chown=1001:1001 models/ /app/models/
-COPY --chown=1001:1001 domain.yml config.yml credentials.yml /app/
+COPY requirements-rasa.txt .
+RUN pip install --no-cache-dir -r requirements-rasa.txt
+
+COPY models/ /app/models/
+COPY domain.yml config.yml credentials.yml /app/
+COPY data/ /app/data/
 
 # Point Rasa at the action *service* rather than localhost. Written here rather
 # than templated into endpoints.yml because Rasa's env-var expansion has no
 # inline-default syntax.
-RUN printf 'action_endpoint:\n  url: "http://actions:5055/webhook"\n' > /app/endpoints.yml \
- && chown 1001:1001 /app/endpoints.yml
-COPY --chown=1001:1001 data/ /app/data/
+RUN printf 'action_endpoint:\n  url: "http://actions:5055/webhook"\n' > /app/endpoints.yml
 
+RUN useradd --create-home --uid 1001 rasa && chown -R rasa:rasa /app
 USER 1001
 
 EXPOSE 5005
 
-# --cors is scoped to the frontend origin in production via FRONTEND_ORIGIN.
-# --enable-api is required for the REST channel the React client talks to.
-ENTRYPOINT ["rasa"]
-CMD ["run", "--enable-api", "--cors", "*", "--port", "5005", "--model", "/app/models/eco_travel_advisor.tar.gz"]
+CMD ["rasa", "run", "--enable-api", "--cors", "*", "--port", "5005", \
+     "--model", "/app/models/eco_travel_advisor.tar.gz"]

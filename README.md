@@ -48,28 +48,39 @@ own rather than looping.
 
 ## Quick start
 
-### Option A — Docker (recommended)
+### Option A — Docker (recommended, needs no local Python)
 
 ```bash
 git clone <your-repo-url> eco-travel-advisor
 cd eco-travel-advisor
 
-cp .env.example .env          # optional: every key can stay blank
-rasa train --fixed-model-name eco_travel_advisor   # see note below
+cp .env.example .env                               # optional: keys can stay blank
+docker compose --profile train run --rm train      # once, ~15 min
 docker compose up --build
 ```
 
 Open **http://localhost:3000**.
 
-> The model is git-ignored (it is ~50 MB), so train it once before the first
-> `docker compose up`. Training takes roughly 8 minutes on two CPU cores.
+On Windows, run exactly the same two commands in PowerShell.
+
+The trained model is git-ignored (~36 MB), so it has to be produced once before
+the stack starts. The `train` profile does that inside a container, which is why
+this path needs no Python on the host — and that matters more than it sounds:
+Rasa 3.6 pins TensorFlow 2.12, which ships no wheels for Python 3.11 or newer.
+On a machine with only 3.11+ installed, `pip install rasa` fails outright, pip
+falls back to building spaCy from source, and the build dies in the Cython
+compiler. Pinning `python:3.10-slim` in the images removes the whole class of
+problem.
 
 ### Option B — local, three terminals
 
+Requires **Python 3.10** on the host. Check with `python3.10 --version`
+(`py -3.10 --version` on Windows) before starting; if it is missing, use
+Option A rather than installing another Python.
+
 ```bash
-python3.10 -m venv .venv && source .venv/bin/activate
-pip install rasa==3.6.21 "rasa[spacy]==3.6.21"
-pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.4.1/en_core_web_md-3.4.1-py3-none-any.whl
+python3.10 -m venv .venv && source .venv/bin/activate   # Windows: .\.venv\Scripts\Activate.ps1
+pip install -r requirements-rasa.txt
 
 rasa train --fixed-model-name eco_travel_advisor
 
@@ -81,7 +92,9 @@ rasa run --enable-api --cors "*"
 cd frontend && npm install && npm run dev
 ```
 
-Python **3.10** specifically: Rasa 3.6 pins TensorFlow 2.12, which has no 3.11 wheels.
+Python **3.10** specifically. `requirements-rasa.txt` pins Rasa and the spaCy
+English pipeline together; it is the same file the Docker images install, so
+both paths resolve to an identical dependency set.
 
 For a quick check with no frontend at all: `rasa shell` (with the action server running).
 

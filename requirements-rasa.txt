@@ -1,0 +1,13 @@
+# Rasa server + training dependencies.
+#
+# Python 3.10 is not a preference, it is a constraint: Rasa 3.6 pins
+# TensorFlow 2.12, which publishes no wheels for 3.11 or newer. On a machine
+# with only 3.11+ installed, `pip install rasa` fails with "no matching
+# distribution", pip then tries to build spaCy from source, and the build dies
+# in the Cython compiler. The Docker images below pin 3.10 so this cannot
+# happen on anyone's machine.
+#
+# The spaCy English pipeline is installed from its release URL because it is
+# not on PyPI. 3.4.1 matches the spaCy 3.4.x that Rasa 3.6 depends on.
+rasa[spacy]==3.6.21
+https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.4.1/en_core_web_md-3.4.1-py3-none-any.whl

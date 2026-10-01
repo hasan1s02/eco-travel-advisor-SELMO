@@ -1,0 +1,29 @@
+# ---------------------------------------------------------------------------
+# One-off training image.
+#
+# The trained model is ~36 MB and is not committed, so it must be produced once
+# before the stack can start. Doing that in a container means the host needs no
+# Python at all — which matters, because Rasa 3.6 requires Python 3.8-3.10
+# specifically and most machines now ship 3.11 or newer.
+#
+# Usage, from the repository root:
+#     docker compose --profile train run --rm train
+#
+# The repository is bind-mounted, so models/eco_travel_advisor.tar.gz appears on
+# the host when training finishes.
+# ---------------------------------------------------------------------------
+FROM python:3.10-slim
+
+ENV PIP_NO_CACHE_DIR=1 \
+    PYTHONUNBUFFERED=1 \
+    TF_CPP_MIN_LOG_LEVEL=2
+
+WORKDIR /app
+
+COPY requirements-rasa.txt .
+RUN pip install --no-cache-dir -r requirements-rasa.txt
+
+# Runs as root on purpose: the bind-mounted repository belongs to the host user,
+# and an unprivileged container user cannot write models/ into it.
+ENTRYPOINT ["rasa"]
+CMD ["train", "--fixed-model-name", "eco_travel_advisor"]
