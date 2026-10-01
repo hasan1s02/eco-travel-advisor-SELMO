@@ -17,7 +17,7 @@ flowchart TB
         REST["REST channel"]
         NLU["NLU pipeline<br/>SpacyNLP → SpacyTokenizer → SpacyFeaturizer<br/>RegexFeaturizer → CountVectors ×2 → DIET<br/>→ EntitySynonymMapper → FallbackClassifier"]
         CORE["Dialogue policies<br/>Memoization → Rule → TED"]
-        TRACKER[("Tracker store<br/>in-memory, 60 min expiry")]
+        TRACKER[("Tracker store<br/>in-memory, cleared on restart")]
     end
 
     subgraph actions["Action server :5055 — holds every credential, no published port"]
@@ -31,7 +31,7 @@ flowchart TB
 
     subgraph external["External services — all optional"]
         CLIM["Climatiq<br/>500 calls/month"]
-        AMA["Amadeus sandbox<br/>free tier"]
+        AMA["Amadeus sandbox<br/>hotels · flight fares<br/>closed July 2026"]
         OC["OpenCage<br/>2,500/day"]
         ORS["OpenRouteService<br/>2,000/day"]
     end
