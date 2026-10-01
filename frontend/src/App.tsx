@@ -46,11 +46,15 @@ export default function App() {
   /* Sending                                                             */
   /* ------------------------------------------------------------------ */
   const dispatch = useCallback(
-    async (text: string, display?: string, metadata?: Record<string, unknown>) => {
+    async (text: string, display?: string | null, metadata?: Record<string, unknown>) => {
       if (!text.trim() || busy) return;
 
-      const shown = display ?? (text.startsWith("/") ? (display ?? text) : text);
-      setMessages((prev) => [...prev, { id: uid(), author: "user", text: shown, at: Date.now() }]);
+      // `display: null` sends the message without showing a user bubble, which
+      // is how the opening greeting works — the traveller never typed it.
+      if (display !== null) {
+        const shown = display ?? text;
+        setMessages((prev) => [...prev, { id: uid(), author: "user", text: shown, at: Date.now() }]);
+      }
       setBusy(true);
       setDraft("");
 
@@ -65,13 +69,20 @@ export default function App() {
         signal: controller.signal,
       });
 
+      // A newer dispatch has taken over: it owns `busy` and the transcript now,
+      // so this one must write nothing. Without this guard a superseded reply
+      // clears `busy` while the newer request is still in flight.
+      if (abortRef.current !== controller) return;
+
       if (!result.ok) {
+        // Always clear `busy`, cancellation included. Returning early here left
+        // the composer permanently disabled whenever a request was aborted.
+        setBusy(false);
         if (result.error === "cancelled") return;
         setMessages((prev) => [
           ...prev,
           { id: uid(), author: "bot", text: result.error, at: Date.now(), failed: true },
         ]);
-        setBusy(false);
         return;
       }
 
@@ -132,7 +143,12 @@ export default function App() {
   /* ------------------------------------------------------------------ */
   useEffect(() => {
     // Open the conversation so the traveller lands on something, not a void.
-    void dispatch("/greet", "Hello");
+    // Sent with `display: null`: the greeting is the assistant introducing
+    // itself, not the traveller saying hello, so no user bubble is shown.
+    // React 18 StrictMode fires this twice in development; the first attempt is
+    // aborted on unmount and the superseded-controller guard in dispatch drops
+    // its result, so exactly one greeting reaches the transcript either way.
+    void dispatch("/greet", null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -1012,7 +1012,7 @@ def perform_handover(
         for label, value in (
             ("Route", f"{slots.get('origin') or '—'} → {slots.get('destination') or '—'}"),
             ("Dates", f"{slots.get('departure_date') or '—'} to {slots.get('return_date') or '—'}"),
-            ("Travellers", slots.get("travellers") or "—"),
+            ("Travellers", f"{int(float(slots['travellers']))}" if slots.get("travellers") else "—"),
             ("Budget", f"€{slots['budget']:.0f}" if slots.get("budget") else "—"),
             ("Priority", slots.get("sustainability_level") or "—"),
         )
