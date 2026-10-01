@@ -98,6 +98,53 @@ both paths resolve to an identical dependency set.
 
 For a quick check with no frontend at all: `rasa shell` (with the action server running).
 
+### Windows, step by step
+
+The two things that go wrong on Windows are both version problems, so check
+them first:
+
+```powershell
+py -0                 # which Python versions are installed
+node --version        # needed for the frontend only
+```
+
+If `py -0` does not list a 3.10, install one. It sits alongside 3.11/3.12/3.13
+without disturbing them — the `py` launcher picks the version you ask for:
+
+```powershell
+winget install -e --id Python.Python.3.10
+winget install -e --id OpenJS.NodeJS.LTS     # only if node is missing
+```
+
+Close and reopen PowerShell, then:
+
+```powershell
+cd C:\path\to\eco-travel-advisor
+
+py -3.10 -m venv .venv
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass   # allows the activate script
+.\.venv\Scripts\Activate.ps1
+
+pip install -r requirements-rasa.txt
+rasa train --fixed-model-name eco_travel_advisor
+```
+
+Then three PowerShell windows, each with the venv activated:
+
+```powershell
+rasa run actions --actions actions.actions          # window 1
+rasa run --enable-api --cors "*"                    # window 2
+cd frontend ; npm install ; npm run dev             # window 3
+```
+
+**Do not** run `pip install rasa` against Python 3.11 or newer. It fails with
+"no matching distribution" — Rasa 3.6 pins TensorFlow 2.12, which has no wheels
+for 3.11+ — and pip then tries to build spaCy from source and dies in the Cython
+compiler. The error is long and looks like a compiler problem; it is a Python
+version problem.
+
+---
+
 ---
 
 ## API keys
