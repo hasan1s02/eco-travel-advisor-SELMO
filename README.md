@@ -52,7 +52,7 @@ own rather than looping.
 ### Option A — Docker (recommended, needs no local Python)
 
 ```bash
-git clone <your-repo-url> eco-travel-advisor
+git clone https://github.com/hasan1s02/eco-travel-advisor-SELMO.git eco-travel-advisor
 cd eco-travel-advisor
 
 cp .env.example .env                               # optional: keys can stay blank
