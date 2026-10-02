@@ -1,11 +1,11 @@
 # ---------------------------------------------------------------------------
 # Alternative NLU pipeline using a DistilBERT transformer via HFTransformersNLP.
 #
-# NOT the default. Documented and kept runnable because the brief asks for the
-# comparison, and because the reasoning for rejecting it is part of the result:
-# on the CPU-only free deployment tier this pipeline pushed median inference
-# past the three-second response requirement in section 2, for a marginal
-# accuracy gain over the spaCy + DIET default.
+# NOT the default. Kept runnable because the brief names it as the optional
+# upgrade. It was not adopted because a transformer encoder adds inference cost
+# on a CPU-only host against the three-second requirement in section 2, while
+# the NLU error analysis points at overlapping short intents rather than encoder
+# capacity. The two pipelines have not been benchmarked against each other.
 #
 # To evaluate it:
 #   rasa train nlu --config config_distilbert.yml --fixed-model-name nlu_distilbert

@@ -42,8 +42,8 @@ greenwashing the assistant exists to counter. `action_explain_methodology` will 
 working, and its limitations, at any point in any conversation.
 
 **It always leaves a route to a human.** `/request_human_agent` wins from anywhere,
-including mid-form. After two consecutive misunderstandings the assistant escalates on its
-own rather than looping.
+including mid-form. If a rephrase and a set of constrained options both fail, the third misunderstanding
+escalates on its own rather than looping.
 
 ---
 
@@ -282,7 +282,7 @@ Each writes a Markdown transcript with per-turn latency, plus a JSON dump of eve
 ├── config.yml                  spaCy + DIET pipeline, policies, fallback thresholds
 ├── domain.yml                  intents, entities with roles, slots, form, responses
 ├── data/
-│   ├── nlu.yml                 ~400 annotated examples, lookup tables, synonyms
+│   ├── nlu.yml                 868 annotated examples, lookup tables, synonyms
 │   ├── stories.yml             happy paths, interruptions, recovery, escalation
 │   └── rules.yml               deterministic behaviour (greetings, escalation, form)
 ├── actions/
@@ -317,9 +317,11 @@ data. `RegexFeaturizer` feeds the lookup tables to DIET as sparse features **ins
 distinguishing `city[role=origin]` from `city[role=destination]`, so DIET has to own
 extraction outright.
 
-A DistilBERT variant is kept in `config_distilbert.yml`. It is not the default: on the
-CPU-only free deployment tier it pushed median inference past the three-second response
-requirement for a marginal accuracy gain.
+A DistilBERT variant is kept in `config_distilbert.yml`. It is not the default: a
+transformer encoder adds inference cost on a CPU-only host against the three-second
+response requirement, while the error analysis in `docs/evaluation.md` puts the remaining
+NLU errors in overlapping short intents rather than encoder capacity. The two pipelines
+have not been benchmarked against each other.
 
 Error recovery deliberately has **two independent routes**, because measurement showed one
 is not enough. `FallbackClassifier` at threshold 0.60 catches low-confidence NLU — but DIET
@@ -367,8 +369,8 @@ tracker keeps earlier turns until the server restarts — longer than intended, 
 against GDPR storage limitation that a scheduled purge would close. Nothing leaves
 the assistant except on escalation, and escalation payloads pass through `handover.redact()`,
 which strips email addresses, phone numbers, card-length digit strings and passport-shaped
-identifiers before dispatch. `action_explain_privacy` states all of this on request, and
-"start over" erases everything held.
+identifiers before dispatch. `action_explain_privacy` states all of this on request. "Start over" clears the trip
+details; it does not delete the conversation log, which only a restart removes.
 
 ---
 
