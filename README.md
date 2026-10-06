@@ -4,6 +4,8 @@ A Rasa chatbot that helps travellers plan lower-carbon trips. It asks where, whe
 
 *MSc Artificial Intelligence · Advanced Conversational UI Design and Chatbot Development · BSBI*
 
+**Live demo:** https://huggingface.co/spaces/hasanns1/eco-travel-SELMO
+
 ## Features
 
 - Multi-turn trip intake (destination, origin or GPS, dates, group size, budget, sustainability priority)
